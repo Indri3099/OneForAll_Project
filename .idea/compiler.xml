@@ -9,5 +9,6 @@
         <module name="EnricoPallotta_MAProject" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="11" />
   </component>
 </project>
