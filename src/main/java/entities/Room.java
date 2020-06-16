@@ -1,8 +1,13 @@
 package entities;
 
+import entities.character.Character;
+import entities.objects.StdObject;
+
+import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
-public class Room {
+public class Room implements Serializable {
 
     private final Integer id;
 
@@ -23,6 +28,10 @@ public class Room {
     private boolean visible = true;
 
     private boolean locked = true;
+
+    private List<StdObject> objects;
+
+    private List<Character> characters;
 
     public Room(Integer id, String name, String description) {
         this.id = id;
@@ -84,6 +93,38 @@ public class Room {
 
     public void setLocked(boolean locked) {
         this.locked = locked;
+    }
+
+    public List<StdObject> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(List<StdObject> objects) {
+        this.objects = objects;
+    }
+
+    public void addObject(StdObject object){
+        objects.add(object);
+    }
+
+    public void removeObject(StdObject object){
+        objects.remove(object);
+    }
+
+    public List<Character> getCharacters() {
+        return characters;
+    }
+
+    public void setCharacters(List<Character> characters) {
+        this.characters = characters;
+    }
+
+    public void addCharacter(Character character){
+        characters.add(character);
+    }
+
+    public void removeCharacter(Character character){
+        characters.remove(character);
     }
 
     @Override

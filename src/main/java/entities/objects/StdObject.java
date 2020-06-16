@@ -1,9 +1,10 @@
 package entities.objects;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
 
-public class StdObject {
+public class StdObject implements Serializable {
 
     private final int id;
 
@@ -88,5 +89,25 @@ public class StdObject {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public Object getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

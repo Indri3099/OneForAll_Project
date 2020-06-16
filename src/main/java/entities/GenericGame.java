@@ -3,9 +3,10 @@ package entities;
 import entities.character.MainCharacter;
 import entities.command.Command;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class GenericGame {
+public abstract class GenericGame implements Serializable {
 
     private Room currentRoom;
 

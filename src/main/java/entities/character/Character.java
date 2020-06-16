@@ -2,20 +2,24 @@ package entities.character;
 
 import entities.objects.StdObject;
 
+import java.io.Serializable;
 import java.util.List;
 
-public abstract class Character {
+public abstract class Character implements Serializable {
+
     private final int id;
+
     private String name;
+
     private List<StdObject> inventory;
 
-    public Character(int id, String name){
+    public Character(int id, String name) {
         this.id = id;
         this.name = name;
         inventory = null;
     }
 
-    public Character(int id, String name, List<StdObject> inventory){
+    public Character(int id, String name, List<StdObject> inventory) {
         this.id = id;
         this.name = name;
         this.inventory = inventory;
@@ -29,7 +33,7 @@ public abstract class Character {
         this.inventory = inventory;
     }
 
-    public void addObjToInventory(StdObject object){
+    public void addObjToInventory(StdObject object) {
         inventory.add(object);
     }
 }
