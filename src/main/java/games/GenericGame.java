@@ -1,18 +1,24 @@
-package entities;
+package games;
 
+import entities.Room;
 import entities.character.MainCharacter;
 import entities.command.Command;
+import main.AbstractActionHandler;
+import parser.PhraseReduction;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class GenericGame implements Serializable {
+
+    private AbstractActionHandler handler;
 
     private Room currentRoom;
 
     private MainCharacter mainCharacter;
 
-    private List<Command> commandList;
+    private List<Command> commandList = new ArrayList<>();
 
     public Room getCurrentRoom() {
         return currentRoom;
@@ -40,4 +46,13 @@ public abstract class GenericGame implements Serializable {
 
     public abstract void init();
 
+    public abstract void actionHandle(PhraseReduction action);
+
+    public void setHandler(AbstractActionHandler handler) {
+        this.handler = handler;
+    }
+
+    public AbstractActionHandler getHandler() {
+        return handler;
+    }
 }

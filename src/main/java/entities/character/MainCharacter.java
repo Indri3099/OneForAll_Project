@@ -10,7 +10,7 @@ public class MainCharacter extends Character{
         super(0, name);
     }
 
-    public MainCharacter(String name, List<StdObject> inventory) {
-        super(0, name, inventory);
+    public MainCharacter(String name, int maxInventory) {
+        super(0, name, maxInventory);
     }
 }

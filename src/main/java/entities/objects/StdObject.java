@@ -1,8 +1,7 @@
 package entities.objects;
 
 import java.io.Serializable;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 public class StdObject implements Serializable {
 
@@ -12,11 +11,9 @@ public class StdObject implements Serializable {
 
     private String description;
 
-    private Set<String> alias;
+    private Set<String> alias = Collections.EMPTY_SET;
 
-    private Set<String> articles;
-
-    private Set<String> prepositions;
+    private Set<String> articles = Collections.EMPTY_SET;
 
     private boolean takeable = true;
 
@@ -34,24 +31,16 @@ public class StdObject implements Serializable {
         return alias;
     }
 
-    public void setAlias(Set<String> alias) {
-        this.alias = alias;
+    public void setAlias(String[] alias) {
+        this.alias = new HashSet<>(Arrays.asList(alias));
     }
 
     public Set<String> getArticles() {
         return articles;
     }
 
-    public void setArticles(Set<String> articles) {
-        this.articles = articles;
-    }
-
-    public Set<String> getPrepositions() {
-        return prepositions;
-    }
-
-    public void setPrepositions(Set<String> prepositions) {
-        this.prepositions = prepositions;
+    public void setArticles(String[] articles) {
+        this.articles = new HashSet<>(Arrays.asList(articles));
     }
 
     public boolean isTakeable() {
@@ -91,7 +80,7 @@ public class StdObject implements Serializable {
         return Objects.hash(id);
     }
 
-    public Object getName() {
+    public String getName() {
         return name;
     }
 
@@ -109,5 +98,10 @@ public class StdObject implements Serializable {
 
     public String getDescription() {
         return description;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

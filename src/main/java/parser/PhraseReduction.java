@@ -25,6 +25,12 @@ public class PhraseReduction {
         this.toCharacter = toCharacter;
     }
 
+    public PhraseReduction(Command command) {
+        this.command = command;
+    }
+
+    public PhraseReduction(){}
+
     public PhraseReduction(Command command, StdObject myObject, Character toCharacter) {
         this.command = command;
         this.myObject = myObject;
@@ -66,5 +72,15 @@ public class PhraseReduction {
 
     public void setToCharacter(Character toCharacter) {
         this.toCharacter = toCharacter;
+    }
+
+    @Override
+    public String toString() {
+        return "PhraseReduction{" +
+                "command=" + command +
+                ", myObject=" + myObject +
+                ", toObject=" + toObject +
+                ", toCharacter=" + toCharacter +
+                '}';
     }
 }

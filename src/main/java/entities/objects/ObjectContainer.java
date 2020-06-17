@@ -1,5 +1,6 @@
 package entities.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ObjectContainer extends StdObject{
@@ -11,7 +12,7 @@ public class ObjectContainer extends StdObject{
 
     private boolean open = false;
 
-    private List<StdObject> objects;
+    private List<StdObject> objects = new ArrayList<>();
 
     public boolean isLocked() {
         return locked;
