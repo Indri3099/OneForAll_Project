@@ -2,6 +2,7 @@ package entities;
 
 import entities.character.Character;
 import entities.objects.StdObject;
+import events.EventHandler;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,6 +34,8 @@ public class Room implements Serializable {
     private List<StdObject> objects = new ArrayList<>();
 
     private List<Character> characters = new ArrayList<>();
+
+    private EventHandler eventHandler;
 
     public Room(Integer id, String name, String description) {
         this.id = id;
@@ -148,6 +151,14 @@ public class Room implements Serializable {
         characters.remove(character);
     }
 
+    public EventHandler getEventHandler() {
+        return eventHandler;
+    }
+
+    public void setEventHandler(EventHandler eventHandler) {
+        this.eventHandler = eventHandler;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -159,5 +170,10 @@ public class Room implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

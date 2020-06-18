@@ -34,7 +34,6 @@ public class runner {
                 }
                 System.out.println(p);
                 System.out.println("================================================");
-                System.out.println(game.getCurrentRoom().getName() + "---" + game.getCurrentRoom().getDescription());
             }
         }
 

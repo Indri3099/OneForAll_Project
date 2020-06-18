@@ -59,8 +59,6 @@ public class Command {
 
     @Override
     public String toString() {
-        return "Command{" +
-                "name='" + name + '\'' +
-                '}';
+        return name;
     }
 }

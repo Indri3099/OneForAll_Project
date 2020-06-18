@@ -2,10 +2,7 @@ package entities.character;
 
 import entities.objects.StdObject;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class NPC extends Character{
 
@@ -14,6 +11,8 @@ public class NPC extends Character{
     private Set<String> prepositions = new HashSet<>();
 
     private Integer sentenceIndex = 0;
+
+    private List<StdObject> accepted = new ArrayList<>();
 
     public NPC(int id, String name) {
         super(id, name);
@@ -54,5 +53,21 @@ public class NPC extends Character{
 
     public Set<String> getSentences() {
         return sentences;
+    }
+
+    public void setSentences(Set<String> sentences) {
+        this.sentences = sentences;
+    }
+
+    public void setPrepositions(Set<String> prepositions) {
+        this.prepositions = prepositions;
+    }
+
+    public List<StdObject> getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(List<StdObject> accepted) {
+        this.accepted = accepted;
     }
 }

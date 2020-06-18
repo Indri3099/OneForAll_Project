@@ -1,5 +1,6 @@
 package main;
 
+import entities.Room;
 import games.GenericGame;
 import parser.PhraseReduction;
 
@@ -12,4 +13,5 @@ public abstract class AbstractActionHandler {
     }
 
     public abstract void handle(PhraseReduction action) throws Exception;
+
 }

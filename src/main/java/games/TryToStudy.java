@@ -7,6 +7,9 @@ import entities.command.Command;
 import entities.command.CommandType;
 import entities.objects.ObjectContainer;
 import entities.objects.StdObject;
+import events.BrotherEventHandler;
+import events.Event;
+import events.EventHandler;
 import games.GenericGame;
 import main.TTSActionHandler;
 import parser.PhraseReduction;
@@ -105,6 +108,10 @@ public class TryToStudy extends GenericGame {
         cameretta.addObject(chitarra);
         StdObject Mac = new StdObject(3, "Mac", "Il Mac di papà , se lo tocchi si arrabbia");
 
+        StdObject cuffie = new StdObject(4,"Cuffie","Delle cuffie, potrebbero servire a qualcosa...");
+        cuffie.setArticles(new String[]{"le","quelle"});
+        salotto.addObject(cuffie);
+
         StdObject patatine = new StdObject(4, "patatine", "Mh buone");
         patatine.setArticles(new String[]{"le", "delle"});
         StdObject nutella = new StdObject(5, "nutella", "Squisita");
@@ -118,12 +125,21 @@ public class TryToStudy extends GenericGame {
         mensa.addObject(nutella);
 
         //Creo NPC
-        NPC Mamma = new NPC(0, "mamma", new String[]{"ciao enrico"});
-        Mamma.setPrepositions(new String[]{"a", "con"});
-        cameretta.addCharacter(Mamma);
+        NPC mamma = new NPC(0, "mamma", new String[]{"ciao enrico"});
+        mamma.setPrepositions(new String[]{"a", "con","alla"});
+        cameretta.addCharacter(mamma);
+
+        NPC fratello = new NPC(1,"fratello", new String[]{"Mi spiace, ma per giocare a fortnite ho bisogno del volume altissimo","Adesso con le cuffie non ti disturbo più"});
+        fratello.setPrepositions(new String[]{"con","al"});
+        salotto.addCharacter(fratello);
 
         MainCharacter me = new MainCharacter("Enrico", 10);
         setMainCharacter(me);
+
+        //creo gli eventi
+        Event fratelloFastidioso = new Event(fratello,Arrays.asList(new StdObject[]{cuffie}),"Come al solito c'è tuo fratello che grida mentre gioca alla Switch impedendoti di studiare tranquillamente, potresti provare a colpirlo in testa oppure qualcos'altro...");
+        EventHandler fratelloHandler = new BrotherEventHandler(fratelloFastidioso);
+        salotto.setEventHandler(fratelloHandler);
     }
 
     @Override
