@@ -71,6 +71,9 @@ public class TryToStudy extends GenericGame {
         Command talk = new Command(CommandType.TALK_TO, "parla");
         talk.setAlias(new String[]{"parla", "comunica", "dici", "ciao"});
         getCommandList().add(talk);
+        Command give = new Command(CommandType.GIVE, "dare");
+        give.setAlias(new String[]{"dai","passa"});
+        getCommandList().add(give);
 
         //creo le stanze
         Room salotto = new Room(0, "Salotto", "Questo è il salotto/ingresso");
@@ -100,22 +103,17 @@ public class TryToStudy extends GenericGame {
 
         //Creo oggetti
         StdObject computer = new StdObject(1, "Computer", "Il tuo pc, mamma mia quante ne ha passate");
-        computer.setArticles(new String[]{"il", "un"});
         computer.setTakeable(true);
         cameretta.addObject(computer);
         StdObject chitarra = new StdObject(2, "Chitarra", "La tua chitarra compagna di vita");
-        chitarra.setArticles(new String[]{"la"});
         cameretta.addObject(chitarra);
         StdObject Mac = new StdObject(3, "Mac", "Il Mac di papà , se lo tocchi si arrabbia");
 
         StdObject cuffie = new StdObject(4,"Cuffie","Delle cuffie, potrebbero servire a qualcosa...");
-        cuffie.setArticles(new String[]{"le","quelle"});
         salotto.addObject(cuffie);
 
         StdObject patatine = new StdObject(4, "patatine", "Mh buone");
-        patatine.setArticles(new String[]{"le", "delle"});
         StdObject nutella = new StdObject(5, "nutella", "Squisita");
-        nutella.setArticles(new String[]{"la", "un po'", "della"});
 
         ObjectContainer mensa = new ObjectContainer(6, "Mensa", "Qui ci sono molte cose buone");
         mensa.setTakeable(false);
@@ -126,11 +124,9 @@ public class TryToStudy extends GenericGame {
 
         //Creo NPC
         NPC mamma = new NPC(0, "mamma", new String[]{"ciao enrico"});
-        mamma.setPrepositions(new String[]{"a", "con","alla"});
         cameretta.addCharacter(mamma);
 
         NPC fratello = new NPC(1,"fratello", new String[]{"Mi spiace, ma per giocare a fortnite ho bisogno del volume altissimo","Adesso con le cuffie non ti disturbo più"});
-        fratello.setPrepositions(new String[]{"con","al"});
         salotto.addCharacter(fratello);
 
         MainCharacter me = new MainCharacter("Enrico", 10);

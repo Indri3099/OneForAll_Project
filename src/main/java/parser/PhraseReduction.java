@@ -6,13 +6,13 @@ import entities.objects.StdObject;
 
 public class PhraseReduction {
 
-    private Command command;
+    private Command command = null;
 
-    private StdObject myObject;
+    private StdObject myObject = null;
 
-    private StdObject toObject;
+    private StdObject toObject = null;
 
-    private Character toCharacter;
+    private Character toCharacter = null;
 
     public PhraseReduction(Command command, StdObject myObject, StdObject toObject) {
         this.command = command;

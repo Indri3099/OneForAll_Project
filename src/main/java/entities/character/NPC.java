@@ -8,8 +8,6 @@ public class NPC extends Character{
 
     private Set<String> sentences = new HashSet<>();
 
-    private Set<String> prepositions = new HashSet<>();
-
     private Integer sentenceIndex = 0;
 
     private List<StdObject> accepted = new ArrayList<>();
@@ -31,14 +29,6 @@ public class NPC extends Character{
         this.sentences = new HashSet<>(Arrays.asList(sentences));
     }
 
-    public Set<String> getPrepositions() {
-        return prepositions;
-    }
-
-    public void setPrepositions(String[] prepositions) {
-        this.prepositions = new HashSet<>(Arrays.asList(prepositions));;
-    }
-
     public void addSentence(String sentence){
         sentences.add(sentence);
     }
@@ -57,10 +47,6 @@ public class NPC extends Character{
 
     public void setSentences(Set<String> sentences) {
         this.sentences = sentences;
-    }
-
-    public void setPrepositions(Set<String> prepositions) {
-        this.prepositions = prepositions;
     }
 
     public List<StdObject> getAccepted() {

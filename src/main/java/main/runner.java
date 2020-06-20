@@ -3,6 +3,7 @@ package main;
 import games.GenericGame;
 import games.TryToStudy;
 import entities.command.CommandType;
+import parser.ItalianParser;
 import parser.Parser;
 import parser.PhraseReduction;
 
@@ -14,7 +15,7 @@ public class runner {
 
         game.init();
 
-        Parser parser = new Parser();
+        Parser parser = new ItalianParser();
 
         System.out.println(game.getCurrentRoom().getName());
         System.out.println("================================================");

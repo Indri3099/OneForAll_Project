@@ -20,8 +20,9 @@ public abstract class EventHandler {
         this.event = event;
     }
 
-    public void startEvent(){
+    public void startEvent(PrintStream out){
         event.setStarted(true);
+        out.println(event.getDescription());
     }
 
     public abstract void completeEvent(GenericGame game, PrintStream out);

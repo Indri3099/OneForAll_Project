@@ -13,8 +13,6 @@ public class StdObject implements Serializable {
 
     private Set<String> alias = Collections.EMPTY_SET;
 
-    private Set<String> articles = Collections.EMPTY_SET;
-
     private boolean takeable = true;
 
     private boolean pushable = true;
@@ -33,14 +31,6 @@ public class StdObject implements Serializable {
 
     public void setAlias(String[] alias) {
         this.alias = new HashSet<>(Arrays.asList(alias));
-    }
-
-    public Set<String> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(String[] articles) {
-        this.articles = new HashSet<>(Arrays.asList(articles));
     }
 
     public boolean isTakeable() {

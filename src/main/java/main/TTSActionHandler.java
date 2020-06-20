@@ -47,8 +47,11 @@ public class TTSActionHandler extends AbstractActionHandler {
 
     public void move(Room destination) throws Exception{
         if (destination != null && !destination.isLocked()) {
-            game.setCurrentRoom(destination);
             out.println(destination + " : " + destination.getDescription());
+            game.setCurrentRoom(destination);
+            if(destination.getEventHandler() != null && !destination.getEventHandler().getEvent().isStarted()){
+                destination.getEventHandler().startEvent(out);
+            }
         } else if (destination == null) {
             throw new OutOfMapException();
         } else if (destination.isLocked()) {
