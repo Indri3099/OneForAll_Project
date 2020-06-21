@@ -10,29 +10,14 @@ import entities.objects.StdObject;
 import events.BrotherEventHandler;
 import events.Event;
 import events.EventHandler;
-import games.GenericGame;
 import main.TTSActionHandler;
 import parser.PhraseReduction;
-
 import java.util.Arrays;
-import java.util.Collections;
 
 public class TryToStudy extends GenericGame {
 
-    private final int POINTGOAL = 100;
-
-    private int actualPoints = 0;
-
     public TryToStudy() {
         setHandler(new TTSActionHandler(this, System.out));
-    }
-
-    public int getActualPoints() {
-        return actualPoints;
-    }
-
-    public void setActualPoints(int actualPoints) {
-        this.actualPoints = actualPoints;
     }
 
     @Override
@@ -54,7 +39,7 @@ public class TryToStudy extends GenericGame {
         ovest.setAlias(new String[]{"o", "O", "Ovest", "OVEST"});
         getCommandList().add(ovest);
         Command end = new Command(CommandType.END, "end");
-        end.setAlias(new String[]{"end", "fine", "esci", "muori", "ammazzati", "ucciditi", "suicidati", "exit"});
+        end.setAlias(new String[]{"end", "fine", "esci", "exit", "stop"});
         getCommandList().add(end);
         Command look = new Command(CommandType.LOOK_AT, "osserva");
         look.setAlias(new String[]{"guarda", "vedi", "trova", "cerca", "descrivi"});
@@ -76,12 +61,12 @@ public class TryToStudy extends GenericGame {
         getCommandList().add(give);
 
         //creo le stanze
-        Room salotto = new Room(0, "Salotto", "Questo è il salotto/ingresso");
-        Room cucina = new Room(1, "Cucina", "Questa è la cucina");
-        Room corridoio = new Room(2, "Corridoio", "Questo è il corridoio");
-        Room cameretta = new Room(3, "Cameretta", "Questa è la tua stanza");
-        Room camera2 = new Room(4, "Cameretta", "Questa è la camera di tua sorella");
-        Room bagno = new Room(5, "Bagno", "Questo è il bagno");
+        Room salotto = new Room(0, "Salotto", "Questo è il salotto");
+        Room cucina = new Room(1, "Cucina", "Il tempio sacro della mamma dove... avvengono magie!");
+        Room corridoio = new Room(2, "Corridoio", "Classico, serve solo come collegamento alle varie stanze");
+        Room cameretta = new Room(3, "Cameretta", "Ah la tua stanzetta... probabilmente hai passato un buon 60% della tua vita qui");
+        Room camera2 = new Room(4, "Cameretta", "La camera di tua sorella");
+        Room bagno = new Room(5, "Bagno", "Il bagno... proprio ora ti viene di farla?");
         Room cameragenitori = new Room(5, "Camera da letto", "Questa è la camera dei tuoi genitori");
 
         //mappo
@@ -99,18 +84,29 @@ public class TryToStudy extends GenericGame {
 
         setCurrentRoom(cameretta);
         //look around
-        cameretta.setLook("Sempre disordinata");
+        cameretta.setLook("Sempre disordinata , qui ci sono i tuoi passatempi : il computer, la chitarra e la playstation");
 
         //Creo oggetti
         StdObject computer = new StdObject(1, "Computer", "Il tuo pc, mamma mia quante ne ha passate");
-        computer.setTakeable(true);
+        computer.setTakeable(false);
         cameretta.addObject(computer);
-        StdObject chitarra = new StdObject(2, "Chitarra", "La tua chitarra compagna di vita");
+
+        StdObject chitarra = new StdObject(2, "Chitarra", "Perché non ci fai sentire qualcosa?");
         cameretta.addObject(chitarra);
-        StdObject Mac = new StdObject(3, "Mac", "Il Mac di papà , se lo tocchi si arrabbia");
+
+        StdObject mac = new StdObject(3, "Mac", "Il Mac di papà , se lo tocchi si arrabbia");
+        mac.setTakeable(false);
+        camera2.addObject(mac);
+
+        //cuffie nello zaino da dare a fratello
+        ObjectContainer zaino = new ObjectContainer(4,"Zaino", "Il tuo zaino per l'univerisità, c'è un paio di cuffie all'interno e una penna");
+        zaino.setOpen(true);
+        corridoio.addObject(zaino);
 
         StdObject cuffie = new StdObject(4,"Cuffie","Delle cuffie, potrebbero servire a qualcosa...");
-        salotto.addObject(cuffie);
+        zaino.addObject(cuffie);
+        //----------------------------------------------------
+
 
         StdObject patatine = new StdObject(4, "patatine", "Mh buone");
         StdObject nutella = new StdObject(5, "nutella", "Squisita");
@@ -123,17 +119,18 @@ public class TryToStudy extends GenericGame {
         mensa.addObject(nutella);
 
         //Creo NPC
-        NPC mamma = new NPC(0, "mamma", new String[]{"ciao enrico"});
+        NPC mamma = new NPC(0, "mamma", Arrays.asList(new String[]{"ciao enrico"}));
         cameretta.addCharacter(mamma);
 
-        NPC fratello = new NPC(1,"fratello", new String[]{"Mi spiace, ma per giocare a fortnite ho bisogno del volume altissimo","Adesso con le cuffie non ti disturbo più"});
+        NPC fratello = new NPC(1,"fratello", Arrays.asList(new String[]{"Mi spiace, ma per giocare a fortnite ho bisogno del volume altissimo","Adesso con le cuffie non ti disturbo più"}));
+        fratello.setAccepted(Arrays.asList(new StdObject[]{cuffie}));
         salotto.addCharacter(fratello);
 
         MainCharacter me = new MainCharacter("Enrico", 10);
         setMainCharacter(me);
 
         //creo gli eventi
-        Event fratelloFastidioso = new Event(fratello,Arrays.asList(new StdObject[]{cuffie}),"Come al solito c'è tuo fratello che grida mentre gioca alla Switch impedendoti di studiare tranquillamente, potresti provare a colpirlo in testa oppure qualcos'altro...");
+        Event fratelloFastidioso = new Event(fratello,Arrays.asList(new StdObject[]{cuffie}),"Come al solito c'è tuo fratello che grida mentre gioca alla Switch impedendoti di studiare tranquillamente, potresti provare a colpirlo in testa oppure qualcos'altro...",20);
         EventHandler fratelloHandler = new BrotherEventHandler(fratelloFastidioso);
         salotto.setEventHandler(fratelloHandler);
     }

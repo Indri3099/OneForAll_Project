@@ -6,7 +6,7 @@ import java.util.*;
 
 public class NPC extends Character{
 
-    private Set<String> sentences = new HashSet<>();
+    private List<String> sentences = new ArrayList<>();
 
     private Integer sentenceIndex = 0;
 
@@ -20,13 +20,13 @@ public class NPC extends Character{
         super(id, name, maxInventory);
     }
 
-    public NPC(int id, String name, String[] sentences) {
+    public NPC(int id, String name, List<String> sentences) {
         super(id, name);
-        this.sentences = new HashSet<>(Arrays.asList(sentences));
+        this.sentences = sentences;
     }
 
-    public void setSentences(String[] sentences) {
-        this.sentences = new HashSet<>(Arrays.asList(sentences));
+    public void setSentences(List<String> sentences) {
+        this.sentences = sentences;
     }
 
     public void addSentence(String sentence){
@@ -41,12 +41,8 @@ public class NPC extends Character{
         this.sentenceIndex = sentenceIndex;
     }
 
-    public Set<String> getSentences() {
+    public List<String> getSentences() {
         return sentences;
-    }
-
-    public void setSentences(Set<String> sentences) {
-        this.sentences = sentences;
     }
 
     public List<StdObject> getAccepted() {

@@ -1,6 +1,7 @@
 package entities;
 
 import entities.character.Character;
+import entities.character.Character;
 import entities.objects.StdObject;
 import events.EventHandler;
 

@@ -21,7 +21,6 @@ public abstract class Character implements Serializable {
     public Character(int id, String name) {
         this.id = id;
         this.name = name;
-        inventory = null;
     }
 
     public Character(int id, String name, int maxInventory) {

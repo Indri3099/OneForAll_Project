@@ -25,12 +25,15 @@ public class Event {
 
     private String description;
 
-    public Event(NPC character, List<StdObject> requiredObjects, String description) {
+    private int pointReward;
+
+    public Event(NPC character, List<StdObject> requiredObjects, String description, int pointReward) {
         this.character = character;
         this.requiredObjects = requiredObjects;
         this.started = started;
         this.completed = completed;
         this.description = description;
+        this.pointReward = pointReward;
     }
 
     public Event(){
@@ -75,5 +78,13 @@ public class Event {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getPointReward() {
+        return pointReward;
+    }
+
+    public void setPointReward(int pointReward) {
+        this.pointReward = pointReward;
     }
 }

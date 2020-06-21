@@ -12,6 +12,10 @@ import java.util.List;
 
 public abstract class GenericGame implements Serializable {
 
+    private final int POINTGOAL = 100;
+
+    private int actualPoints = 0;
+
     private AbstractActionHandler handler;
 
     private Room currentRoom;
@@ -54,5 +58,13 @@ public abstract class GenericGame implements Serializable {
 
     public AbstractActionHandler getHandler() {
         return handler;
+    }
+
+    public int getActualPoints() {
+        return actualPoints;
+    }
+
+    public void setActualPoints(int actualPoints) {
+        this.actualPoints = actualPoints;
     }
 }

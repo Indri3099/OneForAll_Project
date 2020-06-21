@@ -3,7 +3,7 @@ package entities.objects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObjectContainer extends StdObject{
+public class ObjectContainer extends StdObject {
     public ObjectContainer(int id, String name, String description) {
         super(id, name, description);
     }
@@ -28,17 +28,25 @@ public class ObjectContainer extends StdObject{
 
     public void setOpen(boolean open) {
         this.open = open;
+        for (StdObject obj : objects) {
+            obj.setVisible(open);
+        }
     }
 
     public List<StdObject> getObjects() {
         return objects;
     }
 
-    public void addObject(StdObject object){
+    public void addObject(StdObject object) {
+        object.setVisible(open);
         objects.add(object);
+
     }
 
     public void setObjects(List<StdObject> objects) {
+        for (StdObject obj : objects) {
+            obj.setVisible(open);
+        }
         this.objects = objects;
     }
 }

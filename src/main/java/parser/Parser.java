@@ -3,8 +3,11 @@ package parser;
 import entities.Room;
 import entities.character.Character;
 import entities.character.MainCharacter;
+import entities.character.NPC;
 import entities.command.Command;
 import entities.objects.StdObject;
+import exceptions.CommandNotValidException;
+
 import java.util.List;
 
 public abstract class Parser {
@@ -37,5 +40,5 @@ public abstract class Parser {
     }
 
 
-    public abstract PhraseReduction analyze(String input, Room currentRoom, List<Command> commandList, MainCharacter mainCharacter);
+    public abstract PhraseReduction analyze(String input, Room currentRoom, List<Command> commandList, Character mainCharacter) throws CommandNotValidException;
 }

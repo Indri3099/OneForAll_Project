@@ -1,6 +1,7 @@
 package parser;
 
 import entities.character.Character;
+import entities.character.Character;
 import entities.command.Command;
 import entities.objects.StdObject;
 

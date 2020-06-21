@@ -19,6 +19,8 @@ public class StdObject implements Serializable {
 
     private boolean pushed = false;
 
+    private boolean visible = true;
+
     public StdObject(int id, String name, String description) {
         this.id = id;
         this.name = name;
@@ -93,5 +95,17 @@ public class StdObject implements Serializable {
     @Override
     public String toString() {
         return name;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public void setAlias(Set<String> alias) {
+        this.alias = alias;
     }
 }
