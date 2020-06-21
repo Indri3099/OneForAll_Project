@@ -5,6 +5,7 @@ import entities.character.Character;
 import entities.character.MainCharacter;
 import entities.character.NPC;
 import entities.command.Command;
+import entities.objects.ObjectContainer;
 import entities.objects.StdObject;
 import exceptions.CommandNotValidException;
 
@@ -21,13 +22,20 @@ public abstract class Parser {
         return -1;
     }
 
-    protected int checkForObject(String token, List<StdObject> objects) {
-        for (int i = 0; i < objects.size(); i++) {
-            if (objects.get(i).getName().toLowerCase().equals(token) || (objects.get(i).getAlias() != null && objects.get(i).getAlias().contains(token))) {
-                return i;
+    protected StdObject checkForObject(String token, List<StdObject> objects) {
+
+        for (StdObject object : objects) {
+            if (object.getName().toLowerCase().equals(token) || (object.getAlias() != null && object.getAlias().contains(token))) {
+                return object;
+            } else if (object instanceof ObjectContainer && ((ObjectContainer) object).isOpen()) {
+                for (StdObject objectContained : ((ObjectContainer) object).getObjects()) {
+                    if (objectContained.getName().toLowerCase().equals(token) || (objectContained.getAlias() != null && object.getAlias().contains(token))) {
+                        return objectContained;
+                    }
+                }
             }
         }
-        return -1;
+        return null;
     }
 
     protected int checkForCharacter(String token, List<Character> characters) {

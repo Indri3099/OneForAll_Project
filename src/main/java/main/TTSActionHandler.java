@@ -32,6 +32,8 @@ public class TTSActionHandler extends AbstractActionHandler {
         } else if (action.getCommand().getType() == CommandType.WEST) {
             move(game.getCurrentRoom().getWest());
         } else if (action.getCommand().getType() == CommandType.PICK_UP) {
+            if (action.getMyObject() != null)
+                throw new ObjectOwnedException();
             take(action.getToObject());
         } else if (action.getCommand().getType() == CommandType.INVENTORY) {
             inventory(game.getMainCharacter().getInventory());

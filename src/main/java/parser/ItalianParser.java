@@ -27,8 +27,7 @@ public class ItalianParser extends Parser {
     @Override
     public PhraseReduction analyze(String input, Room currentRoom, List<Command> commandList, Character mainCharacter) throws CommandNotValidException {
 
-        boolean firstPart = false;
-        Integer cmd = -1, obj1 = -1, toChar = -1;
+        Integer cmd = -1;
         input = input.toLowerCase().trim();
         PhraseReduction result = new PhraseReduction();
 
@@ -40,30 +39,37 @@ public class ItalianParser extends Parser {
             if (cmd > -1) {
                 result.setCommand(commandList.get(cmd));
                 if (splitted.size() == 1) {
-                    return result;
+//                    return result;
                 } else if (splitted.size() == 2) {
-                    return test(splitted, currentRoom, mainCharacter, result, 1);
+                    wordCheck(splitted, currentRoom, mainCharacter, result, 1);
+//                    return result;
                 } else if (splitted.size() == 3) {
                     if (articles.contains(splitted.get(1)) || prepositions.contains(splitted.get(1))) {
-                        return test(splitted, currentRoom, mainCharacter, result, 2);
+                        wordCheck(splitted, currentRoom, mainCharacter, result, 2);
+//                        return result;
                     } else {
-                        result = test(splitted,currentRoom,mainCharacter,result,1);
-                        return test(splitted,currentRoom,mainCharacter,result,2);
+                        wordCheck(splitted,currentRoom,mainCharacter,result,1);
+                        wordCheck(splitted,currentRoom,mainCharacter,result,2);
+//                        return result;
                     }
                 } else if (splitted.size() == 4) {
                     if (articles.contains(splitted.get(1)) || prepositions.contains(splitted.get(1))) {
-                        result = test(splitted, currentRoom, mainCharacter, result, 2);
-                        return test(splitted, currentRoom, mainCharacter, result, 3);
+                        wordCheck(splitted, currentRoom, mainCharacter, result, 2);
+                        wordCheck(splitted, currentRoom, mainCharacter, result, 3);
+//                        return result;
                     } else if (articles.contains(splitted.get(2)) || prepositions.contains(splitted.get(2))) {
-                        result = test(splitted, currentRoom, mainCharacter, result, 1);
-                        return test(splitted, currentRoom, mainCharacter, result, 3);
+                        wordCheck(splitted, currentRoom, mainCharacter, result, 1);
+                        wordCheck(splitted, currentRoom, mainCharacter, result, 3);
+//                        return result;
                     }
                 } else if (splitted.size() == 5) {
                     if ((articles.contains(splitted.get(1)) || prepositions.contains(splitted.get(1))) && (articles.contains(splitted.get(3)) || prepositions.contains(splitted.get(3)))) {
-                        result = test(splitted, currentRoom, mainCharacter, result, 2);
-                        return test(splitted, currentRoom, mainCharacter, result, 4);
+                        wordCheck(splitted, currentRoom, mainCharacter, result, 2);
+                        wordCheck(splitted, currentRoom, mainCharacter, result, 4);
+//                        return result;
                     }
                 }
+                return result;
             }
         }
 //        String regexp = "(?<command>\\w+)((\\s(?<artpre>\\w+))?\\s(?<toSomething>\\w+)((\\s(?<artpre2>\\w+))?\\s(?<toSomething2>\\w+))?)?";
@@ -136,24 +142,26 @@ public class ItalianParser extends Parser {
         throw new CommandNotValidException();
     }
 
-    private PhraseReduction test(List<String> splitted, Room currentRoom, Character mainCharacter, PhraseReduction result, int index) throws CommandNotValidException {
+    private void wordCheck(List<String> splitted, Room currentRoom, Character mainCharacter, PhraseReduction result, int index) throws CommandNotValidException {
         int obj1 = -1;
-        obj1 = checkForObject(splitted.get(index), currentRoom.getObjects());
-        if (obj1 > -1) {
-            result.setToObject(currentRoom.getObjects().get(obj1));
-            return result;
-        }
+        StdObject object;
 
-        obj1 = checkForObject(splitted.get(index), mainCharacter.getInventory());
-        if (obj1 > -1) {
-            result.setMyObject(mainCharacter.getInventory().get(obj1));
-            return result;
+        object = checkForObject(splitted.get(index), currentRoom.getObjects());
+        if (object != null) {
+            result.setToObject(object);
         }
-        obj1 = checkForCharacter(splitted.get(index), currentRoom.getCharacters());
-        if (obj1 > -1) {
-            result.setToCharacter(currentRoom.getCharacters().get(obj1));
-            return result;
+        else{
+            object = checkForObject(splitted.get(index), mainCharacter.getInventory());
+            if (object != null) {
+                result.setMyObject(object);
+            } else {
+                obj1 = checkForCharacter(splitted.get(index), currentRoom.getCharacters());
+                if (obj1 > -1) {
+                    result.setToCharacter(currentRoom.getCharacters().get(obj1));
+                }else{
+                    throw new CommandNotValidException();
+                }
+            }
         }
-        throw new CommandNotValidException();
     }
 }
