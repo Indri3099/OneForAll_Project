@@ -4,6 +4,7 @@ import entities.Room;
 import entities.character.MainCharacter;
 import entities.command.Command;
 import main.AbstractActionHandler;
+import main.userInterface.Printer;
 import parser.PhraseReduction;
 
 import java.io.Serializable;

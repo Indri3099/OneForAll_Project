@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class TryToStudy extends GenericGame {
 
     public TryToStudy() {
-        setHandler(new TTSActionHandler(this, System.out));
+
     }
 
     @Override

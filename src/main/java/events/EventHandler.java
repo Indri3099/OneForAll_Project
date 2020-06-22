@@ -3,6 +3,7 @@ package events;
 import games.GenericGame;
 
 import java.io.PrintStream;
+import main.userInterface.Printer;
 
 public abstract class EventHandler {
 
@@ -20,10 +21,10 @@ public abstract class EventHandler {
         this.event = event;
     }
 
-    public void startEvent(PrintStream out){
+    public void startEvent(Printer out){
         event.setStarted(true);
-        out.println(event.getDescription());
+        out.print(event.getDescription());
     }
 
-    public abstract void completeEvent(GenericGame game, PrintStream out);
+    public abstract void completeEvent(GenericGame game, Printer out);
 }
