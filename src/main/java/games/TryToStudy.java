@@ -91,6 +91,7 @@ public class TryToStudy extends GenericGame {
         cameragenitori.setSouth(corridoio);
         cameragenitori.setWest(bagno);
         bagno.setEast(cameragenitori);
+        cucina.setSouth(salotto);
 
         setCurrentRoom(cameretta);
         //look around

@@ -5,8 +5,10 @@
  */
 package main.userInterface;
 
+import entities.command.Command;
 import entities.command.CommandType;
 import games.GenericGame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
@@ -17,7 +19,6 @@ import parser.Parser;
 import parser.PhraseReduction;
 
 /**
- *
  * @author enrico
  */
 public class GUI extends javax.swing.JFrame {
@@ -30,7 +31,7 @@ public class GUI extends javax.swing.JFrame {
     private Parser parser;
 
     private PhraseReduction attualCommand;
-    
+
     private boolean ready = false;
 
     public GUI() {
@@ -39,7 +40,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void init() {
-        
+
         try {
             game = (GenericGame) Class.forName(initLoader.loadGameClass()).newInstance();
             game.setHandler(new TTSActionHandler(game, jTextArea));
@@ -56,15 +57,40 @@ public class GUI extends javax.swing.JFrame {
             ready = true;
         }
 
-        InputMap im = jTextField.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        im.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+        jTextField.requestFocus();
+
+        InputMap imTextField = jTextField.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imTextField.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
         Action send = new ActionSend();
         jTextField.getActionMap().put("enter", send);
-        
+
+        InputMap imNord = jButtonNord.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imNord.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "nord");
+        Action nord = new ActionNord();
+        jButtonNord.getActionMap().put("nord", nord);
+
+        InputMap imSud = jButtonSud.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imSud.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "sud");
+        Action sud = new ActionSud();
+        jButtonSud.getActionMap().put("sud", sud);
+
+        InputMap imEst = jButtonEst.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imEst.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "est");
+        Action est = new ActionEst();
+        jButtonEst.getActionMap().put("est", est);
+
+        InputMap imWest = jButtonWest.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imWest.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "west");
+        Action west = new ActionWest();
+        jButtonWest.getActionMap().put("west", west);
+
     }
 
-    private void printLine(){
-        for(int i = 0 ; i < 160 ; i++){
+    /**
+     * Stampa un linea di "======" come separatore
+     */
+    private void printLine() {
+        for (int i = 0; i < 160; i++) {
             jTextArea.print("=");
         }
         jTextArea.println("=");
@@ -123,46 +149,66 @@ public class GUI extends javax.swing.JFrame {
         jPanel1.add(jButton2, java.awt.BorderLayout.CENTER);
 
         jButtonNord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_images/up-arrow.png"))); // NOI18N
+        jButtonNord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonNordActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonNord, java.awt.BorderLayout.PAGE_START);
 
         jButtonSud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_images/down_arrow.png"))); // NOI18N
+        jButtonSud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSudActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonSud, java.awt.BorderLayout.PAGE_END);
 
         jButtonEst.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_images/right-arrow.png"))); // NOI18N
+        jButtonEst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEstActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonEst, java.awt.BorderLayout.LINE_END);
 
         jButtonWest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_images/left-arrow.png"))); // NOI18N
+        jButtonWest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonWestActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonWest, java.awt.BorderLayout.LINE_START);
 
         javax.swing.GroupLayout jPanelRightLayout = new javax.swing.GroupLayout(jPanelRight);
         jPanelRight.setLayout(jPanelRightLayout);
         jPanelRightLayout.setHorizontalGroup(
-            jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRightLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
-                    .addComponent(jTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelRightLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelRightLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                                        .addComponent(jTime, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addContainerGap())
+                        .addGroup(jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanelRightLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
         );
         jPanelRightLayout.setVerticalGroup(
-            jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelRightLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTime, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(435, Short.MAX_VALUE))
-            .addGroup(jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanelRightLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelRightLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTime, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(435, Short.MAX_VALUE))
+                        .addGroup(jPanelRightLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanelRightLayout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         getContentPane().add(jPanelRight, java.awt.BorderLayout.LINE_END);
@@ -201,12 +247,12 @@ public class GUI extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 757, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
         );
 
         jPanelMain.add(jPanel4, java.awt.BorderLayout.PAGE_START);
@@ -223,18 +269,18 @@ public class GUI extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanelLeftLayout = new javax.swing.GroupLayout(jPanelLeft);
         jPanelLeft.setLayout(jPanelLeftLayout);
         jPanelLeftLayout.setHorizontalGroup(
-            jPanelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
-            .addComponent(jPoints, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                jPanelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                        .addComponent(jPoints, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanelLeftLayout.setVerticalGroup(
-            jPanelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelLeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPoints, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(435, Short.MAX_VALUE))
+                jPanelLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelLeftLayout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPoints, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(435, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanelLeft, java.awt.BorderLayout.LINE_START);
@@ -256,10 +302,25 @@ public class GUI extends javax.swing.JFrame {
         pack();
     }
 
-    private void jButtonSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSendActionPerformed
-        // TODO add your handling code here:
+    private void jButtonNordActionPerformed(java.awt.event.ActionEvent evt) {
+        new ActionNord().actionPerformed(evt);
+    }
+
+    private void jButtonEstActionPerformed(java.awt.event.ActionEvent evt) {
+        new ActionEst().actionPerformed(evt);
+    }
+
+    private void jButtonWestActionPerformed(java.awt.event.ActionEvent evt) {
+        new ActionWest().actionPerformed(evt);
+    }
+
+    private void jButtonSudActionPerformed(java.awt.event.ActionEvent evt) {
+        new ActionSud().actionPerformed(evt);
+    }
+
+    private void jButtonSendActionPerformed(java.awt.event.ActionEvent evt) {
         new ActionSend().actionPerformed(evt);
-    }//GEN-LAST:event_jButtonSendActionPerformed
+    }
 
     /**
      * @param args the command line arguments
@@ -268,7 +329,7 @@ public class GUI extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -308,25 +369,82 @@ public class GUI extends javax.swing.JFrame {
 
         }
     }
-    
-    private void commandExecute(String command){
+
+    public class ActionNord extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            for (Command command : game.getCommandList()) {
+                if (command.getType() == CommandType.NORD) {
+                    commandExecute(command.getName());
+                    break;
+                }
+            }
+        }
+    }
+
+    public class ActionSud extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            for (Command command : game.getCommandList()) {
+                if (command.getType() == CommandType.SOUTH) {
+                    commandExecute(command.getName());
+                    break;
+                }
+            }
+        }
+    }
+
+    public class ActionEst extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            for (Command command : game.getCommandList()) {
+                if (command.getType() == CommandType.EAST) {
+                    commandExecute(command.getName());
+                    break;
+                }
+            }
+        }
+    }
+
+    public class ActionWest extends AbstractAction {
+
+        @Override
+        public void actionPerformed(ActionEvent arg0) {
+            for (Command command : game.getCommandList()) {
+                if (command.getType() == CommandType.WEST) {
+                    commandExecute(command.getName());
+                    break;
+                }
+            }
+        }
+    }
+
+    private void commandExecute(String command) {
         try {
             attualCommand = parser.analyze(command, game.getCurrentRoom(), game.getCommandList(), game.getMainCharacter());
             if (attualCommand.getCommand() != null && attualCommand.getCommand().getType() == CommandType.END) {
-                    JOptionPane.showMessageDialog(this, "Arrivederci!", "Grazie per aver giocato, ora vai a studiare veramente!", JOptionPane.INFORMATION_MESSAGE);
-                } else if (attualCommand.getCommand() != null) {
-                    try {
-                        game.getHandler().handle(attualCommand);
-                        if (game.getCurrentRoom().getEventHandler() != null) {
-                            game.getCurrentRoom().getEventHandler().completeEvent(game, jTextArea);
-                        }
-                    } catch (Exception ex) {
-                        jTextArea.println(ex.getMessage());
+                JOptionPane.showMessageDialog(this, "Arrivederci!", "Grazie per aver giocato, ora vai a studiare veramente!", JOptionPane.INFORMATION_MESSAGE);
+            } else if (attualCommand.getCommand() != null) {
+                try {
+                    game.getHandler().handle(attualCommand);
+                    if (game.getCurrentRoom().getEventHandler() != null) {
+                        game.getCurrentRoom().getEventHandler().completeEvent(game, jTextArea);
+                        jPoints.setText(String.valueOf(game.getActualPoints()));
                     }
-                    jTextArea.println(attualCommand.toString());
+                } catch (Exception ex) {
+                    jTextArea.println(ex.getMessage());
                 }
+//                jTextArea.println(attualCommand.toString());
+            }
         } catch (Exception ex) {
             jTextArea.println(ex.getMessage());
+        }
+        finally {
+            printLine();
+            jTextArea.println("");
         }
     }
 

@@ -106,7 +106,6 @@ public class TTSActionHandler extends AbstractActionHandler {
         if (myObject == null || toCharacter == null)
             throw new CommandNotValidException();
         else {
-            out.println(toCharacter.getAccepted().toString());
             if (toCharacter.getAccepted().contains(myObject)) {
                 out.println("Hai dato " + myObject + " a " + toCharacter);
                 toCharacter.getInventory().add(myObject);
