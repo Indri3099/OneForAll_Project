@@ -10,7 +10,6 @@ import entities.command.CommandType;
 import main.userInterface.Printer;
 import parser.PhraseReduction;
 
-import java.io.PrintStream;
 import java.util.List;
 
 public class TTSActionHandler extends AbstractActionHandler {
@@ -54,7 +53,7 @@ public class TTSActionHandler extends AbstractActionHandler {
 
     public void move(Room destination) throws Exception {
         if (destination != null && !destination.isLocked()) {
-            out.print(destination + " : " + destination.getDescription());
+            out.println(destination + " : " + destination.getDescription());
             game.setCurrentRoom(destination);
             if (destination.getEventHandler() != null && !destination.getEventHandler().getEvent().isStarted()) {
                 destination.getEventHandler().startEvent(out);
@@ -74,7 +73,7 @@ public class TTSActionHandler extends AbstractActionHandler {
             for (StdObject object : game.getMainCharacter().getInventory()) {
                 strInventory.append(" - " + object + "\n");
             }
-            out.print(strInventory.toString());
+            out.println(strInventory.toString());
         }
     }
 
@@ -82,10 +81,10 @@ public class TTSActionHandler extends AbstractActionHandler {
         String look;
         if (toObject == null && game.getCurrentRoom().getLook() != null) {
             look = game.getCurrentRoom() + " : " + game.getCurrentRoom().getLook();
-            out.print(look);
+            out.println(look);
         } else if (toObject != null && toObject.getDescription() != null) {
             look = toObject + " : " + toObject.getDescription();
-            out.print(look);
+            out.println(look);
         } else {
             throw new NoDescriptionException();
         }
@@ -97,7 +96,7 @@ public class TTSActionHandler extends AbstractActionHandler {
         } else if (toObject.isTakeable() && toObject.isVisible()) {
             game.getMainCharacter().getInventory().add(toObject);
             game.getCurrentRoom().getObjects().remove(toObject);
-            out.print("Hai raccolto " + toObject);
+            out.println("Hai raccolto " + toObject);
         } else {
             throw new UnTakeableException();
         }
@@ -107,9 +106,9 @@ public class TTSActionHandler extends AbstractActionHandler {
         if (myObject == null || toCharacter == null)
             throw new CommandNotValidException();
         else {
-            out.print(toCharacter.getAccepted().toString());
+            out.println(toCharacter.getAccepted().toString());
             if (toCharacter.getAccepted().contains(myObject)) {
-                out.print("Hai dato " + myObject + " a " + toCharacter);
+                out.println("Hai dato " + myObject + " a " + toCharacter);
                 toCharacter.getInventory().add(myObject);
                 game.getMainCharacter().getInventory().remove(myObject);
             }
@@ -118,9 +117,9 @@ public class TTSActionHandler extends AbstractActionHandler {
 
     public void talkTo(NPC toCharacter) throws Exception {
         if (toCharacter.getSentences().get(toCharacter.getSentenceIndex()) != null) {
-            out.print(toCharacter + ": " + toCharacter.getSentences().get(toCharacter.getSentenceIndex()));
+            out.println(toCharacter + ": " + toCharacter.getSentences().get(toCharacter.getSentenceIndex()));
         } else {
-            out.print(toCharacter + ": " + "non ho nulla da dirti");
+            out.println(toCharacter + ": " + "non ho nulla da dirti");
         }
     }
 }

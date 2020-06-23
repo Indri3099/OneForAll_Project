@@ -8,12 +8,27 @@ import main.userInterface.Printer;
 import parser.PhraseReduction;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 public abstract class GenericGame implements Serializable {
 
-    private final int POINTGOAL = 100;
+    protected int POINTGOAL;
+
+    /**
+     * Tempo massimo per terminare la partita espresso in minuti (almeno 1)- Vale (-1) se non c'è limite di tempo;
+     */
+
+    private Time time;
+
+    private String name;
+
+    private String intro;
+
+    private String ending;
 
     private int actualPoints = 0;
 
@@ -67,5 +82,46 @@ public abstract class GenericGame implements Serializable {
 
     public void setActualPoints(int actualPoints) {
         this.actualPoints = actualPoints;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public String getEnding() {
+        return ending;
+    }
+
+    public void setEnding(String ending) {
+        this.ending = ending;
+    }
+
+
+    public int getPOINTGOAL() {
+        return POINTGOAL;
+    }
+
+    public void setPOINTGOAL(int POINTGOAL) {
+        this.POINTGOAL = POINTGOAL;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

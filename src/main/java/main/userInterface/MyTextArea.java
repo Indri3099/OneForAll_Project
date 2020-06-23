@@ -15,8 +15,13 @@ public class MyTextArea extends JTextArea implements Printer{
 
     @Override
     public void print(String s) {
-        this.append(s + "\n");
+        this.append(s);
     }
-    
-    
+
+    @Override
+    public void println(String s) {
+        print(s + "\n");
+    }
+
+
 }

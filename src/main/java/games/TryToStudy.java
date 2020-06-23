@@ -12,16 +12,26 @@ import events.Event;
 import events.EventHandler;
 import main.TTSActionHandler;
 import parser.PhraseReduction;
+
+import java.sql.Time;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 public class TryToStudy extends GenericGame {
 
     public TryToStudy() {
-
+        setName("Try To Study");
     }
 
     @Override
     public void init() {
+        POINTGOAL = 100;
+
+        setTime(new Time(1000*60*15));
+        getTime().setHours(0);
+
+        setIntro("Buongiorno bello! Sai che dovresti proprio studiare? Tra " + getTime().toString().substring(3) + " hai l'esame!");
+        setEnding("Bene, sembra che abbiamo finito. Speriamo in un bel 30L");
         //Commands
         Command nord = new Command(CommandType.NORD, "nord");
         nord.setAlias(new String[]{"n", "N", "Nord", "NORD"});
