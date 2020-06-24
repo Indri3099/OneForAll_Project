@@ -15,13 +15,13 @@ public class BrotherEventHandler extends EventHandler {
     @Override
     public void completeEvent(GenericGame game, Printer out) {
         if (!event.isCompleted() && event.getCharacter().getInventory().containsAll(event.getRequiredObjects())) {
-            out.println(event.getCharacter() + ": \"E va bene, metto le cuffie e non do fastidio\"");
+            out.println("\n" + event.getCharacter() + ": \"E va bene, metto le cuffie e non do fastidio\"");
             if(event.getCharacter().getSentences().size() != event.getCharacter().getSentenceIndex() + 1) {
                 event.getCharacter().setSentenceIndex(event.getCharacter().getSentenceIndex() + 1);
             }
             event.setCompleted(true);
             game.setActualPoints(game.getActualPoints() + event.getPointReward());
-            out.println("Punti guadagnati : " + event.getPointReward());
+            out.print("Punti guadagnati : " + event.getPointReward());
         }
     }
 

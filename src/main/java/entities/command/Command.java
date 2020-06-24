@@ -1,11 +1,12 @@
 package entities.command;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public class Command {
+public class Command implements Serializable {
 
     private final CommandType type;
 

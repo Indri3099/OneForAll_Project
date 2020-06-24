@@ -4,6 +4,7 @@ import entities.character.Character;
 import entities.character.NPC;
 import entities.objects.StdObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * Descrive le caratteristiche di un evento
  *
  */
-public class Event {
+public class Event implements Serializable {
     /**
      * Indica eventualmente il personaggio coinvolto
       */

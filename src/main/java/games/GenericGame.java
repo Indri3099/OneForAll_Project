@@ -2,8 +2,11 @@ package games;
 
 import entities.Room;
 import entities.character.MainCharacter;
+import entities.character.NPC;
 import entities.command.Command;
-import main.AbstractActionHandler;
+import entities.command.CommandType;
+import entities.objects.StdObject;
+import exceptions.*;
 import main.userInterface.Printer;
 import parser.PhraseReduction;
 
@@ -11,8 +14,6 @@ import java.io.Serializable;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.concurrent.TimeUnit;
 
 public abstract class GenericGame implements Serializable {
 
@@ -21,6 +22,7 @@ public abstract class GenericGame implements Serializable {
     /**
      * Tempo massimo per terminare la partita espresso in minuti (almeno 1)- Vale (-1) se non c'è limite di tempo;
      */
+    private Printer out;
 
     private Time time;
 
@@ -32,7 +34,7 @@ public abstract class GenericGame implements Serializable {
 
     private int actualPoints = 0;
 
-    private AbstractActionHandler handler;
+//    private AbstractActionHandler handler;
 
     private Room currentRoom;
 
@@ -66,15 +68,13 @@ public abstract class GenericGame implements Serializable {
 
     public abstract void init();
 
-    public abstract void actionHandle(PhraseReduction action);
-
-    public void setHandler(AbstractActionHandler handler) {
-        this.handler = handler;
-    }
-
-    public AbstractActionHandler getHandler() {
-        return handler;
-    }
+//    public void setHandler(AbstractActionHandler handler) {
+//        this.handler = handler;
+//    }
+//
+//    public AbstractActionHandler getHandler() {
+//        return handler;
+//    }
 
     public int getActualPoints() {
         return actualPoints;
@@ -123,5 +123,113 @@ public abstract class GenericGame implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Printer getOut() {
+        return out;
+    }
+
+    public void setOut(Printer out) {
+        this.out = out;
+    }
+
+    public void actionHandler(PhraseReduction action) throws Exception {
+        if (action.getCommand().getType() == CommandType.NORD) {
+            move(getCurrentRoom().getNorth());
+        } else if (action.getCommand().getType() == CommandType.SOUTH) {
+            move(getCurrentRoom().getSouth());
+        } else if (action.getCommand().getType() == CommandType.EAST) {
+            move(getCurrentRoom().getEast());
+        } else if (action.getCommand().getType() == CommandType.WEST) {
+            move(getCurrentRoom().getWest());
+        } else if (action.getCommand().getType() == CommandType.PICK_UP) {
+            if (action.getMyObject() != null)
+                throw new ObjectOwnedException();
+            take(action.getToObject());
+        } else if (action.getCommand().getType() == CommandType.INVENTORY) {
+            inventory();
+        } else if (action.getCommand().getType() == CommandType.LOOK_AT) {
+            if (action.getToObject() != null)
+                lookAt(action.getToObject());
+            else
+                lookAt(action.getMyObject());
+        } else if (action.getCommand().getType() == CommandType.GIVE) {
+            give(action.getMyObject(), (NPC) action.getToCharacter());
+        } else if (action.getCommand().getType() == CommandType.TALK_TO) {
+            talkTo((NPC) action.getToCharacter());
+        } else {
+            throw new CommandNotValidException();
+        }
+    }
+
+    public void move(Room destination) throws Exception {
+        if (destination != null && !destination.isLocked()) {
+            out.print(destination + " : " + destination.getDescription());
+            setCurrentRoom(destination);
+            if (destination.getEventHandler() != null && !destination.getEventHandler().getEvent().isStarted()) {
+                destination.getEventHandler().startEvent(out);
+            }
+        } else if (destination == null) {
+            throw new OutOfMapException();
+        } else if (destination.isLocked()) {
+            throw new LockedException();
+        }
+    }
+
+    public void inventory() throws Exception {
+        StringBuilder strInventory = new StringBuilder("Ecco il tuo inventario: ");
+        if (getMainCharacter().getInventory().isEmpty()) {
+            throw new EmptyInvException();
+        } else {
+            for (StdObject object : getMainCharacter().getInventory()) {
+                strInventory.append(" - " + object + "\n");
+            }
+            out.print(strInventory.toString());
+        }
+    }
+
+    public void lookAt(StdObject toObject) throws Exception {
+        String look;
+        if (toObject == null && getCurrentRoom().getLook() != null) {
+            look = getCurrentRoom() + " : " + getCurrentRoom().getLook();
+            out.print(look);
+        } else if (toObject != null && toObject.getDescription() != null) {
+            look = toObject + " : " + toObject.getDescription();
+            out.print(look);
+        } else {
+            throw new NoDescriptionException();
+        }
+    }
+
+    public void take(StdObject toObject) throws Exception {
+        if (toObject == null) {
+            throw new ObjectNotFoundException();
+        } else if (toObject.isTakeable() && toObject.isVisible()) {
+            getMainCharacter().getInventory().add(toObject);
+            getCurrentRoom().getObjects().remove(toObject);
+            out.print("Hai raccolto " + toObject);
+        } else {
+            throw new UnTakeableException();
+        }
+    }
+
+    public void give(StdObject myObject, NPC toCharacter) throws Exception {
+        if (myObject == null || toCharacter == null)
+            throw new CommandNotValidException();
+        else {
+            if (toCharacter.getAccepted().contains(myObject)) {
+                out.print("Hai dato " + myObject + " a " + toCharacter);
+                toCharacter.getInventory().add(myObject);
+                getMainCharacter().getInventory().remove(myObject);
+            }
+        }
+    }
+
+    public void talkTo(NPC toCharacter) throws Exception {
+        if (toCharacter.getSentences().get(toCharacter.getSentenceIndex()) != null) {
+            out.print(toCharacter + ": " + toCharacter.getSentences().get(toCharacter.getSentenceIndex()));
+        } else {
+            out.print(toCharacter + ": " + "non ho nulla da dirti");
+        }
     }
 }

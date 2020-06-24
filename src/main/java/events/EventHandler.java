@@ -3,9 +3,11 @@ package events;
 import games.GenericGame;
 
 import java.io.PrintStream;
+import java.io.Serializable;
+
 import main.userInterface.Printer;
 
-public abstract class EventHandler {
+public abstract class EventHandler implements Serializable {
 
     Event event;
 
@@ -23,7 +25,7 @@ public abstract class EventHandler {
 
     public void startEvent(Printer out){
         event.setStarted(true);
-        out.print(event.getDescription());
+        out.print("\n" + event.getDescription());
     }
 
     public abstract void completeEvent(GenericGame game, Printer out);

@@ -10,12 +10,9 @@ import entities.objects.StdObject;
 import events.BrotherEventHandler;
 import events.Event;
 import events.EventHandler;
-import main.TTSActionHandler;
-import parser.PhraseReduction;
 
 import java.sql.Time;
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 public class TryToStudy extends GenericGame {
 
@@ -144,10 +141,5 @@ public class TryToStudy extends GenericGame {
         Event fratelloFastidioso = new Event(fratello,Arrays.asList(new StdObject[]{cuffie}),"Come al solito c'è tuo fratello che grida mentre gioca alla Switch impedendoti di studiare tranquillamente, potresti provare a colpirlo in testa oppure qualcos'altro...",20);
         EventHandler fratelloHandler = new BrotherEventHandler(fratelloFastidioso);
         salotto.setEventHandler(fratelloHandler);
-    }
-
-    @Override
-    public void actionHandle(PhraseReduction action) {
-
     }
 }

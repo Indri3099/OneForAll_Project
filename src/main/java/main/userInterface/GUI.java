@@ -13,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 
-import main.TTSActionHandler;
+import main.TimeThread;
 import main.fileManager.initLoader;
 import parser.Parser;
 import parser.PhraseReduction;
@@ -34,62 +34,46 @@ public class GUI extends javax.swing.JFrame {
 
     private boolean ready = false;
 
+    public static TimeThread timer;
+
     public GUI() {
         initComponents();
         init();
     }
 
     private void init() {
-
+        jTextArea.setText("");
         try {
+//            initLoader.writeDefaultGame();
             game = (GenericGame) Class.forName(initLoader.loadGameClass()).newInstance();
-            game.setHandler(new TTSActionHandler(game, jTextArea));
+            //Carico il salvataggio da file di default
+            game = initLoader.loadGame();
+            game.setOut(jTextArea);
             parser = (Parser) Class.forName(initLoader.loadLanguage()).newInstance();
-            game.init();
-            this.setTitle(game.getName());
             jLabelTitle.setText(game.getName());
+            jPoints.setText(String.valueOf(game.getActualPoints()));
+            jTime.setText(game.getTime().toString());
             jTextArea.println(game.getIntro());
             printLine();
-            jTextArea.println(game.getCurrentRoom().getName());
+            jTextArea.println(game.getCurrentRoom().getName() + " : " + game.getCurrentRoom().getDescription());
+            printLine();
             jTime.setText(game.getTime().toString().substring(3));
+            timer = new TimeThread(game.getTime(), jTime);
+            timer.start();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage() + "\nModifica il file config.txt e riavvia l'applicazione", "Errore", JOptionPane.ERROR_MESSAGE);
             ready = true;
+            this.dispose();
         }
 
         jTextField.requestFocus();
-
-        InputMap imTextField = jTextField.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        imTextField.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
-        Action send = new ActionSend();
-        jTextField.getActionMap().put("enter", send);
-
-        InputMap imNord = jButtonNord.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        imNord.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "nord");
-        Action nord = new ActionNord();
-        jButtonNord.getActionMap().put("nord", nord);
-
-        InputMap imSud = jButtonSud.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        imSud.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "sud");
-        Action sud = new ActionSud();
-        jButtonSud.getActionMap().put("sud", sud);
-
-        InputMap imEst = jButtonEst.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        imEst.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "est");
-        Action est = new ActionEst();
-        jButtonEst.getActionMap().put("est", est);
-
-        InputMap imWest = jButtonWest.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        imWest.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "west");
-        Action west = new ActionWest();
-        jButtonWest.getActionMap().put("west", west);
-
     }
 
     /**
      * Stampa un linea di "======" come separatore
      */
     private void printLine() {
+        jTextArea.println("");
         for (int i = 0; i < 160; i++) {
             jTextArea.print("=");
         }
@@ -133,7 +117,10 @@ public class GUI extends javax.swing.JFrame {
 
         jToggleButton1.setText("jToggleButton1");
 
+        setTitle("Game Engine");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(600,400));
         setPreferredSize(new java.awt.Dimension(1000, 600));
 
         jTime.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -285,21 +272,68 @@ public class GUI extends javax.swing.JFrame {
 
         getContentPane().add(jPanelLeft, java.awt.BorderLayout.LINE_START);
 
+        InputMap imTextField = jTextField.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imTextField.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "enter");
+        Action send = new ActionSend();
+        jTextField.getActionMap().put("enter", send);
+
+        InputMap imNord = jButtonNord.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imNord.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), "nord");
+        Action nord = new ActionNord();
+        jButtonNord.getActionMap().put("nord", nord);
+
+        InputMap imSud = jButtonSud.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imSud.put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), "sud");
+        Action sud = new ActionSud();
+        jButtonSud.getActionMap().put("sud", sud);
+
+        InputMap imEst = jButtonEst.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imEst.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), "est");
+        Action est = new ActionEst();
+        jButtonEst.getActionMap().put("est", est);
+
+        InputMap imWest = jButtonWest.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        imWest.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), "west");
+        Action west = new ActionWest();
+        jButtonWest.getActionMap().put("west", west);
+
         jMenuFile.setText("File");
 
         jMenuItemNew.setText("New");
+        jMenuItemNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNewActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuItemNew);
 
         jMenuItemLoad.setText("Load");
+        jMenuItemLoad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNewActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuItemLoad);
 
         jMenuItemSave.setText("Save");
+        jMenuItemSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemNewActionPerformed(evt);
+            }
+        });
         jMenuFile.add(jMenuItemSave);
 
         jMenuBar1.add(jMenuFile);
 
         setJMenuBar(jMenuBar1);
         pack();
+    }
+
+    private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {
+        int result = JOptionPane.showConfirmDialog(this, "Vuoi resettare la partita?", "New game",JOptionPane.YES_NO_OPTION);
+        if(result == JOptionPane.YES_OPTION){
+            init();
+        }
     }
 
     private void jButtonNordActionPerformed(java.awt.event.ActionEvent evt) {
@@ -350,11 +384,18 @@ public class GUI extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        GUI gui = new GUI();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI().setVisible(true);
+                gui.setVisible(true);
             }
         });
+
+        while(timer.isAlive()){
+
+        }
+        JOptionPane.showMessageDialog(gui,"Tempo esaurito","TEMPO",JOptionPane.INFORMATION_MESSAGE);
+        gui.dispose();
     }
 
     public class ActionSend extends AbstractAction {
@@ -364,7 +405,6 @@ public class GUI extends javax.swing.JFrame {
             if (!jTextField.getText().isBlank()) {
                 commandExecute(jTextField.getText());
                 jTextField.setText("");
-                jTextArea.println("");
             }
 
         }
@@ -423,28 +463,29 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void commandExecute(String command) {
+        jTextArea.println("");
         try {
             attualCommand = parser.analyze(command, game.getCurrentRoom(), game.getCommandList(), game.getMainCharacter());
             if (attualCommand.getCommand() != null && attualCommand.getCommand().getType() == CommandType.END) {
                 JOptionPane.showMessageDialog(this, "Arrivederci!", "Grazie per aver giocato, ora vai a studiare veramente!", JOptionPane.INFORMATION_MESSAGE);
             } else if (attualCommand.getCommand() != null) {
                 try {
-                    game.getHandler().handle(attualCommand);
+                    game.actionHandler(attualCommand);
                     if (game.getCurrentRoom().getEventHandler() != null) {
                         game.getCurrentRoom().getEventHandler().completeEvent(game, jTextArea);
                         jPoints.setText(String.valueOf(game.getActualPoints()));
                     }
                 } catch (Exception ex) {
-                    jTextArea.println(ex.getMessage());
+                    jTextArea.print(ex.getMessage());
                 }
 //                jTextArea.println(attualCommand.toString());
             }
         } catch (Exception ex) {
-            jTextArea.println(ex.getMessage());
+            jTextArea.print(ex.getMessage());
         }
         finally {
-            printLine();
             jTextArea.println("");
+            printLine();
         }
     }
 

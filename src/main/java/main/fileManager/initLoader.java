@@ -7,8 +7,10 @@ package main.fileManager;
 
 import exceptions.GameNotFoundException;
 import exceptions.LanguageNotFoundException;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import games.GenericGame;
+import games.TryToStudy;
+
+import java.io.*;
 
 /**
  *
@@ -53,5 +55,18 @@ public class initLoader {
             return "parser." + current + "Parser";
         }
         throw new LanguageNotFoundException();
+    }
+
+    public static void writeDefaultGame() throws Exception {
+        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("/home/enrico/IdeaProjects/EnricoPallotta_MAProject/src/main/resources/TryToStudyDefault.dat"));
+        GenericGame game = new TryToStudy();
+        game.init();
+        obj.writeObject(game);
+    }
+
+    public static GenericGame loadGame() throws Exception{
+        ObjectInputStream inStream = new ObjectInputStream(new FileInputStream("/home/enrico/IdeaProjects/EnricoPallotta_MAProject/src/main/resources/TryToStudyDefault.dat"));
+        GenericGame game = (GenericGame) inStream.readObject();
+        return game;
     }
 }
