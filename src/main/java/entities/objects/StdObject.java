@@ -1,5 +1,6 @@
 package entities.objects;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 
@@ -21,10 +22,20 @@ public class StdObject implements Serializable {
 
     private boolean visible = true;
 
+    private File sound;
+
     public StdObject(int id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public File getSound() {
+        return sound;
+    }
+
+    public void setSound(File sound) {
+        this.sound = sound;
     }
 
     public Set<String> getAlias() {

@@ -4,6 +4,7 @@ import entities.character.Character;
 import entities.character.NPC;
 import entities.objects.StdObject;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +21,15 @@ public class Event implements Serializable {
 
     private List<StdObject> requiredObjects = new ArrayList<>();
 
+    private File audio;
+
     private boolean started = false;
 
     private boolean completed = false;
 
     private String description;
+
+    private String endPhrase;
 
     private int pointReward;
 
@@ -39,6 +44,14 @@ public class Event implements Serializable {
 
     public Event(){
 
+    }
+
+    public File getAudio() {
+        return audio;
+    }
+
+    public void setAudio(File audio) {
+        this.audio = audio;
     }
 
     public NPC getCharacter() {
@@ -87,5 +100,13 @@ public class Event implements Serializable {
 
     public void setPointReward(int pointReward) {
         this.pointReward = pointReward;
+    }
+
+    public String getEndPhrase() {
+        return endPhrase;
+    }
+
+    public void setEndPhrase(String endPhrase) {
+        this.endPhrase = endPhrase;
     }
 }

@@ -22,17 +22,17 @@ public class ItalianParser extends Parser {
     @Override
     public PhraseReduction analyze(String input, Room currentRoom, List<Command> commandList, Character mainCharacter) throws CommandNotValidException {
 
-        Integer cmd = -1;
+        Command command;
         input = input.toLowerCase().trim();
         PhraseReduction result = new PhraseReduction();
 
         List<String> splitted = Arrays.asList(input.split("\\s"));
         if (splitted.size() > 0) {
 
-            cmd = checkForCommand(splitted.get(0), commandList);
+            command = checkForCommand(splitted.get(0), commandList);
 
-            if (cmd > -1) {
-                result.setCommand(commandList.get(cmd));
+            if (command != null) {
+                result.setCommand(command);
                 if (splitted.size() == 1) {
                 } else if (splitted.size() == 2) {
                     wordCheck(splitted, currentRoom, mainCharacter, result, 1);
@@ -64,9 +64,8 @@ public class ItalianParser extends Parser {
     }
 
     private void wordCheck(List<String> splitted, Room currentRoom, Character mainCharacter, PhraseReduction result, int index) throws CommandNotValidException {
-        int obj1 = -1;
         StdObject object;
-
+        Character character;
         object = checkForObject(splitted.get(index), currentRoom.getObjects());
         if (object != null) {
             result.setToObject(object);
@@ -76,9 +75,9 @@ public class ItalianParser extends Parser {
             if (object != null) {
                 result.setMyObject(object);
             } else {
-                obj1 = checkForCharacter(splitted.get(index), currentRoom.getCharacters());
-                if (obj1 > -1) {
-                    result.setToCharacter(currentRoom.getCharacters().get(obj1));
+                character = checkForCharacter(splitted.get(index), currentRoom.getCharacters());
+                if (character != null) {
+                    result.setToCharacter(character);
                 }else{
                     throw new CommandNotValidException();
                 }

@@ -10,6 +10,7 @@ import exceptions.LanguageNotFoundException;
 import games.GenericGame;
 import games.TryToStudy;
 
+import javax.swing.*;
 import java.io.*;
 
 /**
@@ -58,14 +59,22 @@ public class initLoader {
     }
 
     public static void writeDefaultGame() throws Exception {
-        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("/home/enrico/IdeaProjects/EnricoPallotta_MAProject/src/main/resources/TryToStudyDefault.dat"));
+        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("/home/enrico/IdeaProjects/EnricoPallotta_MAProject/src/main/resources/savings/TryToStudyDefault.dat"));
         GenericGame game = new TryToStudy();
         game.init();
         obj.writeObject(game);
     }
 
-    public static GenericGame loadGame() throws Exception{
-        ObjectInputStream inStream = new ObjectInputStream(new FileInputStream("/home/enrico/IdeaProjects/EnricoPallotta_MAProject/src/main/resources/TryToStudyDefault.dat"));
+    public static void saveGame(String path, GenericGame game) throws Exception{
+        if(!path.endsWith(".dat")) {
+            path.concat(".dat");
+        }
+        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(path));
+        obj.writeObject(game);
+    }
+
+    public static GenericGame loadGame(String path) throws Exception{
+        ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(path));
         GenericGame game = (GenericGame) inStream.readObject();
         return game;
     }

@@ -9,8 +9,10 @@ import entities.command.Command;
 import entities.command.CommandType;
 import games.GenericGame;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import javax.swing.*;
 
 import main.TimeThread;
@@ -32,37 +34,24 @@ public class GUI extends javax.swing.JFrame {
 
     private PhraseReduction attualCommand;
 
-    private boolean ready = false;
-
     public static TimeThread timer;
 
     public GUI() {
         initComponents();
         init();
+        timer = new TimeThread(game.getTime(), jTime);
+        timer.start();
     }
 
     private void init() {
-        jTextArea.setText("");
         try {
-//            initLoader.writeDefaultGame();
+            initLoader.writeDefaultGame();
             game = (GenericGame) Class.forName(initLoader.loadGameClass()).newInstance();
-            //Carico il salvataggio da file di default
-            game = initLoader.loadGame();
-            game.setOut(jTextArea);
+//            Carico il salvataggio da file di default
+            setGame(game.getDefaultPath());
             parser = (Parser) Class.forName(initLoader.loadLanguage()).newInstance();
-            jLabelTitle.setText(game.getName());
-            jPoints.setText(String.valueOf(game.getActualPoints()));
-            jTime.setText(game.getTime().toString());
-            jTextArea.println(game.getIntro());
-            printLine();
-            jTextArea.println(game.getCurrentRoom().getName() + " : " + game.getCurrentRoom().getDescription());
-            printLine();
-            jTime.setText(game.getTime().toString().substring(3));
-            timer = new TimeThread(game.getTime(), jTime);
-            timer.start();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage() + "\nModifica il file config.txt e riavvia l'applicazione", "Errore", JOptionPane.ERROR_MESSAGE);
-            ready = true;
             this.dispose();
         }
 
@@ -89,7 +78,7 @@ public class GUI extends javax.swing.JFrame {
 
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanelRight = new javax.swing.JPanel();
-        jTime = new javax.swing.JLabel();
+        jTime = new MyTimeLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -114,13 +103,15 @@ public class GUI extends javax.swing.JFrame {
         jMenuItemNew = new javax.swing.JMenuItem();
         jMenuItemLoad = new javax.swing.JMenuItem();
         jMenuItemSave = new javax.swing.JMenuItem();
+        jMenuView = new javax.swing.JMenu();
+        jMenuItemClear = new javax.swing.JMenuItem();
 
         jToggleButton1.setText("jToggleButton1");
 
         setTitle("Game Engine");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(600,400));
+        setMinimumSize(new java.awt.Dimension(600, 400));
         setPreferredSize(new java.awt.Dimension(1000, 600));
 
         jTime.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
@@ -203,6 +194,7 @@ public class GUI extends javax.swing.JFrame {
         jPanelMain.setLayout(new java.awt.BorderLayout());
 
         jTextArea.setEditable(false);
+        jTextArea.setFont(jTextArea.getFont().deriveFont((float) 16.0));
         jTextArea.setColumns(20);
         jTextArea.setRows(5);
         jScrollPane2.setViewportView(jTextArea);
@@ -310,7 +302,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuItemLoad.setText("Load");
         jMenuItemLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemNewActionPerformed(evt);
+                jMenuItemLoadActionPerformed(evt);
             }
         });
         jMenuFile.add(jMenuItemLoad);
@@ -318,21 +310,60 @@ public class GUI extends javax.swing.JFrame {
         jMenuItemSave.setText("Save");
         jMenuItemSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemNewActionPerformed(evt);
+                jMenuItemSaveActionPerformed(evt);
             }
         });
         jMenuFile.add(jMenuItemSave);
 
+        jMenuView.setText("View");
+
+        jMenuItemClear.setText("Clear");
+        jMenuItemClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextArea.clear();
+            }
+        });
+        jMenuView.add(jMenuItemClear);
+
         jMenuBar1.add(jMenuFile);
+        jMenuBar1.add(jMenuView);
 
         setJMenuBar(jMenuBar1);
         pack();
     }
 
     private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {
-        int result = JOptionPane.showConfirmDialog(this, "Vuoi resettare la partita?", "New game",JOptionPane.YES_NO_OPTION);
-        if(result == JOptionPane.YES_OPTION){
-            init();
+        int result = JOptionPane.showConfirmDialog(this, "Vuoi resettare la partita?", "New game", JOptionPane.YES_NO_OPTION);
+        if (result == JOptionPane.YES_OPTION) {
+            try {
+                setGame(game.getDefaultPath());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Errore nel caricare il file", "Errore File", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void jMenuItemLoadActionPerformed(java.awt.event.ActionEvent evt) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("./src/main/resources/savings"));
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                setGame(fileChooser.getSelectedFile().getAbsolutePath());
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Errore nel caricare il file", "Errore File", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void jMenuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("./src/main/resources/savings"));
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                initLoader.saveGame(fileChooser.getSelectedFile().getAbsolutePath(), game);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
@@ -391,11 +422,34 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        while(timer.isAlive()){
-
+        synchronized (timer) {
+            try {
+                timer.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        JOptionPane.showMessageDialog(gui,"Tempo esaurito","TEMPO",JOptionPane.INFORMATION_MESSAGE);
+
+//        while (timer.isAlive()) {}
+
+        JOptionPane.showMessageDialog(gui, "Tempo esaurito", "TEMPO", JOptionPane.INFORMATION_MESSAGE);
         gui.dispose();
+    }
+
+    private void setGame(String path) throws Exception {
+        game = initLoader.loadGame(path);
+        game.setOut(jTextArea);
+        jTextArea.clear();
+        jLabelTitle.setText(game.getName());
+        jPoints.setText(String.valueOf(game.getActualPoints()));
+        jTime.setText(game.getTime().toString());
+        if (timer != null)
+            timer.setTime(game.getTime());
+        jTextArea.println(game.getIntro());
+        printLine();
+        jTextArea.println("\n" + game.getCurrentRoom().getName() + " : " + game.getCurrentRoom().getDescription());
+        printLine();
+        jTime.setText(game.getTime().toString().substring(3));
     }
 
     public class ActionSend extends AbstractAction {
@@ -469,6 +523,7 @@ public class GUI extends javax.swing.JFrame {
             if (attualCommand.getCommand() != null && attualCommand.getCommand().getType() == CommandType.END) {
                 JOptionPane.showMessageDialog(this, "Arrivederci!", "Grazie per aver giocato, ora vai a studiare veramente!", JOptionPane.INFORMATION_MESSAGE);
             } else if (attualCommand.getCommand() != null) {
+                System.out.println(attualCommand);
                 try {
                     game.actionHandler(attualCommand);
                     if (game.getCurrentRoom().getEventHandler() != null) {
@@ -478,12 +533,10 @@ public class GUI extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     jTextArea.print(ex.getMessage());
                 }
-//                jTextArea.println(attualCommand.toString());
             }
         } catch (Exception ex) {
             jTextArea.print(ex.getMessage());
-        }
-        finally {
+        } finally {
             jTextArea.println("");
             printLine();
         }
@@ -504,6 +557,8 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemLoad;
     private javax.swing.JMenuItem jMenuItemNew;
     private javax.swing.JMenuItem jMenuItemSave;
+    private javax.swing.JMenu jMenuView;
+    private javax.swing.JMenuItem jMenuItemClear;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
@@ -514,6 +569,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private MyTextArea jTextArea;
     private javax.swing.JTextField jTextField;
-    private javax.swing.JLabel jTime;
+    private MyTimeLabel jTime;
     private javax.swing.JToggleButton jToggleButton1;
 }
