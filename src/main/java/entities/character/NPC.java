@@ -6,9 +6,7 @@ import java.util.*;
 
 public class NPC extends Character{
 
-    private List<String> sentences = new ArrayList<>();
-
-    private Integer sentenceIndex = 0;
+    private String sentence;
 
     private List<StdObject> accepted = new ArrayList<>();
 
@@ -20,29 +18,17 @@ public class NPC extends Character{
         super(id, name, maxInventory);
     }
 
-    public NPC(int id, String name, List<String> sentences) {
+    public NPC(int id, String name, String sentence) {
         super(id, name);
-        this.sentences = sentences;
+        this.sentence = sentence;
     }
 
-    public void setSentences(List<String> sentences) {
-        this.sentences = sentences;
+    public String getSentence() {
+        return sentence;
     }
 
-    public void addSentence(String sentence){
-        sentences.add(sentence);
-    }
-
-    public Integer getSentenceIndex() {
-        return sentenceIndex;
-    }
-
-    public void setSentenceIndex(Integer sentenceIndex) {
-        this.sentenceIndex = sentenceIndex;
-    }
-
-    public List<String> getSentences() {
-        return sentences;
+    public void setSentence(String sentence) {
+        this.sentence = sentence;
     }
 
     public List<StdObject> getAccepted() {

@@ -3,9 +3,8 @@ package events;
 import games.GenericGame;
 import main.userInterface.Printer;
 
-public class GiveEventHandler extends EventHandler {
-
-    public GiveEventHandler(Event event) {
+public class MomEventHandler extends EventHandler{
+    public MomEventHandler(Event event) {
         super(event);
     }
 
@@ -13,13 +12,9 @@ public class GiveEventHandler extends EventHandler {
     public void completeEvent(GenericGame game, Printer out) {
         if (!event.isCompleted() && event.getCharacter().getInventory().containsAll(event.getRequiredObjects())) {
             out.println("\n" + event.getCharacter() + ": \" "+ event.getEndPhrase() + "\"");
-            if(event.getCharacter().getSentences().size() != event.getCharacter().getSentenceIndex() + 1) {
-                event.getCharacter().setSentenceIndex(event.getCharacter().getSentenceIndex() + 1);
-            }
+            event.getCharacter().setSentence("Con la pancia piena sicuramente studierai meglio");
             event.setCompleted(true);
             pointsUpdate(game,out);
         }
     }
-
-
 }

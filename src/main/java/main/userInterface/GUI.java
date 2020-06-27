@@ -518,27 +518,34 @@ public class GUI extends javax.swing.JFrame {
 
     private void commandExecute(String command) {
         jTextArea.println("");
-        try {
-            attualCommand = parser.analyze(command, game.getCurrentRoom(), game.getCommandList(), game.getMainCharacter());
-            if (attualCommand.getCommand() != null && attualCommand.getCommand().getType() == CommandType.END) {
-                JOptionPane.showMessageDialog(this, "Arrivederci!", "Grazie per aver giocato, ora vai a studiare veramente!", JOptionPane.INFORMATION_MESSAGE);
-            } else if (attualCommand.getCommand() != null) {
-                System.out.println(attualCommand);
-                try {
-                    game.actionHandler(attualCommand);
-                    if (game.getCurrentRoom().getEventHandler() != null) {
-                        game.getCurrentRoom().getEventHandler().completeEvent(game, jTextArea);
-                        jPoints.setText(String.valueOf(game.getActualPoints()));
+        if (!game.isCompleted()) {
+            try {
+                attualCommand = parser.analyze(command, game.getCurrentRoom(), game.getCommandList(), game.getMainCharacter());
+                if (attualCommand.getCommand() != null && attualCommand.getCommand().getType() == CommandType.END) {
+                    JOptionPane.showMessageDialog(this, "Arrivederci!", "Grazie per aver giocato, ora vai a studiare veramente!", JOptionPane.INFORMATION_MESSAGE);
+                } else if (attualCommand.getCommand() != null) {
+                    System.out.println(attualCommand);
+                    try {
+                        game.actionHandler(attualCommand);
+                        if (game.getCurrentRoom().getEventHandler() != null && game.getCurrentRoom().getEventHandler().getEvent().isStarted() && !game.getCurrentRoom().getEventHandler().getEvent().isCompleted()) {
+                            game.getCurrentRoom().getEventHandler().completeEvent(game, jTextArea);
+                            jPoints.setText(String.valueOf(game.getActualPoints()));
+                            if (game.getActualPoints() == game.getPOINTGOAL()) {
+                                game.setCompleted(true);
+                            }
+                        }
+                    } catch (Exception ex) {
+                        jTextArea.print(ex.getMessage());
                     }
-                } catch (Exception ex) {
-                    jTextArea.print(ex.getMessage());
                 }
+            } catch (Exception ex) {
+                jTextArea.print(ex.getMessage());
+            } finally {
+                jTextArea.println("");
+                printLine();
             }
-        } catch (Exception ex) {
-            jTextArea.print(ex.getMessage());
-        } finally {
-            jTextArea.println("");
-            printLine();
+        } else {
+            JOptionPane.showMessageDialog(this,"La partita è terminata!","Partita terminata",JOptionPane.INFORMATION_MESSAGE);
         }
     }
 

@@ -23,6 +23,7 @@ public class BlackOutHandler extends EventHandler {
             turnOnAll(game.getCurrentRoom());
             out.print("\n" + event.getEndPhrase());
             pointsUpdate(game,out);
+            event.setCompleted(true);
         }
     }
 

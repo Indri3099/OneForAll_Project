@@ -7,7 +7,7 @@ public class NameConstants {
             ZAINO = "zaino",
             CUFFIE = "cuffie",
             PENNA = "penna",
-            MENSA = "mensa",
+            DISPENSA = "dispensa",
             PASTA = "pasta",
             POMODORO = "pomodoro",
             NUTELLA = "nutella",
@@ -24,5 +24,6 @@ public class NameConstants {
             CORRIDOIO = "corridoio",
             MAMMA = "mamma",
             FRATELLO = "fratello",
-            ME = "Enrico";
+            ME = "Enrico",
+            BUTTON = "pulsante";
 }

@@ -19,6 +19,7 @@ public class DoorLockedHandler extends EventHandler{
             game.getCurrentRoom().getEast().getEventHandler().startEvent(out);
             turnOfAll(game.getCurrentRoom());
             game.getCurrentRoom().getEast().setVisible(true);
+            event.setCompleted(true);
         }
     }
 

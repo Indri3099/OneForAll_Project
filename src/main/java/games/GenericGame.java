@@ -28,6 +28,8 @@ public abstract class GenericGame implements Serializable {
 
     protected transient Printer out;
 
+    private boolean completed = false;
+
     private String defaultPath;
 
     private String name;
@@ -143,6 +145,14 @@ public abstract class GenericGame implements Serializable {
 
     public void setDefaultPath(String defaultPath) {
         this.defaultPath = defaultPath;
+    }
+
+    public boolean isCompleted() {
+        return completed;
+    }
+
+    public void setCompleted(boolean completed) {
+        this.completed = completed;
     }
 
     public abstract void actionHandler(PhraseReduction action) throws Exception;
