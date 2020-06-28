@@ -30,11 +30,16 @@ public class TryToStudy extends GenericGame {
     public void init() {
         POINTGOAL = 100;
 
-        setTime(new Time(1000 * 60 * 15));
-        getTime().setHours(0);
+        setTotalTime(new Time(15*60*1000));
+        getTotalTime().setHours(0);
+        setActualTime(new Time(getTotalTime().getTime()));
+        getActualTime().setHours(0);
+        System.out.println(getTotalTime());
+        System.out.println(getActualTime());
 
-        setIntro("Buongiorno bello! Sai che dovresti proprio studiare? Tra " + getTime().toString().substring(3) + " hai l'esame!");
-        setEnding("Bene, sembra che abbiamo finito. Speriamo in un bel 30L");
+        setIntro("Buongiorno bello! Sai che dovresti proprio studiare? Tra " + getActualTime().toString().substring(3) + " hai l'esame!");
+        setWin("Bene, sembra che abbiamo finito. Speriamo in un bel 30L");
+        setLose("Peccato , non hai fatto in tempo a raggiungere il tuo obbiettivo :(");
         //Commands
         Command nord = new Command(CommandType.NORD, "nord");
         nord.setAlias(new String[]{"n", "N", "Nord", "NORD"});
@@ -121,7 +126,7 @@ public class TryToStudy extends GenericGame {
         cameretta.addObject(computer);
 
         StdObject chitarra = new StdObject(2, NameConstants.CHITARRA, "Perché non ci fai sentire qualcosa?");
-        chitarra.setSound(new File("./src/main/resources/audio/EventCompleteSound.wav"));
+        chitarra.setSound(new File("./src/main/resources/audio/chitarra.wav"));
         cameretta.addObject(chitarra);
 
         StdObject mac = new StdObject(3, NameConstants.MAC, "Il Mac di papà , se lo tocchi si arrabbia");
@@ -351,9 +356,7 @@ public class TryToStudy extends GenericGame {
         if (myObject == null || toCharacter == null)
             throw new CommandNotValidException();
         else {
-            System.out.println("ci siamo");
             if (toCharacter.getAccepted().contains(myObject)) {
-                System.out.println("ci siamo");
                 out.print("Hai dato " + myObject + " a " + toCharacter);
                 toCharacter.getInventory().add(myObject);
                 getMainCharacter().getInventory().remove(myObject);
@@ -400,21 +403,19 @@ public class TryToStudy extends GenericGame {
     }
 
     private void use(StdObject useObject) {
-        for (StdObject object : getCurrentRoom().getObjects()) {
-            System.out.println("ciao");
-            if (object.getName().toLowerCase().equals("chitarra") && useObject == object) {
-                try {
-                    File f = new File("/home/enrico/Musica/3_1.wav");
-                    System.out.println("chitarrra");
-                    AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
-                    Clip clip = AudioSystem.getClip();
-                    clip.open(audioIn);
-                    clip.start();
-                } catch (Exception e) {
-
-                }
-            }
-        }
+//        for (StdObject object : getCurrentRoom().getObjects()) {
+//            if (object.getName().toLowerCase().equals("chitarra") && useObject == object) {
+//                try {
+//                    File f = new File("/home/enrico/Musica/3_1.wav");
+//                    AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
+//                    Clip clip = AudioSystem.getClip();
+//                    clip.open(audioIn);
+//                    clip.start();
+//                } catch (Exception e) {
+//
+//                }
+//            }
+//        }
     }
 
     private void drop(StdObject myObject) throws Exception {

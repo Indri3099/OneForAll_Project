@@ -2,16 +2,11 @@ package games;
 
 import entities.Room;
 import entities.character.MainCharacter;
-import entities.character.NPC;
 import entities.command.Command;
-import entities.command.CommandType;
-import entities.objects.StdObject;
-import exceptions.*;
 import main.userInterface.Printer;
 import parser.PhraseReduction;
 
 import java.io.Serializable;
-import java.nio.file.Path;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +19,9 @@ public abstract class GenericGame implements Serializable {
     /**
      * Tempo massimo per terminare la partita espresso in minuti (almeno 1)- Vale (-1) se non c'è limite di tempo;
      */
-    private Time time;
+    private Time actualTime;
+
+    private Time totalTime;
 
     protected transient Printer out;
 
@@ -36,7 +33,9 @@ public abstract class GenericGame implements Serializable {
 
     private String intro;
 
-    private String ending;
+    private String win;
+
+    private String lose;
 
     private int actualPoints = 0;
 
@@ -98,12 +97,12 @@ public abstract class GenericGame implements Serializable {
         this.intro = intro;
     }
 
-    public String getEnding() {
-        return ending;
+    public String getWin() {
+        return win;
     }
 
-    public void setEnding(String ending) {
-        this.ending = ending;
+    public void setWin(String win) {
+        this.win = win;
     }
 
 
@@ -115,12 +114,12 @@ public abstract class GenericGame implements Serializable {
         this.POINTGOAL = POINTGOAL;
     }
 
-    public Time getTime() {
-        return time;
+    public Time getActualTime() {
+        return actualTime;
     }
 
-    public void setTime(Time time) {
-        this.time = time;
+    public void setActualTime(Time actualTime) {
+        this.actualTime = actualTime;
     }
 
     public String getName() {
@@ -156,4 +155,20 @@ public abstract class GenericGame implements Serializable {
     }
 
     public abstract void actionHandler(PhraseReduction action) throws Exception;
+
+    public Time getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(Time totalTime) {
+        this.totalTime = totalTime;
+    }
+
+    public void setLose(String lose) {
+        this.lose = lose;
+    }
+
+    public String getLose() {
+        return lose;
+    }
 }

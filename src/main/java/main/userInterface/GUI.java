@@ -5,6 +5,7 @@
  */
 package main.userInterface;
 
+import entities.Score;
 import entities.command.Command;
 import entities.command.CommandType;
 import games.GenericGame;
@@ -13,10 +14,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.sql.Time;
 import javax.swing.*;
 
 import main.TimeThread;
 import main.fileManager.initLoader;
+import main.userInterface.dialogs.EndingDialog;
 import parser.Parser;
 import parser.PhraseReduction;
 
@@ -39,7 +42,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         init();
-        timer = new TimeThread(game.getTime(), jTime);
+        timer = new TimeThread(game.getActualTime(), jTime);
         timer.start();
     }
 
@@ -117,6 +120,8 @@ public class GUI extends javax.swing.JFrame {
         jTime.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jTime.setText("15:00");
+
+        jTextField.setFont(jTextField.getFont().deriveFont((float) 16).deriveFont(Font.PLAIN));
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Time Left");
@@ -433,23 +438,30 @@ public class GUI extends javax.swing.JFrame {
 //        while (timer.isAlive()) {}
 
         JOptionPane.showMessageDialog(gui, "Tempo esaurito", "TEMPO", JOptionPane.INFORMATION_MESSAGE);
+        System.out.println("TempoTot " + gui.getGame().getTotalTime());
+        System.out.println("Tempo " + gui.getGame().getActualTime());
+        JDialog ending = new EndingDialog(gui,true, new Score(gui.getGame().getTotalTime(),gui.getGame().getActualPoints(),gui.getGame().getPOINTGOAL()),gui.getGame().getLose());
+        ending.setVisible(true);
         gui.dispose();
     }
 
+    private static void ending(){
+
+    }
     private void setGame(String path) throws Exception {
         game = initLoader.loadGame(path);
         game.setOut(jTextArea);
         jTextArea.clear();
         jLabelTitle.setText(game.getName());
         jPoints.setText(String.valueOf(game.getActualPoints()));
-        jTime.setText(game.getTime().toString());
+        jTime.setText(game.getActualTime().toString());
         if (timer != null)
-            timer.setTime(game.getTime());
+            timer.setTime(game.getActualTime());
         jTextArea.println(game.getIntro());
         printLine();
         jTextArea.println("\n" + game.getCurrentRoom().getName() + " : " + game.getCurrentRoom().getDescription());
         printLine();
-        jTime.setText(game.getTime().toString().substring(3));
+        jTime.setText(game.getActualTime().toString().substring(3));
     }
 
     public class ActionSend extends AbstractAction {
@@ -532,6 +544,8 @@ public class GUI extends javax.swing.JFrame {
                             jPoints.setText(String.valueOf(game.getActualPoints()));
                             if (game.getActualPoints() == game.getPOINTGOAL()) {
                                 game.setCompleted(true);
+                                JDialog ending = new EndingDialog(this,true, new Score(new Time(game.getTotalTime().getTime() - game.getActualTime().getTime()),game.getActualPoints(),game.getPOINTGOAL()),game.getWin());
+                                ending.setVisible(true);
                             }
                         }
                     } catch (Exception ex) {
@@ -547,6 +561,10 @@ public class GUI extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this,"La partita è terminata!","Partita terminata",JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    public GenericGame getGame() {
+        return game;
     }
 
     private javax.swing.JButton jButton2;
