@@ -5,9 +5,23 @@
  */
 package main.userInterface.dialogs;
 
+import com.google.gson.Gson;
 import entities.Score;
-import games.GenericGame;
+import main.scoreRest.RestHandling;
+import main.scoreRest.ScoreService;
+import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.server.ResourceConfig;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriBuilder;
+import java.io.IOException;
+import java.net.URI;
 import java.sql.Time;
 
 /**
@@ -19,6 +33,8 @@ public class EndingDialog extends javax.swing.JDialog {
     private Score score;
 
     private String phrase;
+
+    private String gameName;
     /**
      * Creates new form EndingDialog
      */
@@ -92,7 +108,10 @@ public class EndingDialog extends javax.swing.JDialog {
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         // TODO add your handling code here:
         if(!jTextFieldNameSave.getText().equals("")){
+            System.out.println(score);
             score.setName(jTextFieldNameSave.getText());
+            RestHandling.saveScore(score);
+            this.dispose();
         }
     }//GEN-LAST:event_jButtonSaveActionPerformed
 

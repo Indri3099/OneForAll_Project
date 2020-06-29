@@ -1,7 +1,7 @@
 package events;
 
 import games.GenericGame;
-import main.userInterface.Printer;
+import main.userInterface.printer.Printer;
 
 public class AppuntiEventHandler extends EventHandler{
     public AppuntiEventHandler(Event event) {

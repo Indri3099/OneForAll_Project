@@ -19,7 +19,11 @@ import javax.swing.*;
 
 import main.TimeThread;
 import main.fileManager.initLoader;
+import main.scoreRest.RestHandling;
 import main.userInterface.dialogs.EndingDialog;
+import main.userInterface.dialogs.RankingDialog;
+import main.userInterface.printer.MyTextArea;
+import main.userInterface.printer.MyTimeLabel;
 import parser.Parser;
 import parser.PhraseReduction;
 
@@ -108,6 +112,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuItemSave = new javax.swing.JMenuItem();
         jMenuView = new javax.swing.JMenu();
         jMenuItemClear = new javax.swing.JMenuItem();
+        jMenuItemRanking = new javax.swing.JMenuItem();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -330,11 +335,26 @@ public class GUI extends javax.swing.JFrame {
         });
         jMenuView.add(jMenuItemClear);
 
+        jMenuItemRanking.setText("Rankings");
+        jMenuItemRanking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemRankingActionPerformed(evt);
+            }
+        });
+        jMenuView.add(jMenuItemRanking);
+
         jMenuBar1.add(jMenuFile);
         jMenuBar1.add(jMenuView);
 
         setJMenuBar(jMenuBar1);
         pack();
+    }
+
+
+
+    private void jMenuItemRankingActionPerformed(java.awt.event.ActionEvent evt) {
+        Dialog ranking = new RankingDialog(this,true, RestHandling.getScore(), game.getName());
+        ranking.setVisible(true);
     }
 
     private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {
@@ -440,14 +460,11 @@ public class GUI extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(gui, "Tempo esaurito", "TEMPO", JOptionPane.INFORMATION_MESSAGE);
         System.out.println("TempoTot " + gui.getGame().getTotalTime());
         System.out.println("Tempo " + gui.getGame().getActualTime());
-        JDialog ending = new EndingDialog(gui,true, new Score(gui.getGame().getTotalTime(),gui.getGame().getActualPoints(),gui.getGame().getPOINTGOAL()),gui.getGame().getLose());
+        JDialog ending = new EndingDialog(gui, true, new Score(gui.getGame().getTotalTime(), gui.getGame().getActualPoints(), gui.getGame().getPOINTGOAL(), gui.getGame().getName()), gui.getGame().getLose());
         ending.setVisible(true);
         gui.dispose();
     }
 
-    private static void ending(){
-
-    }
     private void setGame(String path) throws Exception {
         game = initLoader.loadGame(path);
         game.setOut(jTextArea);
@@ -544,7 +561,7 @@ public class GUI extends javax.swing.JFrame {
                             jPoints.setText(String.valueOf(game.getActualPoints()));
                             if (game.getActualPoints() == game.getPOINTGOAL()) {
                                 game.setCompleted(true);
-                                JDialog ending = new EndingDialog(this,true, new Score(new Time(game.getTotalTime().getTime() - game.getActualTime().getTime()),game.getActualPoints(),game.getPOINTGOAL()),game.getWin());
+                                JDialog ending = new EndingDialog(this, true, new Score(new Time(game.getTotalTime().getTime() - game.getActualTime().getTime()), game.getActualPoints(), game.getPOINTGOAL(), game.getName()), game.getWin());
                                 ending.setVisible(true);
                             }
                         }
@@ -559,7 +576,7 @@ public class GUI extends javax.swing.JFrame {
                 printLine();
             }
         } else {
-            JOptionPane.showMessageDialog(this,"La partita è terminata!","Partita terminata",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "La partita è terminata!", "Partita terminata", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
@@ -584,6 +601,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemSave;
     private javax.swing.JMenu jMenuView;
     private javax.swing.JMenuItem jMenuItemClear;
+    private javax.swing.JMenuItem jMenuItemRanking;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

@@ -3,7 +3,7 @@ package events;
 import entities.Room;
 import entities.objects.StdObject;
 import games.GenericGame;
-import main.userInterface.Printer;
+import main.userInterface.printer.Printer;
 
 public class BlackOutHandler extends EventHandler {
     public BlackOutHandler(Event event) {

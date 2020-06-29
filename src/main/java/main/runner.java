@@ -1,17 +1,5 @@
 package main;
 
-import exceptions.CommandNotValidException;
-import games.GenericGame;
-import games.TryToStudy;
-import entities.command.CommandType;
-import main.userInterface.MyTimeLabel;
-import main.userInterface.dialogs.EndingDialog;
-import parser.ItalianParser;
-import parser.Parser;
-import parser.PhraseReduction;
-
-import java.sql.Time;
-import java.util.Scanner;
 import main.userInterface.GUI;
 
 import javax.swing.*;

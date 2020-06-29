@@ -3,10 +3,9 @@ package events;
 import games.GenericGame;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.io.Serializable;
 
-import main.userInterface.Printer;
+import main.userInterface.printer.Printer;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

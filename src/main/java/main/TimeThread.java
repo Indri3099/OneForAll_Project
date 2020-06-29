@@ -1,8 +1,7 @@
 package main;
 
-import main.userInterface.Printer;
+import main.userInterface.printer.Printer;
 
-import javax.swing.*;
 import java.sql.Time;
 
 public class TimeThread extends Thread{

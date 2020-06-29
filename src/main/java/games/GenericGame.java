@@ -3,7 +3,7 @@ package games;
 import entities.Room;
 import entities.character.MainCharacter;
 import entities.command.Command;
-import main.userInterface.Printer;
+import main.userInterface.printer.Printer;
 import parser.PhraseReduction;
 
 import java.io.Serializable;

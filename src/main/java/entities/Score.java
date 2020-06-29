@@ -11,10 +11,13 @@ public class Score {
 
     private String name;
 
-    public Score(Time finalTime, int points, int totalPoints) {
+    private String gameName;
+
+    public Score(Time finalTime, int points, int totalPoints, String gameName) {
         this.finalTime = finalTime;
         this.points = points;
         this.totalPoints = totalPoints;
+        this.gameName = gameName;
     }
 
     public String getName() {
@@ -47,5 +50,24 @@ public class Score {
 
     public void setTotalPoints(int totalPoints) {
         this.totalPoints = totalPoints;
+    }
+
+    public String getGameName() {
+        return gameName;
+    }
+
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
+    }
+
+    @Override
+    public String toString() {
+        return "Score{" +
+                "finalTime=" + finalTime +
+                ", points=" + points +
+                ", totalPoints=" + totalPoints +
+                ", name='" + name + '\'' +
+                ", gameName='" + gameName + '\'' +
+                '}';
     }
 }
