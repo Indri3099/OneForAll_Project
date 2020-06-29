@@ -126,7 +126,7 @@ public class TryToStudy extends GenericGame {
         cameretta.addObject(computer);
 
         StdObject chitarra = new StdObject(2, NameConstants.CHITARRA, "Perché non ci fai sentire qualcosa?");
-        chitarra.setSound(new File("./src/main/resources/audio/chitarra.wav"));
+        chitarra.setSound(new File("./resources/audio/chitarra.wav"));
         cameretta.addObject(chitarra);
 
         StdObject mac = new StdObject(3, NameConstants.MAC, "Il Mac di papà , se lo tocchi si arrabbia");

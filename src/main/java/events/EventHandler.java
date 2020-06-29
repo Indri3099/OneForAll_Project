@@ -17,7 +17,7 @@ public abstract class EventHandler implements Serializable {
 
     private void soundPlay() {
         try {
-            File f = new File("./src/main/resources/audio/EventCompleteSound.wav");
+            File f = new File("./resources/audio/EventCompleteSound.wav");
             System.out.println(f.getName());
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
             Clip clip = AudioSystem.getClip();

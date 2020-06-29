@@ -38,7 +38,6 @@ public class RankingDialog extends javax.swing.JDialog {
 
         for(Score score : scores){
             if(score.getGameName().equals(gameName)){
-                System.out.println(score.getTotalPoints());
                 model.addRow(new Object[]{score.getName(), score.getPoints() + "/" + score.getTotalPoints(), score.getFinalTime().toString()});
             }
         }

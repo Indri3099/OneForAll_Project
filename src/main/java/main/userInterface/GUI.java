@@ -133,10 +133,10 @@ public class GUI extends javax.swing.JFrame {
 
         jPanel1.setLayout(new java.awt.BorderLayout());
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_images/button.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon("./resources/gui_images/button.png")); // NOI18N
         jPanel1.add(jButton2, java.awt.BorderLayout.CENTER);
 
-        jButtonNord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_images/up-arrow.png"))); // NOI18N
+        jButtonNord.setIcon(new javax.swing.ImageIcon("./resources/gui_images/up-arrow.png")); // NOI18N
         jButtonNord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonNordActionPerformed(evt);
@@ -144,7 +144,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonNord, java.awt.BorderLayout.PAGE_START);
 
-        jButtonSud.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_images/down_arrow.png"))); // NOI18N
+        jButtonSud.setIcon(new javax.swing.ImageIcon("./resources/gui_images/down_arrow.png")); // NOI18N
         jButtonSud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSudActionPerformed(evt);
@@ -152,7 +152,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonSud, java.awt.BorderLayout.PAGE_END);
 
-        jButtonEst.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_images/right-arrow.png"))); // NOI18N
+        jButtonEst.setIcon(new javax.swing.ImageIcon("./resources/gui_images/right-arrow.png")); // NOI18N
         jButtonEst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEstActionPerformed(evt);
@@ -160,7 +160,7 @@ public class GUI extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonEst, java.awt.BorderLayout.LINE_END);
 
-        jButtonWest.setIcon(new javax.swing.ImageIcon(getClass().getResource("/gui_images/left-arrow.png"))); // NOI18N
+        jButtonWest.setIcon(new javax.swing.ImageIcon("./resources/gui_images/left-arrow.png")); // NOI18N
         jButtonWest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonWestActionPerformed(evt);
@@ -302,6 +302,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuFile.setText("File");
 
         jMenuItemNew.setText("New");
+        jMenuItemNew.setIcon(new ImageIcon("./resources/gui_images/new.png"));
         jMenuItemNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemNewActionPerformed(evt);
@@ -310,6 +311,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuFile.add(jMenuItemNew);
 
         jMenuItemLoad.setText("Load");
+        jMenuItemLoad.setIcon(new ImageIcon("./resources/gui_images/loading.png"));
         jMenuItemLoad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemLoadActionPerformed(evt);
@@ -318,6 +320,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuFile.add(jMenuItemLoad);
 
         jMenuItemSave.setText("Save");
+        jMenuItemSave.setIcon(new ImageIcon("./resources/gui_images/save.png"));
         jMenuItemSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemSaveActionPerformed(evt);
@@ -328,6 +331,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuView.setText("View");
 
         jMenuItemClear.setText("Clear");
+        jMenuItemClear.setIcon(new ImageIcon("./resources/gui_images/eraser.png"));
         jMenuItemClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextArea.clear();
@@ -336,6 +340,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuView.add(jMenuItemClear);
 
         jMenuItemRanking.setText("Rankings");
+        jMenuItemRanking.setIcon(new ImageIcon("./resources/gui_images/first.png"));
         jMenuItemRanking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemRankingActionPerformed(evt);
@@ -458,8 +463,6 @@ public class GUI extends javax.swing.JFrame {
 //        while (timer.isAlive()) {}
 
         JOptionPane.showMessageDialog(gui, "Tempo esaurito", "TEMPO", JOptionPane.INFORMATION_MESSAGE);
-        System.out.println("TempoTot " + gui.getGame().getTotalTime());
-        System.out.println("Tempo " + gui.getGame().getActualTime());
         JDialog ending = new EndingDialog(gui, true, new Score(gui.getGame().getTotalTime(), gui.getGame().getActualPoints(), gui.getGame().getPOINTGOAL(), gui.getGame().getName()), gui.getGame().getLose());
         ending.setVisible(true);
         gui.dispose();

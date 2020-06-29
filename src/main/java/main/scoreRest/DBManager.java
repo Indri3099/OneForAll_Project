@@ -56,16 +56,16 @@ public class DBManager {
         dbprops = new Properties();
         dbprops.setProperty("user", "user");
         dbprops.setProperty("password", "1234");
-        conn = DriverManager.getConnection("jdbc:h2:./resources/db/store", dbprops);
+        conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/db/store", dbprops);
         Statement stm = conn.createStatement();
-        stm.executeUpdate("DROP TABLE scores");
+//        stm.executeUpdate("TRUNCATE TABLE scores");
         stm.executeUpdate(CREATE_TABLE_ITEM);
         stm.close();
     }
 
     private void reconnect() throws SQLException {
         if (conn != null && !conn.isValid(0)) {
-            conn = DriverManager.getConnection("jdbc:h2:./resources/db/store", dbprops);
+            conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/db/store", dbprops);
         }
     }
 

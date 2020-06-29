@@ -8,13 +8,32 @@ import entities.objects.StdObject;
 import exceptions.CommandNotValidException;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public abstract class Parser {
+
+    protected <X> X checkGenerics(Iterable<X> iterable, Predicate<X> predicate){
+        for(X x : iterable){
+            if(predicate.test(x)){
+                return x;
+            }
+        }
+        return null;
+    }
 
     protected Command checkForCommand(String token, List<Command> commands) {
         for(Command command : commands){
             if (command.getName().toLowerCase().equals(token) || (command.getAlias() != null && command.getAlias().contains(token))) {
                 return command;
+            }
+        }
+        return null;
+    }
+
+    protected Character checkForCharacter(String token, List<Character> characters) {
+        for (Character character : characters) {
+            if (character.getName().toLowerCase().equals(token)) {
+                return character;
             }
         }
         return null;
@@ -31,15 +50,6 @@ public abstract class Parser {
                         return objectContained;
                     }
                 }
-            }
-        }
-        return null;
-    }
-
-    protected Character checkForCharacter(String token, List<Character> characters) {
-        for (Character character : characters) {
-            if (character.getName().toLowerCase().equals(token)) {
-                return character;
             }
         }
         return null;

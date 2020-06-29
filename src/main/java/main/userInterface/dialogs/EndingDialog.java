@@ -108,7 +108,6 @@ public class EndingDialog extends javax.swing.JDialog {
     private void jButtonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSaveActionPerformed
         // TODO add your handling code here:
         if(!jTextFieldNameSave.getText().equals("")){
-            System.out.println(score);
             score.setName(jTextFieldNameSave.getText());
             RestHandling.saveScore(score);
             this.dispose();

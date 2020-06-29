@@ -29,7 +29,10 @@ public class ItalianParser extends Parser {
         List<String> splitted = Arrays.asList(input.split("\\s"));
         if (splitted.size() > 0) {
 
-            command = checkForCommand(splitted.get(0), commandList);
+//            command = checkForCommand(splitted.get(0), commandList);
+            command = checkGenerics(commandList,
+                    cmd -> cmd.getName().toLowerCase().equals(splitted.get(0))
+                    || (cmd.getAlias() != null && cmd.getAlias().contains(splitted.get(0))));
 
             if (command != null) {
                 result.setCommand(command);
@@ -75,7 +78,9 @@ public class ItalianParser extends Parser {
             if (object != null) {
                 result.setMyObject(object);
             } else {
-                character = checkForCharacter(splitted.get(index), currentRoom.getCharacters());
+//                character = checkForCharacter(splitted.get(index), currentRoom.getCharacters());
+                character = checkGenerics(currentRoom.getCharacters(),
+                        character1 -> character1.getName().toLowerCase().equals(splitted.get(index)));
                 if (character != null) {
                     result.setToCharacter(character);
                 }else{
