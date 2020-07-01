@@ -30,7 +30,7 @@ public class TryToStudy extends GenericGame {
     public void init() {
         setPOINTGOAL(100);
 
-        setTotalTime(new Time(5 * 60 * 1000));
+        setTotalTime(new Time(15 * 60 * 1000));
         getTotalTime().setHours(0);
         setActualTime(new Time(getTotalTime().getTime()));
         getActualTime().setHours(0);
@@ -378,8 +378,15 @@ public class TryToStudy extends GenericGame {
     private void open(StdObject object) throws Exception {
         if (object instanceof ObjectContainer) {
             if (!((ObjectContainer) object).isOpen() && !((ObjectContainer) object).isLocked()) {
-                out.print("Hai aperto : " + object);
+                out.println("Hai aperto : " + object);
                 ((ObjectContainer) object).setOpen(true);
+                out.print(object + " contiene:");
+                for( StdObject obj : ((ObjectContainer) object).getObjects()){
+                    out.print(" " + obj);
+                    if(obj != ((ObjectContainer) object).getObjects().get(((ObjectContainer) object).getObjects().size() -1)){
+                        out.print(",");
+                    }
+                }
             } else if (((ObjectContainer) object).isLocked()) {
                 throw new LockedException();
             } else if (((ObjectContainer) object).isOpen()) {
