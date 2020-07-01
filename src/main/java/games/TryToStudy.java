@@ -28,18 +28,21 @@ public class TryToStudy extends GenericGame {
 
     @Override
     public void init() {
-        POINTGOAL = 100;
+        setPOINTGOAL(100);
 
-        setTotalTime(new Time(15*60*1000));
+        setTotalTime(new Time(5 * 60 * 1000));
         getTotalTime().setHours(0);
         setActualTime(new Time(getTotalTime().getTime()));
         getActualTime().setHours(0);
-        System.out.println(getTotalTime());
-        System.out.println(getActualTime());
 
         setIntro("Buongiorno bello! Sai che dovresti proprio studiare? Tra " + getActualTime().toString().substring(3) + " hai l'esame!");
         setWin("Bene, sembra che abbiamo finito. Speriamo in un bel 30L");
         setLose("Peccato , non hai fatto in tempo a raggiungere il tuo obbiettivo :(");
+        setDescription("Salve! Andiamo subito al sodo.\nIl gioco è ambientato nella casa di un normale studente che,\ndeve cercare di studiare tra il casino della famiglia e le varie distrazioni.\n" +
+                "Qui entri in gioco tu! Sì dico proprio a te.\n Lo scopo del gioco è arrivare a 100 punti entro 5 minuti.\n" +
+                "Se ci riuscirai passerai questo dannato esame, altrimenti...beh altrimenti muoviti a studiare fallito!\n" +
+                "Al termine del gioco potrai salvare il tuo punteggio,\nsentiti libero inoltre di salvare quando vuoi in modo da riprendere quando non hai nulla da fare\n" +
+                "Beh che aspetti!? Corri a studiare , il tempo scorre!");
         //Commands
         Command nord = new Command(CommandType.NORD, "nord");
         nord.setAlias(new String[]{"n", "N", "Nord", "NORD"});
@@ -69,7 +72,7 @@ public class TryToStudy extends GenericGame {
         open.setAlias(new String[]{});
         getCommandList().add(open);
         Command push = new Command(CommandType.PUSH, "premi");
-        push.setAlias(new String[]{"spingi", "schiaccia","pigia"});
+        push.setAlias(new String[]{"spingi", "schiaccia", "pigia"});
         getCommandList().add(push);
         Command talk = new Command(CommandType.TALK_TO, "parla");
         talk.setAlias(new String[]{"parla", "comunica", "dici", "ciao"});
@@ -140,7 +143,7 @@ public class TryToStudy extends GenericGame {
         corridoio.addObject(zaino);
 
         StdObject cuffie = new StdObject(5, NameConstants.CUFFIE, "Delle cuffie, potrebbero servire a qualcosa...");
-        cuffie.setAlias(new String[]{"cuffiette","auricolari"});
+        cuffie.setAlias(new String[]{"cuffiette", "auricolari"});
         zaino.addObject(cuffie);
         //----------------------------------------------------
         //pasta e pomodoro da dare a mamma
@@ -150,7 +153,7 @@ public class TryToStudy extends GenericGame {
         StdObject nutella = new StdObject(8, NameConstants.NUTELLA, "Buona, ma forse adesso ci vuole qualcos'altro");
 
         ObjectContainer dispensa = new ObjectContainer(9, NameConstants.DISPENSA, "Qui ci sono molte cose buone, aprilo, forse trovi quel che cerchi");
-        dispensa.setAlias(new String[]{"mensa","cassetto"});
+        dispensa.setAlias(new String[]{"mensa", "cassetto"});
         dispensa.setTakeable(false);
         dispensa.setOpen(false);
         dispensa.setLocked(false);
@@ -164,7 +167,7 @@ public class TryToStudy extends GenericGame {
         camera2.addObject(key);
 
         //Creo NPC
-        NPC mamma = new NPC(0, NameConstants.MAMMA,"Se vuoi passare l'esame devi mangiare qualcosa, portami della pasta e del pomodoro che te li cucino!");
+        NPC mamma = new NPC(0, NameConstants.MAMMA, "Se vuoi passare l'esame devi mangiare qualcosa, portami della pasta e del pomodoro che te li cucino!");
         mamma.setAccepted(Arrays.asList(new StdObject[]{pasta, pomodoro}));
         cucina.addCharacter(mamma);
 
@@ -186,42 +189,45 @@ public class TryToStudy extends GenericGame {
         EventHandler mammaHandler = new MomEventHandler(ciboMamma);
         cucina.setEventHandler(mammaHandler);
 
-        Event portaBloccata = new Event(null, Arrays.asList(new StdObject[]{key}),"La porta della camera dei tuoi genitori è chiusa a chiave, forse la chiave è nei dintorni",0);
+        Event portaBloccata = new Event(null, Arrays.asList(new StdObject[]{key}), "La porta della camera dei tuoi genitori è chiusa a chiave, forse la chiave è nei dintorni", 0);
         portaBloccata.setEndPhrase("Con la chiave raccolta adesso la stanza è accessibile");
         EventHandler doorEvent = new DoorLockedHandler(portaBloccata);
         corridoio.setEventHandler(doorEvent);
 
 
-        StdObject button1 = new StdObject(11,NameConstants.BUTTON + "1","4 pulsanti, c'è una etichetta su ognuno : Pulsante1, Pulsante2, Pulsante3, Pulsante4\n Chi ha fatto queste etichette aveva molta fantasia");
-        button1.setAlias(new String[]{"pulsante","pulsanti","bottoni"});
+        StdObject button1 = new StdObject(11, NameConstants.BUTTON + "1", "4 pulsanti, c'è una etichetta su ognuno : Pulsante1, Pulsante2, Pulsante3, Pulsante4\n Chi ha fatto queste etichette aveva molta fantasia");
+        button1.setAlias(new String[]{"pulsante", "pulsanti", "bottoni"});
         button1.setTakeable(false);
         button1.setPushable(true);
-        StdObject button2 = new StdObject(12,NameConstants.BUTTON + "2",null);
+        StdObject button2 = new StdObject(12, NameConstants.BUTTON + "2", null);
         button2.setTakeable(false);
         button2.setPushable(true);
-        StdObject button3 = new StdObject(13,NameConstants.BUTTON + "3",null);
+        StdObject button3 = new StdObject(13, NameConstants.BUTTON + "3", null);
         button3.setTakeable(false);
         button3.setPushable(true);
-        StdObject button4 = new StdObject(14,NameConstants.BUTTON + "4", null);
+        StdObject button4 = new StdObject(14, NameConstants.BUTTON + "4", null);
         button4.setTakeable(false);
         button4.setPushable(true);
         camera2.addObject(button1);
         camera2.addObject(button2);
         camera2.addObject(button3);
         camera2.addObject(button4);
-        Event luciSpente = new Event(null, Arrays.asList(new StdObject[]{button4,button2}),"Sembra che sia saltata la luce in tutte le stanze e così non puoi studiare per il tuo esame!\nIn camera di tua sorella troverai dei pulsanti per riattivarla", 40);
+        Event luciSpente = new Event(null, Arrays.asList(new StdObject[]{button4, button2}), "Sembra che sia saltata la luce in tutte le stanze e così non puoi studiare per il tuo esame!\nIn camera di tua sorella troverai dei pulsanti per riattivarla", 40);
         luciSpente.setEndPhrase("Wow , sei stato formidabile a spingere i pulsanti giusti...\n...in realtà avresti anche potuto premerli tutti a caso" + "\nBene sembra che adesso le luci si siano accese tutte!\nStudiare con la luce spenta non sarebbe stato semplice...\n");
         EventHandler lucievent = new BlackOutHandler(luciSpente);
         camera2.setEventHandler(lucievent);
 
-        StdObject appunti = new StdObject(15,NameConstants.APPUNTI,"Ecco gli appunti che cercavi");
-        appunti.setAlias(new String[]{"quaderno","quadernetto"});
+        StdObject appunti = new StdObject(15, NameConstants.APPUNTI, "Ecco gli appunti che cercavi");
+        appunti.setAlias(new String[]{"quaderno", "quadernetto"});
         cameragenitori.addObject(appunti);
 
-        Event appuntiEvent = new Event(null, Arrays.asList(new StdObject[]{appunti}), "Qui dovrebbero trovarsi i tuoi appunti, prendili così potrai completare il tuo studio",20);
+        Event appuntiEvent = new Event(null, Arrays.asList(new StdObject[]{appunti}), "Qui dovrebbero trovarsi i tuoi appunti, prendili così potrai completare il tuo studio", 20);
         appuntiEvent.setEndPhrase("Finalmente hai trovato i tuoi appunti per l'esame, ora sarai preparatissimo");
         EventHandler app = new AppuntiEventHandler(appuntiEvent);
         cameragenitori.setEventHandler(app);
+
+        StdObject penna = new StdObject(16, NameConstants.PENNA, "Una penna nera");
+        zaino.addObject(penna);
     }
 
     @Override
@@ -263,8 +269,6 @@ public class TryToStudy extends GenericGame {
                     close(action.getToObject());
                 }
             }
-        } else if (action.getCommand().getType() == CommandType.USE) {
-            use(action.getToObject());
         } else if (action.getCommand().getType() == CommandType.DROP) {
             drop(action.getMyObject());
         } else if (action.getCommand().getType() == CommandType.TALK_TO) {
@@ -318,10 +322,9 @@ public class TryToStudy extends GenericGame {
 
     private void lookAt(StdObject toObject) throws Exception {
         String look;
-        if(!getCurrentRoom().isVisible()){
+        if (!getCurrentRoom().isVisible()) {
             throw new NoLightException();
-        }
-        else{
+        } else {
             if (toObject == null && getCurrentRoom().getLook() != null) {
                 look = getCurrentRoom() + " : " + getCurrentRoom().getLook();
                 out.print(look);
@@ -366,7 +369,7 @@ public class TryToStudy extends GenericGame {
 
     private void talkTo(NPC toCharacter) {
         if (toCharacter.getSentence() != null) {
-            out.print(toCharacter + ": \"" + toCharacter.getSentence() +"\"");
+            out.print(toCharacter + ": \"" + toCharacter.getSentence() + "\"");
         } else {
             out.print(toCharacter + ": " + "\"non ho nulla da dirti\"");
         }
@@ -402,22 +405,6 @@ public class TryToStudy extends GenericGame {
         }
     }
 
-    private void use(StdObject useObject) {
-//        for (StdObject object : getCurrentRoom().getObjects()) {
-//            if (object.getName().toLowerCase().equals("chitarra") && useObject == object) {
-//                try {
-//                    File f = new File("/home/enrico/Musica/3_1.wav");
-//                    AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
-//                    Clip clip = AudioSystem.getClip();
-//                    clip.open(audioIn);
-//                    clip.start();
-//                } catch (Exception e) {
-//
-//                }
-//            }
-//        }
-    }
-
     private void drop(StdObject myObject) throws Exception {
         if (myObject != null) {
             getMainCharacter().getInventory().remove(myObject);
@@ -441,10 +428,10 @@ public class TryToStudy extends GenericGame {
     }
 
     private void push(StdObject object) throws NotPushableException {
-        if(object.isPushable() && !object.isPushed()){
+        if (object.isPushable() && !object.isPushed()) {
             object.setPushed(true);
             out.print("Hai premuto: " + object);
-        } else{
+        } else {
             throw new NotPushableException();
         }
     }

@@ -38,7 +38,7 @@ public class RankingDialog extends javax.swing.JDialog {
 
         for(Score score : scores){
             if(score.getGameName().equals(gameName)){
-                model.addRow(new Object[]{score.getName(), score.getPoints() + "/" + score.getTotalPoints(), score.getFinalTime().toString()});
+                model.addRow(new Object[]{score.getName(), score.getPoints() + "/" + score.getTotalPoints(), score.getFinalTime().toString().substring(3)});
             }
         }
     }
@@ -51,16 +51,11 @@ public class RankingDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableRanking = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 22)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("RANKING");
-        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
+        setTitle("Ranking");
 
         jTableRanking.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTableRanking.setModel(new javax.swing.table.DefaultTableModel(
@@ -89,13 +84,12 @@ public class RankingDialog extends javax.swing.JDialog {
         jScrollPane1.setViewportView(jTableRanking);
 
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
+        setLocationRelativeTo(null);
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableRanking;
     // End of variables declaration//GEN-END:variables

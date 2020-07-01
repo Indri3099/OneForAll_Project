@@ -11,7 +11,6 @@ public class NameConstants {
             PASTA = "pasta",
             POMODORO = "pomodoro",
             NUTELLA = "nutella",
-            PLAYSTATION = "playstation",
             CHIAVE = "chiave",
             MAC = "mac",
             APPUNTI = "appunti",

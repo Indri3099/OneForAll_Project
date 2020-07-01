@@ -20,8 +20,7 @@ import javax.swing.*;
 import main.TimeThread;
 import main.fileManager.initLoader;
 import main.scoreRest.RestHandling;
-import main.userInterface.dialogs.EndingDialog;
-import main.userInterface.dialogs.RankingDialog;
+import main.userInterface.dialogs.*;
 import main.userInterface.printer.MyTextArea;
 import main.userInterface.printer.MyTimeLabel;
 import parser.Parser;
@@ -111,8 +110,12 @@ public class GUI extends javax.swing.JFrame {
         jMenuItemLoad = new javax.swing.JMenuItem();
         jMenuItemSave = new javax.swing.JMenuItem();
         jMenuView = new javax.swing.JMenu();
+        jMenuInfo = new javax.swing.JMenu();
         jMenuItemClear = new javax.swing.JMenuItem();
         jMenuItemRanking = new javax.swing.JMenuItem();
+        jMenuItemHelp = new javax.swing.JMenuItem();
+        jMenuItemCredits = new javax.swing.JMenuItem();
+        jMenuItemDesc = new javax.swing.JMenuItem();
 
         jToggleButton1.setText("jToggleButton1");
 
@@ -351,15 +354,62 @@ public class GUI extends javax.swing.JFrame {
         jMenuBar1.add(jMenuFile);
         jMenuBar1.add(jMenuView);
 
+        jMenuInfo.setText("Info");
+
+        jMenuItemHelp.setText("Help");
+        jMenuItemHelp.setIcon(new ImageIcon("./resources/gui_images/helpIcon.png"));
+        jMenuItemHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemHelpActionPerformed(evt);
+            }
+        });
+        jMenuInfo.add(jMenuItemHelp);
+
+        jMenuItemCredits.setText("Credits");
+        jMenuItemCredits.setIcon(new ImageIcon("./resources/gui_images/info.png"));
+        jMenuItemCredits.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCreditsActionPerformed(evt);
+            }
+        });
+        jMenuInfo.add(jMenuItemCredits);
+
+        jMenuItemDesc.setText("Descrizione");
+//        jMenuItemDesc.setIcon(new ImageIcon("./resources/gui_images/info.png"));
+        jMenuItemDesc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDescActionPerformed(evt);
+            }
+        });
+        jMenuInfo.add(jMenuItemDesc);
+
+
+        jMenuBar1.add(jMenuInfo);
+
         setJMenuBar(jMenuBar1);
+        setLocationRelativeTo(null);
         pack();
     }
 
 
-
     private void jMenuItemRankingActionPerformed(java.awt.event.ActionEvent evt) {
-        Dialog ranking = new RankingDialog(this,true, RestHandling.getScore(), game.getName());
+        Dialog ranking = new RankingDialog(this, true, RestHandling.getScore(), game.getName());
         ranking.setVisible(true);
+    }
+
+    private void jMenuItemHelpActionPerformed(java.awt.event.ActionEvent evt) {
+        Dialog help = new HelpDialog(this, true);
+        help.setVisible(true);
+    }
+
+    private void jMenuItemCreditsActionPerformed(java.awt.event.ActionEvent evt) {
+        Dialog credits = new CreditsDialog(this, true);
+        credits.setVisible(true);
+    }
+
+    private void jMenuItemDescActionPerformed(java.awt.event.ActionEvent evt) {
+        Dialog desc = new DescriptionDialog(this, true, game.getDescription());
+        desc.setVisible(true);
     }
 
     private void jMenuItemNewActionPerformed(java.awt.event.ActionEvent evt) {
@@ -603,8 +653,12 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemNew;
     private javax.swing.JMenuItem jMenuItemSave;
     private javax.swing.JMenu jMenuView;
+    private javax.swing.JMenu jMenuInfo;
     private javax.swing.JMenuItem jMenuItemClear;
     private javax.swing.JMenuItem jMenuItemRanking;
+    private javax.swing.JMenuItem jMenuItemHelp;
+    private javax.swing.JMenuItem jMenuItemCredits;
+    private javax.swing.JMenuItem jMenuItemDesc;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

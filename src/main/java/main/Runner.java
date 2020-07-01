@@ -1,10 +1,12 @@
 package main;
 
+import entities.Score;
 import main.userInterface.GUI;
+import main.userInterface.dialogs.EndingDialog;
 
 import javax.swing.*;
 
-public class runner {
+public class Runner {
     public static void main(String[] args) {
 
         /* Set the Nimbus look and feel */
@@ -46,10 +48,9 @@ public class runner {
             }
         }
 
-//        while (timer.isAlive()) {}
-
         JOptionPane.showMessageDialog(gui, "Tempo esaurito", "TEMPO", JOptionPane.INFORMATION_MESSAGE);
-
+        JDialog ending = new EndingDialog(gui, true, new Score(gui.getGame().getTotalTime(), gui.getGame().getActualPoints(), gui.getGame().getPOINTGOAL(), gui.getGame().getName()), gui.getGame().getLose());
+        ending.setVisible(true);
         gui.dispose();
 
     }

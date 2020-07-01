@@ -13,8 +13,7 @@ import java.util.List;
 
 public abstract class GenericGame implements Serializable {
 
-    protected int POINTGOAL;
-
+    private int POINTGOAL;
 
     /**
      * Tempo massimo per terminare la partita espresso in minuti (almeno 1)- Vale (-1) se non c'è limite di tempo;
@@ -39,13 +38,21 @@ public abstract class GenericGame implements Serializable {
 
     private int actualPoints = 0;
 
-//    private AbstractActionHandler handler;
-
     private Room currentRoom;
 
     private MainCharacter mainCharacter;
 
     private List<Command> commandList = new ArrayList<>();
+
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Room getCurrentRoom() {
         return currentRoom;
@@ -72,14 +79,6 @@ public abstract class GenericGame implements Serializable {
     }
 
     public abstract void init();
-
-//    public void setHandler(AbstractActionHandler handler) {
-//        this.handler = handler;
-//    }
-//
-//    public AbstractActionHandler getHandler() {
-//        return handler;
-//    }
 
     public int getActualPoints() {
         return actualPoints;
