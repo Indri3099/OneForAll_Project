@@ -1,7 +1,7 @@
 package games;
 
 import entities.Room;
-import entities.character.MainCharacter;
+import entities.character.Character;
 import entities.command.Command;
 import main.userInterface.printer.Printer;
 import parser.PhraseReduction;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public abstract class GenericGame implements Serializable {
 
-    private int POINTGOAL;
+    private int pointGoal;
 
     /**
      * Tempo massimo per terminare la partita espresso in minuti (almeno 1)- Vale (-1) se non c'è limite di tempo;
@@ -40,7 +40,7 @@ public abstract class GenericGame implements Serializable {
 
     private Room currentRoom;
 
-    private MainCharacter mainCharacter;
+    private Character mainCharacter;
 
     private List<Command> commandList = new ArrayList<>();
 
@@ -62,11 +62,11 @@ public abstract class GenericGame implements Serializable {
         this.currentRoom = currentRoom;
     }
 
-    public MainCharacter getMainCharacter() {
+    public Character getMainCharacter() {
         return mainCharacter;
     }
 
-    public void setMainCharacter(MainCharacter mainCharacter) {
+    public void setMainCharacter(Character mainCharacter) {
         this.mainCharacter = mainCharacter;
     }
 
@@ -105,12 +105,12 @@ public abstract class GenericGame implements Serializable {
     }
 
 
-    public int getPOINTGOAL() {
-        return POINTGOAL;
+    public int getPointGoal() {
+        return pointGoal;
     }
 
-    public void setPOINTGOAL(int POINTGOAL) {
-        this.POINTGOAL = POINTGOAL;
+    public void setPointGoal(int pointGoal) {
+        this.pointGoal = pointGoal;
     }
 
     public Time getActualTime() {

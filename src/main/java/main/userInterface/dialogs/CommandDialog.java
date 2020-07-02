@@ -5,46 +5,61 @@
  */
 package main.userInterface.dialogs;
 
+import entities.command.Command;
+
 import java.awt.*;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
  * @author enrico
  */
-public class DescriptionDialog extends javax.swing.JDialog {
+public class CommandDialog extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DescriptionDialog
-     */
-    public DescriptionDialog(java.awt.Frame parent, boolean modal, String description) {
+    List<Command> commands;
+    
+    public CommandDialog(java.awt.Frame parent, boolean modal, List<Command> commands) {
         super(parent, modal);
+        this.commands = commands;
         initComponents();
-        jTextArea1.setText(description);
     }
 
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+
+        setPreferredSize(new Dimension(500,500));
+        setMinimumSize(new Dimension(500,300));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Descrizione");
+        setTitle("Comandi");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
-        setMinimumSize(new Dimension(700,300));
-        setPreferredSize(new Dimension(750,350));
-        jTextArea1.setFont(jTextArea1.getFont().deriveFont((float) 18));
-        jTextArea1.setEditable(false);
+
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jLabel1.setText("Elenco comandi disponibili:");
+        jLabel1.setFont(jLabel1.getFont().deriveFont((float)18));
+        jTextArea1.setFont(jTextArea1.getFont().deriveFont((float)18));
+        jTextArea1.setEditable(false);
+        getContentPane().add(jLabel1, java.awt.BorderLayout.PAGE_START);
+
         setLocationRelativeTo(null);
+
+        for(Command c : commands){
+            jTextArea1.append(c.getName() + "\n");
+        }
         pack();
     }
 
 
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables

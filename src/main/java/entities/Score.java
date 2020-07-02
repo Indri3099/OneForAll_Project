@@ -2,16 +2,16 @@ package entities;
 
 import java.sql.Time;
 
-public class Score {
-    private Time finalTime;
+public class Score implements Comparable{
+    private final Time finalTime;
 
-    private int points;
+    private final int points;
 
-    private int totalPoints;
+    private final int totalPoints;
 
     private String name;
 
-    private String gameName;
+    private final String gameName;
 
     public Score(Time finalTime, int points, int totalPoints, String gameName) {
         this.finalTime = finalTime;
@@ -32,32 +32,16 @@ public class Score {
         return finalTime;
     }
 
-    public void setFinalTime(Time finalTime) {
-        this.finalTime = finalTime;
-    }
-
     public int getPoints() {
         return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     public int getTotalPoints() {
         return totalPoints;
     }
 
-    public void setTotalPoints(int totalPoints) {
-        this.totalPoints = totalPoints;
-    }
-
     public String getGameName() {
         return gameName;
-    }
-
-    public void setGameName(String gameName) {
-        this.gameName = gameName;
     }
 
     @Override
@@ -69,5 +53,23 @@ public class Score {
                 ", name='" + name + '\'' +
                 ", gameName='" + gameName + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(o instanceof Score){
+            if(this.getFinalTime().getTime() > ((Score) o).getFinalTime().getTime()){
+                return 1;
+            } else if(this.getFinalTime().getTime() < ((Score) o).getFinalTime().getTime()){
+                return -1;
+            } else {
+                if(this.getPoints() > ((Score) o).getPoints()){
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        }
+        return 0;
     }
 }

@@ -58,6 +58,7 @@ public class initLoader {
         throw new LanguageNotFoundException();
     }
 
+    //TODO : cancella prima di consegnare
     public static void writeDefaultGame() throws Exception {
         ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("/home/enrico/IdeaProjects/EnricoPallotta_MAProject/src/main/resources/savings/TryToStudyDefault.dat"));
         GenericGame game = new TryToStudy();

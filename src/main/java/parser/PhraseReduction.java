@@ -15,33 +15,7 @@ public class PhraseReduction {
 
     private Character toCharacter = null;
 
-    public PhraseReduction(Command command, StdObject myObject, StdObject toObject) {
-        this.command = command;
-        this.myObject = myObject;
-        this.toObject = toObject;
-    }
-
-    public PhraseReduction(Command command, Character toCharacter) {
-        this.command = command;
-        this.toCharacter = toCharacter;
-    }
-
-    public PhraseReduction(Command command) {
-        this.command = command;
-    }
-
     public PhraseReduction(){}
-
-    public PhraseReduction(Command command, StdObject myObject, Character toCharacter) {
-        this.command = command;
-        this.myObject = myObject;
-        this.toCharacter = toCharacter;
-    }
-
-    public PhraseReduction(Command command, StdObject toObject) {
-        this.command = command;
-        this.toObject = toObject;
-    }
 
     public Command getCommand() {
         return command;

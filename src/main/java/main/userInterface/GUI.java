@@ -113,6 +113,7 @@ public class GUI extends javax.swing.JFrame {
         jMenuInfo = new javax.swing.JMenu();
         jMenuItemClear = new javax.swing.JMenuItem();
         jMenuItemRanking = new javax.swing.JMenuItem();
+        jMenuItemCommands = new javax.swing.JMenuItem();
         jMenuItemHelp = new javax.swing.JMenuItem();
         jMenuItemCredits = new javax.swing.JMenuItem();
         jMenuItemDesc = new javax.swing.JMenuItem();
@@ -351,6 +352,15 @@ public class GUI extends javax.swing.JFrame {
         });
         jMenuView.add(jMenuItemRanking);
 
+        jMenuItemCommands.setText("Commands");
+        jMenuItemCommands.setIcon(new ImageIcon("./resources/gui_images/commands.png"));
+        jMenuItemCommands.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCommandsActionPerformed(evt);
+            }
+        });
+
+        jMenuView.add(jMenuItemCommands);
         jMenuBar1.add(jMenuFile);
         jMenuBar1.add(jMenuView);
 
@@ -375,7 +385,6 @@ public class GUI extends javax.swing.JFrame {
         jMenuInfo.add(jMenuItemCredits);
 
         jMenuItemDesc.setText("Descrizione");
-//        jMenuItemDesc.setIcon(new ImageIcon("./resources/gui_images/info.png"));
         jMenuItemDesc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemDescActionPerformed(evt);
@@ -388,13 +397,48 @@ public class GUI extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
         setLocationRelativeTo(null);
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
         pack();
     }
 
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        exit(JOptionPane.YES_NO_OPTION);
+    }//GEN-LAST:event_formWindowClosing
+
+    private void exit(int option){
+        int opt = JOptionPane.showConfirmDialog(this, "Vuoi salvare?","Salva",option);
+        if(opt == JOptionPane.YES_OPTION){
+            save();
+        }
+        else if(opt == JOptionPane.NO_OPTION)
+            this.dispose();
+    }
+    private void save(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("./src/main/resources/savings"));
+        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            try {
+                initLoader.saveGame(fileChooser.getSelectedFile().getAbsolutePath(), game);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
     private void jMenuItemRankingActionPerformed(java.awt.event.ActionEvent evt) {
         Dialog ranking = new RankingDialog(this, true, RestHandling.getScore(), game.getName());
         ranking.setVisible(true);
+    }
+
+    private void jMenuItemCommandsActionPerformed(java.awt.event.ActionEvent evt) {
+        Dialog commandDialog = new CommandDialog(this, true, game.getCommandList());
+        commandDialog.setVisible(true);
     }
 
     private void jMenuItemHelpActionPerformed(java.awt.event.ActionEvent evt) {
@@ -436,15 +480,7 @@ public class GUI extends javax.swing.JFrame {
     }
 
     private void jMenuItemSaveActionPerformed(java.awt.event.ActionEvent evt) {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File("./src/main/resources/savings"));
-        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            try {
-                initLoader.saveGame(fileChooser.getSelectedFile().getAbsolutePath(), game);
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage(), "Errore", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+        save();
     }
 
     private void jButtonNordActionPerformed(java.awt.event.ActionEvent evt) {
@@ -467,57 +503,56 @@ public class GUI extends javax.swing.JFrame {
         new ActionSend().actionPerformed(evt);
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        GUI gui = new GUI();
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                gui.setVisible(true);
-            }
-        });
-
-        synchronized (timer) {
-            try {
-                timer.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-//        while (timer.isAlive()) {}
-
-        JOptionPane.showMessageDialog(gui, "Tempo esaurito", "TEMPO", JOptionPane.INFORMATION_MESSAGE);
-        JDialog ending = new EndingDialog(gui, true, new Score(gui.getGame().getTotalTime(), gui.getGame().getActualPoints(), gui.getGame().getPOINTGOAL(), gui.getGame().getName()), gui.getGame().getLose());
-        ending.setVisible(true);
-        gui.dispose();
-    }
-
+//    /**
+//     * @param args the command line arguments
+//     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        GUI gui = new GUI();
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                gui.setVisible(true);
+//            }
+//        });
+//
+//        synchronized (timer) {
+//            try {
+//                timer.wait();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+////        while (timer.isAlive()) {}
+//
+//        JOptionPane.showMessageDialog(gui, "Tempo esaurito", "TEMPO", JOptionPane.INFORMATION_MESSAGE);
+//        JDialog ending = new EndingDialog(gui, true, new Score(gui.getGame().getTotalTime(), gui.getGame().getActualPoints(), gui.getGame().getPOINTGOAL(), gui.getGame().getName()), gui.getGame().getLose());
+//        ending.setVisible(true);
+//        gui.dispose();
+//    }
     private void setGame(String path) throws Exception {
         game = initLoader.loadGame(path);
         game.setOut(jTextArea);
@@ -604,7 +639,7 @@ public class GUI extends javax.swing.JFrame {
             try {
                 attualCommand = parser.analyze(command, game.getCurrentRoom(), game.getCommandList(), game.getMainCharacter());
                 if (attualCommand.getCommand() != null && attualCommand.getCommand().getType() == CommandType.END) {
-                    JOptionPane.showMessageDialog(this, "Arrivederci!", "Grazie per aver giocato, ora vai a studiare veramente!", JOptionPane.INFORMATION_MESSAGE);
+                    exit(JOptionPane.YES_NO_CANCEL_OPTION);
                 } else if (attualCommand.getCommand() != null) {
                     System.out.println(attualCommand);
                     try {
@@ -612,9 +647,9 @@ public class GUI extends javax.swing.JFrame {
                         if (game.getCurrentRoom().getEventHandler() != null && game.getCurrentRoom().getEventHandler().getEvent().isStarted() && !game.getCurrentRoom().getEventHandler().getEvent().isCompleted()) {
                             game.getCurrentRoom().getEventHandler().completeEvent(game, jTextArea);
                             jPoints.setText(String.valueOf(game.getActualPoints()));
-                            if (game.getActualPoints() == game.getPOINTGOAL()) {
+                            if (game.getActualPoints() == game.getPointGoal()) {
                                 game.setCompleted(true);
-                                JDialog ending = new EndingDialog(this, true, new Score(new Time(game.getTotalTime().getTime() - game.getActualTime().getTime()), game.getActualPoints(), game.getPOINTGOAL(), game.getName()), game.getWin());
+                                JDialog ending = new EndingDialog(this, true, new Score(new Time(game.getTotalTime().getTime() - game.getActualTime().getTime()), game.getActualPoints(), game.getPointGoal(), game.getName()), game.getWin());
                                 ending.setVisible(true);
                             }
                         }
@@ -627,6 +662,7 @@ public class GUI extends javax.swing.JFrame {
             } finally {
                 jTextArea.println("");
                 printLine();
+                jTextArea.setCaretPosition(jTextArea.getDocument().getLength());
             }
         } else {
             JOptionPane.showMessageDialog(this, "La partita è terminata!", "Partita terminata", JOptionPane.INFORMATION_MESSAGE);
@@ -659,6 +695,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemHelp;
     private javax.swing.JMenuItem jMenuItemCredits;
     private javax.swing.JMenuItem jMenuItemDesc;
+    private javax.swing.JMenuItem jMenuItemCommands;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;

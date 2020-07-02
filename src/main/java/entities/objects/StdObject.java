@@ -16,7 +16,7 @@ public class StdObject implements Serializable {
 
     private boolean takeable = true;
 
-    private boolean pushable = true;
+    private boolean pushable = false;
 
     private boolean pushed = false;
 

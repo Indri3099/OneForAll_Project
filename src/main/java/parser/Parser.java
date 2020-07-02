@@ -21,24 +21,6 @@ public abstract class Parser {
         return null;
     }
 
-    protected Command checkForCommand(String token, List<Command> commands) {
-        for(Command command : commands){
-            if (command.getName().toLowerCase().equals(token) || (command.getAlias() != null && command.getAlias().contains(token))) {
-                return command;
-            }
-        }
-        return null;
-    }
-
-    protected Character checkForCharacter(String token, List<Character> characters) {
-        for (Character character : characters) {
-            if (character.getName().toLowerCase().equals(token)) {
-                return character;
-            }
-        }
-        return null;
-    }
-
     protected StdObject checkForObject(String token, List<StdObject> objects) {
 
         for (StdObject object : objects) {
@@ -55,6 +37,28 @@ public abstract class Parser {
         return null;
     }
 
+    protected void wordCheck(List<String> splitted, Room currentRoom, Character mainCharacter, PhraseReduction result, int index) throws CommandNotValidException {
+        StdObject object;
+        Character character;
+        object = checkForObject(splitted.get(index), currentRoom.getObjects());
+        if (object != null) {
+            result.setToObject(object);
+        }
+        else{
+            object = checkForObject(splitted.get(index), mainCharacter.getInventory().getList());
+            if (object != null) {
+                result.setMyObject(object);
+            } else {
+                character = checkGenerics(currentRoom.getCharacters(),
+                        character1 -> character1.getName().toLowerCase().equals(splitted.get(index)));
+                if (character != null) {
+                    result.setToCharacter(character);
+                }else{
+                    throw new CommandNotValidException();
+                }
+            }
+        }
+    }
 
     public abstract PhraseReduction analyze(String input, Room currentRoom, List<Command> commandList, Character mainCharacter) throws CommandNotValidException;
 }

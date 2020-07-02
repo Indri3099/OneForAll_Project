@@ -1,11 +1,10 @@
 package games;
 
 import entities.Room;
-import entities.character.MainCharacter;
+import entities.character.Character;
 import entities.character.NPC;
 import entities.command.Command;
 import entities.command.CommandType;
-import entities.constants.NameConstants;
 import entities.objects.ObjectContainer;
 import entities.objects.StdObject;
 import events.*;
@@ -21,6 +20,33 @@ import java.util.Arrays;
 
 public class TryToStudy extends GenericGame {
 
+    private class NameConstants {
+        public static final String
+                COMPUTER = "computer",
+                CHITARRA = "chitarra",
+                ZAINO = "zaino",
+                CUFFIE = "cuffie",
+                PENNA = "penna",
+                DISPENSA = "dispensa",
+                PASTA = "pasta",
+                POMODORO = "pomodoro",
+                NUTELLA = "nutella",
+                CHIAVE = "chiave",
+                MAC = "mac",
+                APPUNTI = "appunti",
+                CAMERETTA = "cameretta",
+                CUCINA = "cucina",
+                STANZETTA = "stanzetta",
+                CAMERALETTO = "camera da letto",
+                BAGNO = "bagno",
+                SALONE = "salone",
+                CORRIDOIO = "corridoio",
+                MAMMA = "mamma",
+                FRATELLO = "fratello",
+                ME = "Enrico",
+                BUTTON = "pulsante";
+    }
+
     public TryToStudy() {
         setName("Try To Study");
         setDefaultPath("./src/main/resources/savings/TryToStudyDefault.dat");
@@ -28,7 +54,7 @@ public class TryToStudy extends GenericGame {
 
     @Override
     public void init() {
-        setPOINTGOAL(100);
+        setPointGoal(100);
 
         setTotalTime(new Time(15 * 60 * 1000));
         getTotalTime().setHours(0);
@@ -37,9 +63,9 @@ public class TryToStudy extends GenericGame {
 
         setIntro("Buongiorno bello! Sai che dovresti proprio studiare? Tra " + getActualTime().toString().substring(3) + " hai l'esame!");
         setWin("Bene, sembra che abbiamo finito. Speriamo in un bel 30L");
-        setLose("Peccato , non hai fatto in tempo a raggiungere il tuo obbiettivo :(");
+        setLose("Peccato, non hai fatto in tempo a raggiungere il tuo obbiettivo :(");
         setDescription("Salve! Andiamo subito al sodo.\nIl gioco è ambientato nella casa di un normale studente che,\ndeve cercare di studiare tra il casino della famiglia e le varie distrazioni.\n" +
-                "Qui entri in gioco tu! Sì dico proprio a te.\n Lo scopo del gioco è arrivare a 100 punti entro 5 minuti.\n" +
+                "Qui entri in gioco tu! Sì dico proprio a te.\nLo scopo del gioco è arrivare a 100 punti entro 5 minuti.\n" +
                 "Se ci riuscirai passerai questo dannato esame, altrimenti...beh altrimenti muoviti a studiare fallito!\n" +
                 "Al termine del gioco potrai salvare il tuo punteggio,\nsentiti libero inoltre di salvare quando vuoi in modo da riprendere quando non hai nulla da fare\n" +
                 "Beh che aspetti!? Corri a studiare , il tempo scorre!");
@@ -66,11 +92,14 @@ public class TryToStudy extends GenericGame {
         look.setAlias(new String[]{"guarda", "vedi", "trova", "cerca", "descrivi"});
         getCommandList().add(look);
         Command pickup = new Command(CommandType.PICK_UP, "raccogli");
-        pickup.setAlias(new String[]{"prendi"});
+        pickup.setAlias(new String[]{"prendi","solleva"});
         getCommandList().add(pickup);
         Command open = new Command(CommandType.OPEN, "apri");
         open.setAlias(new String[]{});
         getCommandList().add(open);
+        Command close = new Command(CommandType.CLOSE, "chiudi");
+        close.setAlias(new String[]{});
+        getCommandList().add(close);
         Command push = new Command(CommandType.PUSH, "premi");
         push.setAlias(new String[]{"spingi", "schiaccia", "pigia"});
         getCommandList().add(push);
@@ -83,14 +112,12 @@ public class TryToStudy extends GenericGame {
         Command drop = new Command(CommandType.DROP, "lascia");
         drop.setAlias(new String[]{"lascia", "sbarazzati", "abbandona", "butta", "getta"});
         getCommandList().add(drop);
-        Command use = new Command(CommandType.USE, "usa");
-        getCommandList().add(use);
         Command suona = new Command(CommandType.PLAY, "suona");
         getCommandList().add(suona);
 
         //creo le stanze
         Room salotto = new Room(0, NameConstants.SALONE, "Questo è il salotto");
-        Room cucina = new Room(1, NameConstants.CUCINA, "Il tempio sacro della mamma dove... avvengono magie!");
+        Room cucina = new Room(1, NameConstants.CUCINA, "La cucina, mamma è sempre qui nei dintorni");
         Room corridoio = new Room(2, NameConstants.CORRIDOIO, "Classico, serve solo come collegamento alle varie stanze");
         Room cameretta = new Room(3, NameConstants.CAMERETTA, "Ah la tua stanzetta... probabilmente hai passato un buon 60% della tua vita qui");
         Room camera2 = new Room(4, NameConstants.STANZETTA, "La camera di tua sorella");
@@ -98,11 +125,10 @@ public class TryToStudy extends GenericGame {
         Room cameragenitori = new Room(5, NameConstants.CAMERALETTO, "Questa è la camera dei tuoi genitori");
 
         //look around
-        //TODO : finisci
-        cameretta.setLook("Sempre disordinata , qui ci sono i tuoi passatempi : il computer, la chitarra e la playstation");
+        cameretta.setLook("Sempre disordinata , qui ci sono i tuoi passatempi : il computer e la chitarra");
         salotto.setLook("Non c'è nulla di che, a parte il divano e la tv monopolizzati da tuo fratello");
         cucina.setLook("Vedo mamma sempre indaffarata, lì c'è una dispensa con roba da mangiare");
-        camera2.setLook("Qui c'è il pannello con 4 pulsanti , chissà che succede se li premi\n Sembra anche esserci una chiave");
+        camera2.setLook("Qui c'è il pannello con 4 pulsanti , chissà che succede se li premi\nSembra anche esserci una chiave e il mac di tuo padre");
         cameragenitori.setLook("Nulla di particolare, sulla scrivania sembra esserci un quaderno di appunti");
         corridoio.setLook("C'è uno zaino aperto, vedi un po' cosa c'è dentro");
         //mappo
@@ -140,6 +166,7 @@ public class TryToStudy extends GenericGame {
         ObjectContainer zaino = new ObjectContainer(4, NameConstants.ZAINO, "Il tuo zaino per l'univerisità, c'è un paio di cuffie all'interno e una penna");
         zaino.setAlias(new String[]{"zainetto"});
         zaino.setOpen(true);
+        zaino.setLocked(false);
         corridoio.addObject(zaino);
 
         StdObject cuffie = new StdObject(5, NameConstants.CUFFIE, "Delle cuffie, potrebbero servire a qualcosa...");
@@ -167,15 +194,15 @@ public class TryToStudy extends GenericGame {
         camera2.addObject(key);
 
         //Creo NPC
-        NPC mamma = new NPC(0, NameConstants.MAMMA, "Se vuoi passare l'esame devi mangiare qualcosa, portami della pasta e del pomodoro che te li cucino!");
+        NPC mamma = new NPC(1, NameConstants.MAMMA, "Se vuoi passare l'esame devi mangiare qualcosa, portami della pasta e del pomodoro che te li cucino!");
         mamma.setAccepted(Arrays.asList(new StdObject[]{pasta, pomodoro}));
         cucina.addCharacter(mamma);
 
-        NPC fratello = new NPC(1, NameConstants.FRATELLO, "Mi spiace, ma per giocare a fortnite ho bisogno del volume altissimo");
+        NPC fratello = new NPC(2, NameConstants.FRATELLO, "Mi spiace, ma per giocare a fortnite ho bisogno del volume altissimo");
         fratello.setAccepted(Arrays.asList(new StdObject[]{cuffie}));
         salotto.addCharacter(fratello);
 
-        MainCharacter me = new MainCharacter(NameConstants.ME, 10);
+        Character me = new Character(0,NameConstants.ME);
         setMainCharacter(me);
 
         //creo gli eventi
@@ -298,7 +325,7 @@ public class TryToStudy extends GenericGame {
         if (destination != null && !destination.isLocked()) {
             out.print(destination + " : " + destination.getDescription());
             setCurrentRoom(destination);
-            if (destination.getEventHandler() != null && !destination.getEventHandler().getEvent().isStarted() && !destination.getName().toLowerCase().equals("stanzetta")) {
+            if (destination.getEventHandler() != null && !destination.getEventHandler().getEvent().isStarted() && !destination.getName().toLowerCase().equals(NameConstants.STANZETTA)) {
                 destination.getEventHandler().startEvent(out);
             }
         } else if (destination == null) {
@@ -310,10 +337,10 @@ public class TryToStudy extends GenericGame {
 
     private void inventory() throws Exception {
         StringBuilder strInventory = new StringBuilder("Ecco il tuo inventario: ");
-        if (getMainCharacter().getInventory().isEmpty()) {
+        if (getMainCharacter().getInventory().getList().isEmpty()) {
             throw new EmptyInvException();
         } else {
-            for (StdObject object : getMainCharacter().getInventory()) {
+            for (StdObject object : getMainCharacter().getInventory().getList()) {
                 strInventory.append("\n - " + object);
             }
             out.print(strInventory.toString());
@@ -342,7 +369,6 @@ public class TryToStudy extends GenericGame {
             throw new ObjectNotFoundException();
         } else if (toObject.isTakeable() && toObject.isVisible()) {
             getMainCharacter().getInventory().add(toObject);
-
             for (StdObject object : getCurrentRoom().getObjects()) {
                 if (object instanceof ObjectContainer) {
                     ((ObjectContainer) object).getObjects().remove(toObject);
@@ -399,7 +425,7 @@ public class TryToStudy extends GenericGame {
 
     private void close(StdObject object) throws Exception {
         if (object instanceof ObjectContainer) {
-            if (!((ObjectContainer) object).isOpen() && !((ObjectContainer) object).isLocked()) {
+            if (((ObjectContainer) object).isOpen() && !((ObjectContainer) object).isLocked()) {
                 out.print("Hai chiuso : " + object);
                 ((ObjectContainer) object).setOpen(false);
             } else if (((ObjectContainer) object).isLocked()) {

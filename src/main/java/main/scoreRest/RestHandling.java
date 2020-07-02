@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RestHandling {
     public static void saveScore(Score score) {
@@ -40,7 +41,7 @@ public class RestHandling {
         ResourceConfig config = new ResourceConfig(ScoreService.class);
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(baseUri, config);
         List<Score> scores = new ArrayList<>();
-        Score tempScore = null;
+        Score tempScore;
         int i = 1;
         try {
             server.start();
@@ -48,7 +49,7 @@ public class RestHandling {
                 scores.add(tempScore);
             }
             server.shutdown();
-            return scores;
+            return scores.stream().sorted().collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -11,7 +11,7 @@ public class DoorLockedHandler extends EventHandler{
 
     @Override
     public void completeEvent(GenericGame game, Printer out) {
-        if(game.getMainCharacter().getInventory().containsAll(event.getRequiredObjects())){
+        if(game.getMainCharacter().getInventory().getList().containsAll(event.getRequiredObjects())){
             out.print("\n" +event.getEndPhrase() + "\n");
             game.getCurrentRoom().getNorth().setLocked(false);
 

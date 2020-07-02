@@ -36,8 +36,6 @@ public class Event implements Serializable {
     public Event(NPC character, List<StdObject> requiredObjects, String description, int pointReward) {
         this.character = character;
         this.requiredObjects = requiredObjects;
-        this.started = started;
-        this.completed = completed;
         this.description = description;
         this.pointReward = pointReward;
     }

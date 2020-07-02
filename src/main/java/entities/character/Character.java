@@ -1,44 +1,30 @@
 package entities.character;
 
-import entities.objects.StdObject;
+import entities.Inventory;
 import exceptions.FullInventoryException;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
-public abstract class Character implements Serializable {
+public class Character implements Serializable {
 
     private final int id;
 
     private String name;
 
-    private List<StdObject> inventory = new ArrayList<>();
-
-    private int maxInventory = 10;
+    private Inventory inventory = new Inventory();
 
     public Character(int id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Character(int id, String name, int maxInventory) {
-        this.id = id;
-        this.name = name;
-        this.maxInventory = maxInventory;
-    }
 
-    public List<StdObject> getInventory() {
+    public Inventory getInventory() {
         return inventory;
     }
 
-    public void setInventory(List<StdObject> inventory) throws FullInventoryException {
-        if(inventory.size() >= maxInventory){
-            this.inventory = inventory.subList(0,maxInventory);
-            throw new FullInventoryException();
-        }
-        else this.inventory = inventory;
+    public void setInventory(Inventory inventory) throws FullInventoryException {
+        inventory.setList(inventory.getList());
     }
 
     public int getId() {

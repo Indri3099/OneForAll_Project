@@ -7,8 +7,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Path("score")
 public class ScoreService {
@@ -29,28 +27,6 @@ public class ScoreService {
         }
         return Response.ok().build();
     }
-
-//    @GET
-//    @Path("/get")
-//    @Produces("application/json")
-//    public Response score() {
-//        ArrayList<Score> scores = new ArrayList<>();
-//        try {
-//            scores = DBManager.getInstance().getScore();
-//            for(Score score : scores){
-//                System.out.println(score.getName());
-//            }
-//        } catch (SQLException ex) {
-//            return Response.serverError().build();
-//        }
-//        if (scores != null) {
-//            Gson gson = new Gson();
-//            String jsonString = gson.toJson(scores);
-//            return Response.ok(jsonString, MediaType.APPLICATION_JSON).build();
-//        } else {
-//            return Response.serverError().build();
-//        }
-//    }
 
     @GET
     @Path("/get/{scoreid}")

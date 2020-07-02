@@ -14,10 +14,6 @@ public class NPC extends Character{
         super(id, name);
     }
 
-    public NPC(int id, String name, int maxInventory) {
-        super(id, name, maxInventory);
-    }
-
     public NPC(int id, String name, String sentence) {
         super(id, name);
         this.sentence = sentence;

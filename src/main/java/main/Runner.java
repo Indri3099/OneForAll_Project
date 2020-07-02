@@ -2,18 +2,16 @@ package main;
 
 import entities.Score;
 import main.userInterface.GUI;
+import main.userInterface.dialogs.DescriptionDialog;
 import main.userInterface.dialogs.EndingDialog;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Runner {
     public static void main(String[] args) {
 
         /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -30,7 +28,6 @@ public class Runner {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
         /* Create and display the form */
         GUI gui = new GUI();
@@ -39,6 +36,9 @@ public class Runner {
                 gui.setVisible(true);
             }
         });
+
+        Dialog desc = new DescriptionDialog(gui,true,gui.getGame().getDescription());
+        desc.setVisible(true);
 
         synchronized (GUI.timer) {
             try {
@@ -49,7 +49,7 @@ public class Runner {
         }
 
         JOptionPane.showMessageDialog(gui, "Tempo esaurito", "TEMPO", JOptionPane.INFORMATION_MESSAGE);
-        JDialog ending = new EndingDialog(gui, true, new Score(gui.getGame().getTotalTime(), gui.getGame().getActualPoints(), gui.getGame().getPOINTGOAL(), gui.getGame().getName()), gui.getGame().getLose());
+        JDialog ending = new EndingDialog(gui, true, new Score(gui.getGame().getTotalTime(), gui.getGame().getActualPoints(), gui.getGame().getPointGoal(), gui.getGame().getName()), gui.getGame().getLose());
         ending.setVisible(true);
         gui.dispose();
 

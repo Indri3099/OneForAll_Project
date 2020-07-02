@@ -19,12 +19,10 @@ package main.scoreRest;
 import entities.Score;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 /**
- * @author pierpaolo
+ * @author enrico
  */
 public class DBManager {
 
@@ -52,7 +50,7 @@ public class DBManager {
         return instance;
     }
 
-    public void connect() throws SQLException {
+    private void connect() throws SQLException {
         dbprops = new Properties();
         dbprops.setProperty("user", "user");
         dbprops.setProperty("password", "1234");
