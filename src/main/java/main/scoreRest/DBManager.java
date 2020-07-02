@@ -56,7 +56,7 @@ public class DBManager {
         dbprops.setProperty("password", "1234");
         conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/db/store", dbprops);
         Statement stm = conn.createStatement();
-//        stm.executeUpdate("TRUNCATE TABLE scores");
+//        stm.executeUpdate("DROP TABLE scores");
         stm.executeUpdate(CREATE_TABLE_ITEM);
         stm.close();
     }
