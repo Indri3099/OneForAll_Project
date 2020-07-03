@@ -27,7 +27,7 @@ public class initLoader {
         String current;
         
         current = input.readLine();
-        
+        input.close();
         if(current.toLowerCase().startsWith("game")){
             current = current.replaceAll("game","");
             current = current.replaceAll(" ", "");
@@ -46,7 +46,7 @@ public class initLoader {
         
         current = input.readLine();
         current = input.readLine();
-        
+        input.close();
         if(current.contains("language")){
             current = current.replaceAll("language", "");
             current = current.replaceAll("=", "");
@@ -64,6 +64,7 @@ public class initLoader {
         GenericGame game = new TryToStudy();
         game.init();
         obj.writeObject(game);
+        obj.close();
     }
 
     public static void saveGame(String path, GenericGame game) throws Exception{
@@ -72,11 +73,13 @@ public class initLoader {
         }
         ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(path));
         obj.writeObject(game);
+        obj.close();
     }
 
     public static GenericGame loadGame(String path) throws Exception{
         ObjectInputStream inStream = new ObjectInputStream(new FileInputStream(path));
         GenericGame game = (GenericGame) inStream.readObject();
+        inStream.close();
         return game;
     }
 }
