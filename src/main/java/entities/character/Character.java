@@ -5,6 +5,10 @@ import exceptions.FullInventoryException;
 
 import java.io.Serializable;
 
+/**
+ * Questa classe rappresenta un qualsiasi tipo di personaggio, nel nostro caso viene utilizzata per rappresentare
+ * il personaggio principale e da questa si estende la classe NPC
+ */
 public class Character implements Serializable {
 
     private final int id;

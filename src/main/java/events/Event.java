@@ -1,6 +1,5 @@
 package events;
 
-import entities.character.Character;
 import entities.character.NPC;
 import entities.objects.StdObject;
 
@@ -11,7 +10,6 @@ import java.util.List;
 
 /**
  * Descrive le caratteristiche di un evento
- *
  */
 public class Event implements Serializable {
     /**
@@ -19,8 +17,14 @@ public class Event implements Serializable {
       */
     private NPC character;
 
+    /**
+     * Indica gli oggetti coinvolti per il completamento dell'evento
+     */
     private List<StdObject> requiredObjects = new ArrayList<>();
 
+    /**
+     * Eventuale audio associato all'evento
+     */
     private File audio;
 
     private boolean started = false;
@@ -29,8 +33,14 @@ public class Event implements Serializable {
 
     private String description;
 
+    /**
+     * Frase stampata al concludersi dell'evento
+     */
     private String endPhrase;
 
+    /**
+     * Punti guadagnati completando l'evento
+     */
     private int pointReward;
 
     public Event(NPC character, List<StdObject> requiredObjects, String description, int pointReward) {

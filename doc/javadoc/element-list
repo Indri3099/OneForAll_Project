@@ -1,0 +1,14 @@
+entities
+entities.character
+entities.command
+entities.objects
+events
+exceptions
+games
+main
+main.fileManager
+main.scoreRest
+main.userInterface
+main.userInterface.dialogs
+main.userInterface.printer
+parser

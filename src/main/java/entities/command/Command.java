@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Rappresenta una azione che si può compiere nel gioco
+ */
 public class Command implements Serializable {
 
     private final CommandType type;

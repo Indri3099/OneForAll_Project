@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Stanza del gioco.
+ * La mappa è costruita indicando per ogni stanza quali sono le stanze adiacenti.
+ * Ciascuna stanza contiene oggetti,personaggi e può esserle associato un gestore di evento.
+ */
 public class Room implements Serializable {
 
     private final Integer id;
@@ -36,6 +41,10 @@ public class Room implements Serializable {
 
     private List<Character> characters = new ArrayList<>();
 
+    /**
+     * Gestore di evento, se questo è presente ogni volta che si compie una azione in questa stanza,
+     * si verifica se l'evento è stato completato oppure no.
+     */
     private EventHandler eventHandler;
 
     public Room(Integer id, String name, String description) {

@@ -3,6 +3,9 @@ package entities.objects;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Questa classe estende StdObject , introducendo nuovi attributi, propri di un oggetto di tipo contenitore.
+ */
 public class ObjectContainer extends StdObject {
     public ObjectContainer(int id, String name, String description) {
         super(id, name, description);

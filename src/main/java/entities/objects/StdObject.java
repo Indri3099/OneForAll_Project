@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * Rappresenta un qualsiasi oggetto che possiamo trovare nel gioco
+ */
 public class StdObject implements Serializable {
 
     private final int id;

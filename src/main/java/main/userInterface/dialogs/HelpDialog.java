@@ -31,7 +31,7 @@ public class HelpDialog extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Help");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("/home/enrico/IdeaProjects/EnricoPallotta_MAProject/resources/gui_images/help.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("./src/main/resources/gui_images/help.png")); // NOI18N
         getContentPane().add(jLabel2, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);

@@ -2,6 +2,11 @@ package entities;
 
 import java.sql.Time;
 
+/**
+ * Indica il punteggio raggiunto nella partita, tale punteggio viene salvato su DB per mezzo di una API REST <br>.
+ * La classe implementa Comparable poiché i punteggi vengono mostrati in ordine decrescente (prima su Tempo impiegato , poi ,a parità di tempo,
+ * su punteggio conseguito).
+ */
 public class Score implements Comparable{
     private final Time finalTime;
 

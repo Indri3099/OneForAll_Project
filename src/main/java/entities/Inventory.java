@@ -7,6 +7,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Inventario associato ad ogni Character, di default la dimensione massima è impostata su 2. Ovviamente è modificabile
+ */
 public class Inventory implements Serializable {
 
     private int maxSize = 2;
