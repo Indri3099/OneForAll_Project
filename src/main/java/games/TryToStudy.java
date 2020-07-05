@@ -11,6 +11,7 @@ import events.*;
 import exceptions.*;
 import main.AudioPlayer;
 import parser.PhraseReduction;
+
 import java.io.File;
 import java.sql.Time;
 import java.util.Arrays;
@@ -88,7 +89,7 @@ public class TryToStudy extends GenericGame {
         look.setAlias(new String[]{"guarda", "vedi", "trova", "cerca", "descrivi"});
         getCommandList().add(look);
         Command pickup = new Command(CommandType.PICK_UP, "raccogli");
-        pickup.setAlias(new String[]{"prendi","solleva"});
+        pickup.setAlias(new String[]{"prendi", "solleva"});
         getCommandList().add(pickup);
         Command open = new Command(CommandType.OPEN, "apri");
         open.setAlias(new String[]{});
@@ -198,7 +199,7 @@ public class TryToStudy extends GenericGame {
         fratello.setAccepted(Arrays.asList(new StdObject[]{cuffie}));
         salotto.addCharacter(fratello);
 
-        Character me = new Character(0,NameConstants.ME);
+        Character me = new Character(0, NameConstants.ME);
         setMainCharacter(me);
 
         //creo gli eventi
@@ -282,7 +283,11 @@ public class TryToStudy extends GenericGame {
                     open(action.getMyObject());
                 } else if (action.getToObject() != null) {
                     open(action.getToObject());
+                } else {
+                    throw new CommandNotValidException();
                 }
+            } else {
+                throw new CommandNotValidException();
             }
         } else if (action.getCommand().getType() == CommandType.CLOSE) {
             if (!(action.getMyObject() != null && action.getToObject() != null)) {
@@ -290,7 +295,11 @@ public class TryToStudy extends GenericGame {
                     close(action.getMyObject());
                 } else if (action.getToObject() != null) {
                     close(action.getToObject());
+                } else {
+                    throw new CommandNotValidException();
                 }
+            } else {
+                throw new CommandNotValidException();
             }
         } else if (action.getCommand().getType() == CommandType.DROP) {
             drop(action.getMyObject());
@@ -302,7 +311,11 @@ public class TryToStudy extends GenericGame {
                     push(action.getMyObject());
                 } else if (action.getToObject() != null) {
                     push(action.getToObject());
+                } else {
+                    throw new CommandNotValidException();
                 }
+            } else {
+                throw new CommandNotValidException();
             }
         } else if (action.getCommand().getType() == CommandType.PLAY) {
             if (!(action.getMyObject() != null && action.getToObject() != null)) {
@@ -310,10 +323,15 @@ public class TryToStudy extends GenericGame {
                     play(action.getMyObject());
                 } else if (action.getToObject() != null) {
                     play(action.getToObject());
+                } else {
+                    throw new CommandNotValidException();
                 }
+            } else {
+                throw new CommandNotValidException();
             }
+        } else {
+            throw new CommandNotValidException();
         }
-        throw new CommandNotValidException();
     }
 
     private void move(Room destination) throws Exception {
@@ -402,9 +420,9 @@ public class TryToStudy extends GenericGame {
                 out.println("Hai aperto : " + object);
                 ((ObjectContainer) object).setOpen(true);
                 out.print(object + " contiene:");
-                for( StdObject obj : ((ObjectContainer) object).getObjects()){
+                for (StdObject obj : ((ObjectContainer) object).getObjects()) {
                     out.print(" " + obj);
-                    if(obj != ((ObjectContainer) object).getObjects().get(((ObjectContainer) object).getObjects().size() -1)){
+                    if (obj != ((ObjectContainer) object).getObjects().get(((ObjectContainer) object).getObjects().size() - 1)) {
                         out.print(",");
                     }
                 }
