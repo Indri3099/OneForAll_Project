@@ -1,6 +1,6 @@
-#RELAZIONE
+# RELAZIONE
 
-###Introduzione
+### Introduzione
 Il progetto che andrò ad illustrare è stato progettato e sviluppato da [Enrico Pallotta](https://github.com/Indri3099). <br>
 Lo scopo di questo progetto è stato quello di realizzare un software in grado di giocare avventure testuali. <br>
 Il software infatti è in grado di riprodurre qualsiasi avventura testuale che rispetti la struttura della classe ***"GenericGame"*** <br>
@@ -12,22 +12,22 @@ Ci tengo a dire che l'avventura realizzata è molto semplice (i comandi utilizza
 all'utilizzo di tutte le tecniche/strumenti di Java e OOP che ci sono stati spiegati durante il corso di MAP.
 <hr>
 
-###Architettura del sistema e UML
+### Architettura del sistema e UML
 Di seguito vedremo alcuni diagrammi delle classi che ci aiuteranno a capire com'è strutturata l'applicazione.
-####1. Il gioco
+#### 1. Il gioco
 Partiamo dalla classe ***GenericGame*** che difatti rappresenta una avventura qualsiasi.
 <br>
 Come possiamo vedere , la classe GenericGame è astratta e quindi non istanzibile, essa contiene una serie di attributi con i relativi metodi get&set e un solo metodo astratto ***actionHandler***. <br>
 Qualunque avventura deve estendere questa classe e implementare il metodo astratto, andando a definire come reagisce il gioco in base al comando ricevuto dall'utente. <br>
 ![game](./images/UML/games.jpg)
-####2. L'interfaccia grafica
+#### 2. L'interfaccia grafica
 L'interfaccia sfrutta le librerie classiche di swing.
 Quando l'interfaccia viene avviata (dalla classe eseguibile **Runner.java**) viene caricato il salvataggio impostato come default nel file config.txt<br>
 Le cose particolari di questa interfaccia sono la TextArea e la Label utilizzate per visualizzare l'output del gioco e il tempo residuo del gioco. <br>
 Questi due oggetti infatti sono di tipo ***Printer*** ossia una interfaccia che consente di stampare stringhe, così facendo sono riuscito a generalizzare il "canale di output" del gioco.<br>
 Quando viene gestito un comando dell'utente infatti, il gioco risponde stampando su un oggetto generico di tipo Printer che in questo caso è una TextArea(/Label). <br>
 ![gui](./images/UML/gui.jpg)
-####3. Entità del gioco
+#### 3. Entità del gioco
 Non c'è molto da dire per quanto riguarda stanze,oggetti e personaggi.
 Non sono state infatti utilizzate strutture dati complesse di alcun tipo ma quasi sempre tipi primitivi.
 <br> La cosa a cui prestare attenzione è la gestione degli eventi del gioco.
@@ -44,7 +44,7 @@ Se l'evento prevede dei punti, questi vengono assegnati e viene riprodotto un su
 > Nota : l'inventario di default ha una capacità massima di 2 per rendere il gioco leggermente più difficile
 
 ![entities](./images/UML/entities.jpg)
-####4. Parser
+#### 4. Parser
 Pur avendo una interfaccia grafica, l'avventura rimane testuale e di conseguenza è stato progettato un parser in grado d'interpretare le frasi dell'utente come comandi per il gioco. <br>
 Come possiamo vedere, ho creato una classe astratta ***Parser*** contenente metodi accessibili esclusivamente alle classi che la estendono.
 Questi metodi sono utili per controllare le parole all'interno della frase (vedere se sono comandi,oggetti,personaggi del gioco). <br>
@@ -70,7 +70,7 @@ L'oggetto estrapolato dalla frase dell'utente viene poi dato in pasto alla funzi
 
 ![parser](./images/UML/parser.jpg)
 
-###Tecniche di programmazione Java&OOP utilizzate
+### Tecniche di programmazione Java&OOP utilizzate
 #### 1. File
 Per questa applicazione si è ricorso all'utilizzo dei file.
 Attraverso la classe ***FileManager*** infatti, è possibile caricare e salvare lo stato della vostra avventura su file. <br>
