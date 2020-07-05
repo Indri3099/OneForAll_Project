@@ -3,7 +3,6 @@ package parser;
 import entities.Room;
 import entities.character.Character;
 import entities.command.Command;
-import entities.objects.StdObject;
 import exceptions.CommandNotValidException;
 
 import java.util.*;
@@ -28,7 +27,7 @@ public class ItalianParser extends Parser {
 
         List<String> splitted = Arrays.asList(input.split("\\s"));
         if (splitted.size() > 0) {
-            command = checkGenerics(commandList,
+            command = checkGeneric(commandList,
                     cmd -> cmd.getName().toLowerCase().equals(splitted.get(0))
                     || (cmd.getAlias() != null && cmd.getAlias().contains(splitted.get(0))));
 

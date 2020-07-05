@@ -30,10 +30,10 @@ public class BlackOutHandler extends EventHandler {
     private void turnOnAll(Room room){
         if(room != null && !room.isVisible()){
             room.setVisible(true);
-            turnOnAll(room.getEast());
-            turnOnAll(room.getWest());
-            turnOnAll(room.getNorth());
-            turnOnAll(room.getSouth());
+            turnOnAll(room.getEst());
+            turnOnAll(room.getOvest());
+            turnOnAll(room.getNord());
+            turnOnAll(room.getSud());
         }
     }
 }

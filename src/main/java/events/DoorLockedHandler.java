@@ -13,12 +13,12 @@ public class DoorLockedHandler extends EventHandler{
     public void completeEvent(GenericGame game, Printer out) {
         if(game.getMainCharacter().getInventory().getList().containsAll(event.getRequiredObjects())){
             out.print("\n" +event.getEndPhrase() + "\n");
-            game.getCurrentRoom().getNorth().setLocked(false);
+            game.getCurrentRoom().getNord().setLocked(false);
 
             //faccio partire l'evento della cameretta in cui si spengono tutte le luci
-            game.getCurrentRoom().getEast().getEventHandler().startEvent(out);
+            game.getCurrentRoom().getEst().getEventHandler().startEvent(out);
             turnOfAll(game.getCurrentRoom());
-            game.getCurrentRoom().getEast().setVisible(true);
+            game.getCurrentRoom().getEst().setVisible(true);
             event.setCompleted(true);
         }
     }
@@ -26,10 +26,10 @@ public class DoorLockedHandler extends EventHandler{
     private void turnOfAll(Room room){
         if(room != null && room.isVisible()){
             room.setVisible(false);
-            turnOfAll(room.getEast());
-            turnOfAll(room.getWest());
-            turnOfAll(room.getNorth());
-            turnOfAll(room.getSouth());
+            turnOfAll(room.getEst());
+            turnOfAll(room.getOvest());
+            turnOfAll(room.getNord());
+            turnOfAll(room.getSud());
         }
     }
 

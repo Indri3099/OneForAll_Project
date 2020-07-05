@@ -8,6 +8,11 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
 
+/**
+ * Qui troviamo due semplici servizi messi a disposizione.<br>
+ * 1) La richiesta di salvare un nuovo score
+ * 2) La richiesta di un particolare score
+ */
 @Path("score")
 public class ScoreService {
 

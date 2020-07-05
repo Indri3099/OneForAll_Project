@@ -9,11 +9,8 @@ import entities.objects.ObjectContainer;
 import entities.objects.StdObject;
 import events.*;
 import exceptions.*;
+import main.AudioPlayer;
 import parser.PhraseReduction;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import java.io.File;
 import java.sql.Time;
 import java.util.Arrays;
@@ -52,7 +49,6 @@ public class TryToStudy extends GenericGame {
         setDefaultPath("./src/main/resources/savings/TryToStudyDefault.dat");
     }
 
-    @Override
     public void init() {
         setPointGoal(100);
 
@@ -76,13 +72,13 @@ public class TryToStudy extends GenericGame {
         Command iventory = new Command(CommandType.INVENTORY, "inventario");
         iventory.setAlias(new String[]{"inv", "i", "I"});
         getCommandList().add(iventory);
-        Command sud = new Command(CommandType.SOUTH, "sud");
+        Command sud = new Command(CommandType.SUD, "sud");
         sud.setAlias(new String[]{"s", "S", "Sud", "SUD"});
         getCommandList().add(sud);
-        Command est = new Command(CommandType.EAST, "est");
+        Command est = new Command(CommandType.EST, "est");
         est.setAlias(new String[]{"e", "E", "Est", "EST"});
         getCommandList().add(est);
-        Command ovest = new Command(CommandType.WEST, "ovest");
+        Command ovest = new Command(CommandType.OVEST, "ovest");
         ovest.setAlias(new String[]{"o", "O", "Ovest", "OVEST"});
         getCommandList().add(ovest);
         Command end = new Command(CommandType.END, "end");
@@ -132,18 +128,18 @@ public class TryToStudy extends GenericGame {
         cameragenitori.setLook("Nulla di particolare, sulla scrivania sembra esserci un quaderno di appunti");
         corridoio.setLook("C'è uno zaino aperto, vedi un po' cosa c'è dentro");
         //mappo
-        salotto.setNorth(cucina);
-        salotto.setWest(corridoio);
-        salotto.setSouth(bagno);
-        corridoio.setEast(camera2);
-        corridoio.setWest(cameretta);
-        corridoio.setSouth(salotto);
-        corridoio.setNorth(cameragenitori);
-        camera2.setSouth(corridoio);
-        cameretta.setSouth(corridoio);
-        cameragenitori.setSouth(corridoio);
-        bagno.setNorth(salotto);
-        cucina.setSouth(salotto);
+        salotto.setNord(cucina);
+        salotto.setOvest(corridoio);
+        salotto.setSud(bagno);
+        corridoio.setEst(camera2);
+        corridoio.setOvest(cameretta);
+        corridoio.setSud(salotto);
+        corridoio.setNord(cameragenitori);
+        camera2.setSud(corridoio);
+        cameretta.setSud(corridoio);
+        cameragenitori.setSud(corridoio);
+        bagno.setNord(salotto);
+        cucina.setSud(salotto);
 
         setCurrentRoom(cameretta);
         cameragenitori.setLocked(true);
@@ -260,13 +256,13 @@ public class TryToStudy extends GenericGame {
     @Override
     public void actionHandler(PhraseReduction action) throws Exception {
         if (action.getCommand().getType() == CommandType.NORD) {
-            move(getCurrentRoom().getNorth());
-        } else if (action.getCommand().getType() == CommandType.SOUTH) {
-            move(getCurrentRoom().getSouth());
-        } else if (action.getCommand().getType() == CommandType.EAST) {
-            move(getCurrentRoom().getEast());
-        } else if (action.getCommand().getType() == CommandType.WEST) {
-            move(getCurrentRoom().getWest());
+            move(getCurrentRoom().getNord());
+        } else if (action.getCommand().getType() == CommandType.SUD) {
+            move(getCurrentRoom().getSud());
+        } else if (action.getCommand().getType() == CommandType.EST) {
+            move(getCurrentRoom().getEst());
+        } else if (action.getCommand().getType() == CommandType.OVEST) {
+            move(getCurrentRoom().getOvest());
         } else if (action.getCommand().getType() == CommandType.PICK_UP) {
             if (action.getMyObject() != null)
                 throw new ObjectOwnedException();
@@ -316,9 +312,8 @@ public class TryToStudy extends GenericGame {
                     play(action.getToObject());
                 }
             }
-        } else {
-            throw new CommandNotValidException();
         }
+        throw new CommandNotValidException();
     }
 
     private void move(Room destination) throws Exception {
@@ -347,16 +342,16 @@ public class TryToStudy extends GenericGame {
         }
     }
 
-    private void lookAt(StdObject toObject) throws Exception {
+    private void lookAt(StdObject object) throws Exception {
         String look;
         if (!getCurrentRoom().isVisible()) {
             throw new NoLightException();
         } else {
-            if (toObject == null && getCurrentRoom().getLook() != null) {
+            if (object == null && getCurrentRoom().getLook() != null) {
                 look = getCurrentRoom() + " : " + getCurrentRoom().getLook();
                 out.print(look);
-            } else if (toObject != null && toObject.getDescription() != null) {
-                look = toObject + " : " + toObject.getDescription();
+            } else if (object != null && object.getDescription() != null) {
+                look = object + " : " + object.getDescription();
                 out.print(look);
             } else {
                 throw new NoDescriptionException();
@@ -364,18 +359,18 @@ public class TryToStudy extends GenericGame {
         }
     }
 
-    private void take(StdObject toObject) throws Exception {
-        if (toObject == null) {
+    private void take(StdObject object) throws Exception {
+        if (object == null) {
             throw new ObjectNotFoundException();
-        } else if (toObject.isTakeable() && toObject.isVisible()) {
-            getMainCharacter().getInventory().add(toObject);
-            for (StdObject object : getCurrentRoom().getObjects()) {
-                if (object instanceof ObjectContainer) {
-                    ((ObjectContainer) object).getObjects().remove(toObject);
+        } else if (object.isTakeable() && object.isVisible()) {
+            getMainCharacter().getInventory().add(object);
+            for (StdObject object1 : getCurrentRoom().getObjects()) {
+                if (object1 instanceof ObjectContainer) {
+                    ((ObjectContainer) object1).getObjects().remove(object1);
                 }
             }
-            getCurrentRoom().getObjects().remove(toObject);
-            out.print("Hai raccolto " + toObject);
+            getCurrentRoom().getObjects().remove(object);
+            out.print("Hai raccolto " + object);
         } else {
             throw new UnTakeableException();
         }
@@ -450,11 +445,8 @@ public class TryToStudy extends GenericGame {
 
     private void play(StdObject object) throws NoSoundException {
         try {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(object.getSound().toURI().toURL());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
-            clip.start();
-            out.print("Attento alle orecchie!");
+            AudioPlayer.soundPlay(object.getSound());
+            out.print("Stai suonando : " + object);
         } catch (Exception e) {
             throw new NoSoundException();
         }

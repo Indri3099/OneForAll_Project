@@ -38,9 +38,7 @@ public class GUI extends javax.swing.JFrame {
 
     private Parser parser;
 
-    private PhraseReduction attualCommand;
-
-    public static TimeThread timer;
+    private static TimeThread timer;
 
     public GUI() {
         initComponents();
@@ -419,6 +417,7 @@ public class GUI extends javax.swing.JFrame {
         else if(opt == JOptionPane.NO_OPTION)
             this.dispose();
     }
+
     private void save(){
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File("./src/main/resources/savings"));
@@ -553,6 +552,7 @@ public class GUI extends javax.swing.JFrame {
 //        ending.setVisible(true);
 //        gui.dispose();
 //    }
+
     private void setGame(String path) throws Exception {
         game = initLoader.loadGame(path);
         game.setOut(jTextArea);
@@ -599,7 +599,7 @@ public class GUI extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             for (Command command : game.getCommandList()) {
-                if (command.getType() == CommandType.SOUTH) {
+                if (command.getType() == CommandType.SUD) {
                     commandExecute(command.getName());
                     break;
                 }
@@ -612,7 +612,7 @@ public class GUI extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             for (Command command : game.getCommandList()) {
-                if (command.getType() == CommandType.EAST) {
+                if (command.getType() == CommandType.EST) {
                     commandExecute(command.getName());
                     break;
                 }
@@ -625,7 +625,7 @@ public class GUI extends javax.swing.JFrame {
         @Override
         public void actionPerformed(ActionEvent arg0) {
             for (Command command : game.getCommandList()) {
-                if (command.getType() == CommandType.WEST) {
+                if (command.getType() == CommandType.OVEST) {
                     commandExecute(command.getName());
                     break;
                 }
@@ -637,7 +637,7 @@ public class GUI extends javax.swing.JFrame {
         jTextArea.println("");
         if (!game.isCompleted()) {
             try {
-                attualCommand = parser.analyze(command, game.getCurrentRoom(), game.getCommandList(), game.getMainCharacter());
+                PhraseReduction attualCommand = parser.analyze(command, game.getCurrentRoom(), game.getCommandList(), game.getMainCharacter());
                 if (attualCommand.getCommand() != null && attualCommand.getCommand().getType() == CommandType.END) {
                     exit(JOptionPane.YES_NO_CANCEL_OPTION);
                 } else if (attualCommand.getCommand() != null) {
@@ -671,6 +671,10 @@ public class GUI extends javax.swing.JFrame {
 
     public GenericGame getGame() {
         return game;
+    }
+
+    public static TimeThread getTimer() {
+        return timer;
     }
 
     private javax.swing.JButton jButton2;

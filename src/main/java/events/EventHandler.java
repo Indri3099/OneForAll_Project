@@ -5,26 +5,14 @@ import games.GenericGame;
 import java.io.File;
 import java.io.Serializable;
 
+import main.AudioPlayer;
 import main.userInterface.printer.Printer;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 
 public abstract class EventHandler implements Serializable {
 
-    private Event event;
+    protected Event event;
 
-    private void soundPlay() {
-        try {
-            File f = new File("./src/main/resources/audio/EventCompleteSound.wav");
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
-            clip.start();
-        } catch (Exception e) {
-        }
-    }
+    private final File completeAudio = new File("./src/main/resources/audio/EventCompleteSound.wav");
 
     public EventHandler(Event event) {
         this.event = event;
@@ -55,7 +43,10 @@ public abstract class EventHandler implements Serializable {
     protected void pointsUpdate(GenericGame game, Printer out){
         game.setActualPoints(game.getActualPoints() + event.getPointReward());
         out.print("Punti guadagnati: " + event.getPointReward());
-        soundPlay();
+        try {
+            AudioPlayer.soundPlay(completeAudio);
+        } catch (Exception e) {
+        }
     }
 
     /**

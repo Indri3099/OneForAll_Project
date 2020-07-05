@@ -13,33 +13,55 @@ import java.util.List;
 
 public abstract class GenericGame implements Serializable {
 
+    /**
+     * Punteggio massimo a cui è possibile arrivare per completare il gioco
+     */
     private int pointGoal;
+
+    private Time actualTime;
 
     /**
      * Tempo massimo per terminare la partita espresso in minuti (almeno 1)- Vale (-1) se non c'è limite di tempo;
      */
-    private Time actualTime;
-
     private Time totalTime;
 
+    /**
+     * Attraverso questo oggetto sarà possibile visualizzare come il gioco risponde ai comandi in input
+     * <br>Per maggiori informazioni guarda l'interfaccia Printer
+     */
     protected transient Printer out;
 
     private boolean completed = false;
 
+    /**
+     * Indica il path del salvataggio di default, cioè che carica la partita con il gioco ad inizio storia.
+     */
     private String defaultPath;
 
     private String name;
 
+    /**
+     * Messaggio di introduzione del gioco.
+     */
     private String intro;
 
+    /**
+     * Messaggio visualizzato in caso di vittoria
+     */
     private String win;
 
+    /**
+     * Messaggio visualizzato in caso di sconfitta
+     */
     private String lose;
 
     private int actualPoints = 0;
 
     private Room currentRoom;
 
+    /**
+     * Protagonista del gioco
+     */
     private Character mainCharacter;
 
     private List<Command> commandList = new ArrayList<>();
@@ -78,8 +100,6 @@ public abstract class GenericGame implements Serializable {
         this.commandList = commandList;
     }
 
-    public abstract void init();
-
     public int getActualPoints() {
         return actualPoints;
     }
@@ -103,7 +123,6 @@ public abstract class GenericGame implements Serializable {
     public void setWin(String win) {
         this.win = win;
     }
-
 
     public int getPointGoal() {
         return pointGoal;
@@ -153,8 +172,6 @@ public abstract class GenericGame implements Serializable {
         this.completed = completed;
     }
 
-    public abstract void actionHandler(PhraseReduction action) throws Exception;
-
     public Time getTotalTime() {
         return totalTime;
     }
@@ -170,4 +187,7 @@ public abstract class GenericGame implements Serializable {
     public String getLose() {
         return lose;
     }
+
+    public abstract void actionHandler(PhraseReduction action) throws Exception;
+
 }

@@ -22,6 +22,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Questa classe mette a disposizione dell'utente due metodi statici pubblici che consentono di ottenere la classifica dei punteggi per un gioco
+ * oppure di salvare un nuovo punteggio.<br>
+ * Come si può notare questa è solo una simulazione di un servizio di API REST, in realtà il server dovrebbe essere sempre attivo e pronto a ricevere delle richieste
+ * ma in questo caso, il server "parte" ogni volta che si richiede una delle due operazioni sopra citate e, il server viene "spento" non appena la richiesta è stata soddisfatta.
+ */
 public class RestHandling {
     public static void saveScore(Score score) {
         URI baseUri = UriBuilder.fromUri("http://localhost/").port(4321).build();
@@ -66,7 +72,7 @@ public class RestHandling {
 
     }
 
-    public static Score requestOfGet(int id) {
+    private static Score requestOfGet(int id) {
         Client client = ClientBuilder.newClient();
         WebTarget target = client.target("http://localhost:4321");
 
@@ -79,6 +85,10 @@ public class RestHandling {
         return score;
     }
 
+    /**
+     * @param scoreStr
+     * @return Dalla stringa in input vengono estrapolati gli attributi dell'oggetto score.
+     */
     private static Score convertJsonToScore(String scoreStr) {
 
         Score score = null;

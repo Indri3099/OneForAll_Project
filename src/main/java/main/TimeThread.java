@@ -4,6 +4,10 @@ import main.userInterface.printer.Printer;
 
 import java.sql.Time;
 
+/**
+ * Questo thread si occupa di aggiornare il tempo rimasto alla fine del gioco e di conseguenza l'oggetto Printer che si occupa
+ * di mostrare all'utente il tempo rimasto.
+ */
 public class TimeThread extends Thread{
 
     Time time;

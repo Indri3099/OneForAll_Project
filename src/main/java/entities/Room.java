@@ -1,7 +1,6 @@
 package entities;
 
 import entities.character.Character;
-import entities.character.Character;
 import entities.objects.StdObject;
 import events.EventHandler;
 
@@ -25,13 +24,13 @@ public class Room implements Serializable {
 
     private String look;
 
-    private Room south = null;
+    private Room sud = null;
 
-    private Room north = null;
+    private Room nord = null;
 
-    private Room east = null;
+    private Room est = null;
 
-    private Room west = null;
+    private Room ovest = null;
 
     private boolean visible = true;
 
@@ -81,36 +80,36 @@ public class Room implements Serializable {
         this.look = look;
     }
 
-    public Room getSouth() {
-        return south;
+    public Room getSud() {
+        return sud;
     }
 
-    public void setSouth(Room south) {
-        this.south = south;
+    public void setSud(Room sud) {
+        this.sud = sud;
     }
 
-    public Room getNorth() {
-        return north;
+    public Room getNord() {
+        return nord;
     }
 
-    public void setNorth(Room north) {
-        this.north = north;
+    public void setNord(Room nord) {
+        this.nord = nord;
     }
 
-    public Room getEast() {
-        return east;
+    public Room getEst() {
+        return est;
     }
 
-    public void setEast(Room east) {
-        this.east = east;
+    public void setEst(Room est) {
+        this.est = est;
     }
 
-    public Room getWest() {
-        return west;
+    public Room getOvest() {
+        return ovest;
     }
 
-    public void setWest(Room west) {
-        this.west = west;
+    public void setOvest(Room ovest) {
+        this.ovest = ovest;
     }
 
     public boolean isVisible() {

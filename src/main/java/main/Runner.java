@@ -40,9 +40,9 @@ public class Runner {
         Dialog desc = new DescriptionDialog(gui,true,gui.getGame().getDescription());
         desc.setVisible(true);
 
-        synchronized (GUI.timer) {
+        synchronized (GUI.getTimer()) {
             try {
-                GUI.timer.wait();
+                GUI.getTimer().wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

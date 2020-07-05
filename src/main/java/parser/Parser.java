@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 
 public abstract class Parser {
 
-    protected <X> X checkGenerics(Iterable<X> iterable, Predicate<X> predicate){
+    protected <X> X checkGeneric(Iterable<X> iterable, Predicate<X> predicate){
         for(X x : iterable){
             if(predicate.test(x)){
                 return x;
@@ -49,7 +49,7 @@ public abstract class Parser {
             if (object != null) {
                 result.setMyObject(object);
             } else {
-                character = checkGenerics(currentRoom.getCharacters(),
+                character = checkGeneric(currentRoom.getCharacters(),
                         character1 -> character1.getName().toLowerCase().equals(splitted.get(index)));
                 if (character != null) {
                     result.setToCharacter(character);
