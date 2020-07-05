@@ -27,6 +27,7 @@ public class ItalianParser extends Parser {
 
         List<String> splitted = Arrays.asList(input.split("\\s"));
         if (splitted.size() > 0) {
+
             command = checkGeneric(commandList,
                     cmd -> cmd.getName().toLowerCase().equals(splitted.get(0))
                     || (cmd.getAlias() != null && cmd.getAlias().contains(splitted.get(0))));
