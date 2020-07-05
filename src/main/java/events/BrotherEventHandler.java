@@ -11,12 +11,12 @@ public class BrotherEventHandler extends EventHandler {
 
     @Override
     public void completeEvent(GenericGame game, Printer out) {
-        if (!event.isCompleted() && event.getCharacter().getInventory().getList().containsAll(event.getRequiredObjects())) {
-            out.println("\n" + event.getCharacter() + ": \""+ event.getEndPhrase() + "\"");
-            event.getCharacter().setSentence("Adesso con le cuffie non ti disturbo più");
-            event.setCompleted(true);
+        if (!getEvent().isCompleted() && getEvent().getCharacter().getInventory().getList().containsAll(getEvent().getRequiredObjects())) {
+            out.println("\n" + getEvent().getCharacter() + ": \""+ getEvent().getEndPhrase() + "\"");
+            getEvent().getCharacter().setSentence("Adesso con le cuffie non ti disturbo più");
+            getEvent().setCompleted(true);
             pointsUpdate(game,out);
-            event.setCompleted(true);
+            getEvent().setCompleted(true);
         }
     }
 

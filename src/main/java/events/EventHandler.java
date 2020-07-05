@@ -10,7 +10,7 @@ import main.userInterface.printer.Printer;
 
 public abstract class EventHandler implements Serializable {
 
-    protected Event event;
+    private Event event;
 
     private final File completeAudio = new File("./src/main/resources/audio/EventCompleteSound.wav");
 

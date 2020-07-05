@@ -384,7 +384,7 @@ public class TryToStudy extends GenericGame {
             getMainCharacter().getInventory().add(object);
             for (StdObject object1 : getCurrentRoom().getObjects()) {
                 if (object1 instanceof ObjectContainer) {
-                    ((ObjectContainer) object1).getObjects().remove(object1);
+                    ((ObjectContainer) object1).getObjects().remove(object);
                 }
             }
             getCurrentRoom().getObjects().remove(object);

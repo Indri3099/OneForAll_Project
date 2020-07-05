@@ -11,15 +11,15 @@ public class DoorLockedHandler extends EventHandler{
 
     @Override
     public void completeEvent(GenericGame game, Printer out) {
-        if(game.getMainCharacter().getInventory().getList().containsAll(event.getRequiredObjects())){
-            out.print("\n" +event.getEndPhrase() + "\n");
+        if(game.getMainCharacter().getInventory().getList().containsAll(getEvent().getRequiredObjects())){
+            out.print("\n" +getEvent().getEndPhrase() + "\n");
             game.getCurrentRoom().getNord().setLocked(false);
 
             //faccio partire l'evento della cameretta in cui si spengono tutte le luci
             game.getCurrentRoom().getEst().getEventHandler().startEvent(out);
             turnOfAll(game.getCurrentRoom());
             game.getCurrentRoom().getEst().setVisible(true);
-            event.setCompleted(true);
+            getEvent().setCompleted(true);
         }
     }
 

@@ -10,10 +10,10 @@ public class AppuntiEventHandler extends EventHandler{
 
     @Override
     public void completeEvent(GenericGame game, Printer out) {
-        if(game.getMainCharacter().getInventory().getList().containsAll(event.getRequiredObjects())){
-            out.println("\n" + event.getEndPhrase());
+        if(game.getMainCharacter().getInventory().getList().containsAll(getEvent().getRequiredObjects())){
+            out.println("\n" + getEvent().getEndPhrase());
             pointsUpdate(game,out);
-            event.setCompleted(true);
+            getEvent().setCompleted(true);
         }
     }
 }

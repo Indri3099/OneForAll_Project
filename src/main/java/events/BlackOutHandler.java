@@ -13,7 +13,7 @@ public class BlackOutHandler extends EventHandler {
     @Override
     public void completeEvent(GenericGame game, Printer out) {
         boolean allPushed = true;
-        for (StdObject object : event.getRequiredObjects()) {
+        for (StdObject object : getEvent().getRequiredObjects()) {
             if(!object.isPushed()){
                 allPushed = false;
             }
@@ -21,9 +21,9 @@ public class BlackOutHandler extends EventHandler {
         if(allPushed){
             game.getCurrentRoom().setVisible(false);
             turnOnAll(game.getCurrentRoom());
-            out.print("\n" + event.getEndPhrase());
+            out.print("\n" + getEvent().getEndPhrase());
             pointsUpdate(game,out);
-            event.setCompleted(true);
+            getEvent().setCompleted(true);
         }
     }
 
