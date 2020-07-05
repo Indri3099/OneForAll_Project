@@ -8,7 +8,7 @@ Il software infatti è in grado di riprodurre qualsiasi avventura testuale che r
 Una volta completata la parte di codice relativa alla gestione di una qualsiasi avventura testuale, ho poi creato la mia particolare avventura
 di cui potrete scoprire di più giocandola.
 
-Ci tengo a dire che l'avventura realizzata è molto semplice (i comandi utilizzabili in fin dei conti sono abbastanza limitati), in quanto ho dato priorità
+Ci tengo a dire che l'avventura realizzata è molto semplice (i comandi utilizzabili in fin dei conti sono abbastanza limitati) in quanto ho dato priorità
 all'utilizzo di tutte le tecniche/strumenti di Java e OOP che ci sono stati spiegati durante il corso di MAP.
 <hr>
 
