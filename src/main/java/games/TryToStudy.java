@@ -45,12 +45,8 @@ public class TryToStudy extends GenericGame {
                 BUTTON = "pulsante";
     }
 
-    public TryToStudy() {
-        setName("Try To Study");
-        setDefaultPath("./src/main/resources/savings/TryToStudyDefault.dat");
-    }
-
     public void init() {
+        setName("Try To Study");
         setPointGoal(100);
 
         setTotalTime(new Time(15 * 60 * 1000));
@@ -62,7 +58,7 @@ public class TryToStudy extends GenericGame {
         setWin("Bene, sembra che abbiamo finito. Speriamo in un bel 30L");
         setLose("Peccato, non hai fatto in tempo a raggiungere il tuo obbiettivo :(");
         setDescription("Salve! Andiamo subito al sodo.\nIl gioco è ambientato nella casa di un normale studente che,\ndeve cercare di studiare tra il casino della famiglia e le varie distrazioni.\n" +
-                "Qui entri in gioco tu! Sì dico proprio a te.\nLo scopo del gioco è arrivare a 100 punti entro 5 minuti.\n" +
+                "Qui entri in gioco tu! Sì dico proprio a te.\nLo scopo del gioco è arrivare a 100 punti entro 15 minuti.\n" +
                 "Se ci riuscirai passerai questo dannato esame, altrimenti...beh altrimenti muoviti a studiare fallito!\n" +
                 "Al termine del gioco potrai salvare il tuo punteggio,\nsentiti libero inoltre di salvare quando vuoi in modo da riprendere quando non hai nulla da fare\n" +
                 "Beh che aspetti!? Corri a studiare , il tempo scorre!");
@@ -304,7 +300,10 @@ public class TryToStudy extends GenericGame {
         } else if (action.getCommand().getType() == CommandType.DROP) {
             drop(action.getMyObject());
         } else if (action.getCommand().getType() == CommandType.TALK_TO) {
-            talkTo((NPC) action.getToCharacter());
+            if(action.getToCharacter() != null)
+                talkTo((NPC) action.getToCharacter());
+            else
+                throw new CommandNotValidException();
         } else if (action.getCommand().getType() == CommandType.PUSH) {
             if (!(action.getMyObject() != null && action.getToObject() != null)) {
                 if (action.getMyObject() != null) {

@@ -33,11 +33,6 @@ public abstract class GenericGame implements Serializable {
 
     private boolean completed = false;
 
-    /**
-     * Indica il path del salvataggio di default, cioè che carica la partita con il gioco ad inizio storia.
-     */
-    private String defaultPath;
-
     private String name;
 
     /**
@@ -154,14 +149,6 @@ public abstract class GenericGame implements Serializable {
 
     public void setOut(Printer out) {
         this.out = out;
-    }
-
-    public String getDefaultPath() {
-        return defaultPath;
-    }
-
-    public void setDefaultPath(String defaultPath) {
-        this.defaultPath = defaultPath;
     }
 
     public boolean isCompleted() {
