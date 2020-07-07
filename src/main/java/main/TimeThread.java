@@ -29,6 +29,7 @@ public class TimeThread extends Thread{
 
     @Override
     public void run() {
+        //-3600000 rappresenta 00:00
         while(time.getTime() != -3600000){
             time.setTime(time.getTime() - 1000);
             outTime.print(time.toString().substring(3));

@@ -1,7 +1,6 @@
 package entities.character;
 
 import entities.Inventory;
-import exceptions.FullInventoryException;
 
 import java.io.Serializable;
 

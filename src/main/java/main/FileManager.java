@@ -1,20 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import exceptions.GameNotFoundException;
 import exceptions.LanguageNotFoundException;
 import games.GenericGame;
 import games.TryToStudy;
-
-import javax.swing.*;
 import java.io.*;
 
 /**
- * Questa classe si occupa della gestione dei file
+ * Questa classe si occupa della gestione dei file (salvataggio e caricamento)
  * @author enrico
  */
 public class FileManager {

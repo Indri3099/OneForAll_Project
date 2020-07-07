@@ -4,7 +4,7 @@ import entities.Score;
 import main.scoreRest.RestHandling;
 
 /**
- *
+ * A fine gioco appare questa dialog che consente di salvare lo score raggiunto su un db tramite chiamata api
  * @author enrico
  */
 public class EndingDialog extends javax.swing.JDialog {

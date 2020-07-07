@@ -6,7 +6,7 @@
 package main.userInterface.dialogs;
 
 /**
- *
+ * Viene visualizzata un'immagine che spiega come usare l'interfaccia
  * @author enrico
  */
 public class HelpDialog extends javax.swing.JDialog {

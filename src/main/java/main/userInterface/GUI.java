@@ -470,7 +470,6 @@ public class GUI extends javax.swing.JFrame {
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
                 setGame(fileChooser.getSelectedFile().getAbsolutePath());
-                showDescription();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Errore nel caricare il file", "Errore File", JOptionPane.ERROR_MESSAGE);
             }
@@ -515,6 +514,7 @@ public class GUI extends javax.swing.JFrame {
         jTextArea.println("\n" + game.getCurrentRoom().getName() + " : " + game.getCurrentRoom().getDescription());
         printLine();
         jTime.setText(game.getActualTime().toString().substring(3));
+        showDescription();
     }
 
     public class ActionSend extends AbstractAction {

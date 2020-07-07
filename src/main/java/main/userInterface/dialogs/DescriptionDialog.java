@@ -8,7 +8,7 @@ package main.userInterface.dialogs;
 import java.awt.*;
 
 /**
- *
+ * Mostra la descrizione del gioco, viene avviato sempre quando il gioco è caricato.
  * @author enrico
  */
 public class DescriptionDialog extends javax.swing.JDialog {
@@ -34,7 +34,7 @@ public class DescriptionDialog extends javax.swing.JDialog {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
         setMinimumSize(new Dimension(700,300));
-        setPreferredSize(new Dimension(750,350));
+        setPreferredSize(new Dimension(800,350));
         jTextArea1.setFont(jTextArea1.getFont().deriveFont((float) 18));
         jTextArea1.setEditable(false);
         getContentPane().add(jScrollPane1, java.awt.BorderLayout.CENTER);

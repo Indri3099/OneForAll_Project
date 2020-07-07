@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * Mostra i comandi possibili nel gioco.
  * @author enrico
  */
 public class CommandDialog extends javax.swing.JDialog {

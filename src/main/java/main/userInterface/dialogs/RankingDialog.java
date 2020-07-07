@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Viene mostrata la classifica degli score fatti per il gioco in questione
  * @author enrico
  */
 public class RankingDialog extends javax.swing.JDialog {

@@ -7,6 +7,9 @@ import exceptions.CommandNotValidException;
 
 import java.util.*;
 
+/**
+ * Versione italiana del parser, il metodo analyze è implementato secondo una struttura tipica delle frasi italiane
+ */
 public class ItalianParser extends Parser {
 
     private final Set<String> prepositions;
@@ -26,7 +29,7 @@ public class ItalianParser extends Parser {
         PhraseReduction result = new PhraseReduction();
 
         List<String> splitted = Arrays.asList(input.split("\\s"));
-        if (splitted.size() > 0) {
+        if (splitted.size() > 0 && splitted.size() < 6) {
 
             command = checkGeneric(commandList,
                     cmd -> cmd.getName().toLowerCase().equals(splitted.get(0))
@@ -36,26 +39,26 @@ public class ItalianParser extends Parser {
                 result.setCommand(command);
                 if (splitted.size() == 1) {
                 } else if (splitted.size() == 2) {
-                    wordCheck(splitted, currentRoom, mainCharacter, result, 1);
+                    wordCheck(splitted.get(1), currentRoom, mainCharacter, result);
                 } else if (splitted.size() == 3) {
                     if (articles.contains(splitted.get(1)) || prepositions.contains(splitted.get(1))) {
-                        wordCheck(splitted, currentRoom, mainCharacter, result, 2);
+                        wordCheck(splitted.get(2), currentRoom, mainCharacter, result);
                     } else {
-                        wordCheck(splitted,currentRoom,mainCharacter,result,1);
-                        wordCheck(splitted,currentRoom,mainCharacter,result,2);
+                        wordCheck(splitted.get(1),currentRoom,mainCharacter,result);
+                        wordCheck(splitted.get(2),currentRoom,mainCharacter,result);
                     }
                 } else if (splitted.size() == 4) {
                     if (articles.contains(splitted.get(1)) || prepositions.contains(splitted.get(1))) {
-                        wordCheck(splitted, currentRoom, mainCharacter, result, 2);
-                        wordCheck(splitted, currentRoom, mainCharacter, result, 3);
+                        wordCheck(splitted.get(2), currentRoom, mainCharacter, result);
+                        wordCheck(splitted.get(3), currentRoom, mainCharacter, result);
                     } else if (articles.contains(splitted.get(2)) || prepositions.contains(splitted.get(2))) {
-                        wordCheck(splitted, currentRoom, mainCharacter, result, 1);
-                        wordCheck(splitted, currentRoom, mainCharacter, result, 3);
+                        wordCheck(splitted.get(1), currentRoom, mainCharacter, result);
+                        wordCheck(splitted.get(3), currentRoom, mainCharacter, result);
                     }
                 } else if (splitted.size() == 5) {
                     if ((articles.contains(splitted.get(1)) || prepositions.contains(splitted.get(1))) && (articles.contains(splitted.get(3)) || prepositions.contains(splitted.get(3)))) {
-                        wordCheck(splitted, currentRoom, mainCharacter, result, 2);
-                        wordCheck(splitted, currentRoom, mainCharacter, result, 4);
+                        wordCheck(splitted.get(2), currentRoom, mainCharacter, result);
+                        wordCheck(splitted.get(4), currentRoom, mainCharacter, result);
                     }
                 }
                 return result;

@@ -6,7 +6,7 @@
 package main.userInterface.dialogs;
 
 /**
- *
+ * Mostra i riconoscimenti
  * @author enrico
  */
 public class CreditsDialog extends javax.swing.JDialog {

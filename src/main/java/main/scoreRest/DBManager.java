@@ -24,7 +24,6 @@ import java.util.Properties;
 /**
  * Il DBManager è una classe singleton che gestisce il database.
  * <br>Esso è richiamato esclusivamente tramite API REST
- * @author enrico
  */
 public class DBManager {
 

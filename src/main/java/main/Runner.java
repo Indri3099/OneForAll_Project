@@ -2,12 +2,14 @@ package main;
 
 import entities.Score;
 import main.userInterface.GUI;
-import main.userInterface.dialogs.DescriptionDialog;
 import main.userInterface.dialogs.EndingDialog;
 
 import javax.swing.*;
-import java.awt.*;
 
+/**
+ * Il runner ha come solo scopo quello di far partire l'intera applicazione. <br>
+ * Al termine del thread timer (quando il tempo è esaurito) viene mostrato un messaggio e aperta la endDialog.
+ */
 public class Runner {
     public static void main(String[] args) {
 
@@ -36,9 +38,6 @@ public class Runner {
                 gui.setVisible(true);
             }
         });
-
-        Dialog desc = new DescriptionDialog(gui,true,gui.getGame().getDescription());
-        desc.setVisible(true);
 
         synchronized (GUI.getTimer()) {
             try {

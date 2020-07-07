@@ -8,6 +8,10 @@ import java.io.Serializable;
 import main.AudioPlayer;
 import main.userInterface.printer.Printer;
 
+/**
+ * Ogni stanza può avere un EventHandler associato in grado di gestire il rispettivo evento. <br>
+ * Ogni EventHandler ha condizioni (e conseguenze) diverse per il completamento dell'evento.
+ */
 public abstract class EventHandler implements Serializable {
 
     private Event event;
