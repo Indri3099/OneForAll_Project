@@ -96,7 +96,15 @@ Un utilizzo , seppure minimo, è stato fatto anche delle lambda expression.
 <br> Questo metodo è poi utilizzato per cercare all'interno della lista dei comandi il comando selezionato dall'utente ma anche per il personaggio coinvolto nel comando dell'utente tra quelli presenti nella stanza corrente.
 ![lambda2](./images/lambda2.png)
 
-#### 5-6. API REST - DB
+#### 5-6. REST - DB
+Al termine di una partita viene generato uno score(punti fatti, tempo impiegato) a cui è possibile associare un nome.<br>
+Questi score vengono salvati su DB ,tuttavia l'accesso a quest'ultimo non è diretto.<br>
+Vi è appunto un servizio REST che, tramite protocollo HTTP, consente di salvare gli score su DB e poterli visualizzare.
+<br>**Attenzione** <br>
+In teoria sarebbe corretto prevedere una classe RestServer e una che funge da client, in questo caso questa funzionalità è stata implementata
+solo a scopo dimostrativo, pertanto, il server e il client sono la stessa cosa. <br>
+Difatti, il server viene avviato dal client soltanto quando si vuole fare una richiesta (GET per ottenere gli score, PUT per salvare uno score) e viene fermato non appena
+la richiesta è stata soddisfatta.  
 
 ### Specifica algebrica SET
 #### Specifica sintattica

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * Questa classe mette a disposizione dell'utente due metodi statici pubblici che consentono di ottenere la classifica dei punteggi per un gioco
  * oppure di salvare un nuovo punteggio.<br>
- * Come si può notare questa è solo una simulazione di un servizio di API REST, in realtà il server dovrebbe essere sempre attivo e pronto a ricevere delle richieste
+ * Come si può notare questa è solo una simulazione di un servizio di REST, in realtà il server dovrebbe essere sempre attivo e pronto a ricevere delle richieste
  * ma in questo caso, il server "parte" ogni volta che si richiede una delle due operazioni sopra citate e, il server viene "spento" non appena la richiesta è stata soddisfatta.
  */
 public class RestHandling {

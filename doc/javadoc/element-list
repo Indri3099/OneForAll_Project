@@ -7,7 +7,7 @@ exceptions
 games
 main
 main.scoreRest
-main.userInterface
-main.userInterface.dialogs
-main.userInterface.printer
 parser
+userInterface
+userInterface.dialogs
+userInterface.printer
