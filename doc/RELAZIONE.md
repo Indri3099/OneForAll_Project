@@ -41,7 +41,7 @@ Di conseguenza ad ogni azione fatta in quella stanza il software tenta di comple
 Se l'evento prevede dei punti, questi vengono assegnati e viene riprodotto un suono.
 <br>
 
-> Nota : l'inventario di default ha una capacità massima di 2 per rendere il gioco leggermente più difficile
+> Nota : tutte le classi del diagramma UML implementano l'interfaccia Serializable
 
 ![entities](./images/UML/entities.jpg)
 #### 4. Parser
