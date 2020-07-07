@@ -111,7 +111,7 @@ Un utilizzo , seppure minimo, è stato fatto anche delle lambda expression.
  - isEmpty(Set) --> boolean 
  - contains(Set, tipoelem) --> boolean
  - equals(Set, Set) --> boolean <br>
- ####Specifica algebrica
+ #### Specifica algebrica
  ![spec1](./images/specAlgebrica1.png)
  <br><br>
  ![spec1](./images/specAlgebrica2.png)
