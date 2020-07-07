@@ -100,8 +100,8 @@ Un utilizzo , seppure minimo, è stato fatto anche delle lambda expression.
 
 #### 5-6. API REST - DB
 
-###Specifica algebrica SET
-####Specifica sintattica
+### Specifica algebrica SET
+#### Specifica sintattica
 **sorts**: Set, tipoelem, integer, boolean <br>
  - new() --> Set
  - add(Set, tipoelem) --> Set
@@ -111,7 +111,9 @@ Un utilizzo , seppure minimo, è stato fatto anche delle lambda expression.
  - isEmpty(Set) --> boolean 
  - contains(Set, tipoelem) --> boolean
  - equals(Set, Set) --> boolean <br>
- ####Specifica algebrica
+ #### Specifica algebrica
  ![spec1](./images/specAlgebrica1.png)
- <br><br>
+ <br>
+ equals(Set, Set) --> boolean
+ <br>
  ![spec1](./images/specAlgebrica2.png)
