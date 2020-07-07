@@ -14,11 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 import java.io.IOException;
 import java.net.URI;
-import java.sql.Time;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,46 +76,8 @@ public class RestHandling {
         Score score = null;
         String scoreStr = (resp.readEntity(String.class));
         if (scoreStr != null && !scoreStr.equals("")) {
-            score = convertJsonToScore(scoreStr);
+            score = new Gson().fromJson(scoreStr, Score.class);
         }
         return score;
     }
-
-    /**
-     * @param scoreStr
-     * @return Dalla stringa in input vengono estrapolati gli attributi dell'oggetto score.
-     */
-    private static Score convertJsonToScore(String scoreStr) {
-
-        Score score = null;
-        String splitted[];
-        scoreStr = scoreStr.replaceAll("\":", "");
-        scoreStr = scoreStr.replaceAll("\"", "");
-        scoreStr = scoreStr.replaceAll("finalTime", "");
-        scoreStr = scoreStr.replaceAll("points", "");
-        scoreStr = scoreStr.replaceAll("totalPoints", "");
-        scoreStr = scoreStr.replaceAll("name", "");
-        scoreStr = scoreStr.replaceAll("gameName", "");
-        scoreStr = scoreStr.replaceAll("\\{", "");
-        scoreStr = scoreStr.replaceAll("\\}", "");
-        scoreStr = scoreStr.replaceAll(" AM", "");
-        splitted = scoreStr.split(",");
-
-
-        SimpleDateFormat format = new SimpleDateFormat("hh:mm:ss"); //if 24 hour format
-
-        Date d1 = null;
-        try {
-            d1 = (Date) format.parse(splitted[0]);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Time time = new Time(d1.getTime());
-
-        score = new Score(time, Integer.valueOf(splitted[1]), Integer.valueOf(splitted[2]), splitted[4]);
-        score.setName(splitted[3]);
-        return score;
-    }
-
 }
