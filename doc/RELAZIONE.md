@@ -1,7 +1,6 @@
 # RELAZIONE
-
+Designed&Developed by [Enrico Pallotta](https://github.com/Indri3099)
 ### Introduzione
-Il progetto che andrò ad illustrare è stato progettato e sviluppato da [Enrico Pallotta](https://github.com/Indri3099). <br>
 Lo scopo di questo progetto è stato quello di realizzare un software in grado di giocare avventure testuali. <br>
 Il software infatti è in grado di riprodurre qualsiasi avventura testuale che rispetti la struttura della classe ***"GenericGame"*** <br>
 
