@@ -33,13 +33,13 @@ public class Inventory implements Serializable {
         this.maxSize = maxSize;
     }
 
-    public void add(StdObject obj) throws FullInventoryException {
+    public void add(StdObject object) throws FullInventoryException {
         if (list.size() < maxSize) {
-            list.add(obj);
+            list.add(object);
         } else throw new FullInventoryException();
     }
 
-    public void remove(StdObject o) {
-        list.remove(o);
+    public void remove(StdObject object) {
+        list.remove(object);
     }
 }

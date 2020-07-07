@@ -1,4 +1,4 @@
-package main.userInterface.dialogs;
+package userInterface.dialogs;
 
 import entities.Score;
 import main.scoreRest.RestHandling;

@@ -1,6 +1,6 @@
 package main;
 
-import main.userInterface.printer.Printer;
+import userInterface.printer.Printer;
 
 import java.sql.Time;
 

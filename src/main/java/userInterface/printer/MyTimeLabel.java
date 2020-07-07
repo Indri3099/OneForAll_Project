@@ -1,4 +1,4 @@
-package main.userInterface.printer;
+package userInterface.printer;
 
 import javax.swing.*;
 

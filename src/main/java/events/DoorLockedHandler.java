@@ -2,7 +2,7 @@ package events;
 
 import entities.Room;
 import games.GenericGame;
-import main.userInterface.printer.Printer;
+import userInterface.printer.Printer;
 
 public class DoorLockedHandler extends EventHandler{
     public DoorLockedHandler(Event event) {

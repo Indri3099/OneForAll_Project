@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package main.userInterface;
+package userInterface;
 
 import entities.Score;
 import entities.command.Command;
@@ -20,9 +15,9 @@ import javax.swing.*;
 import main.TimeThread;
 import main.FileManager;
 import main.scoreRest.RestHandling;
-import main.userInterface.dialogs.*;
-import main.userInterface.printer.MyTextArea;
-import main.userInterface.printer.MyTimeLabel;
+import userInterface.dialogs.*;
+import userInterface.printer.MyTextArea;
+import userInterface.printer.MyTimeLabel;
 import parser.Parser;
 import parser.PhraseReduction;
 
@@ -49,7 +44,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void init() {
         try {
-            FileManager.writeDefaultGame();
+//            FileManager.writeDefaultGame();
 //            Carico il salvataggio da file di default il cui path è specificato in config.txt
             setGame(FileManager.loadDefaultPath());
             parser = (Parser) Class.forName(FileManager.loadLanguage()).newInstance();

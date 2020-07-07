@@ -1,7 +1,7 @@
 package events;
 
 import games.GenericGame;
-import main.userInterface.printer.Printer;
+import userInterface.printer.Printer;
 
 public class MomEventHandler extends EventHandler{
     public MomEventHandler(Event event) {

@@ -1,8 +1,8 @@
 package main;
 
 import entities.Score;
-import main.userInterface.GUI;
-import main.userInterface.dialogs.EndingDialog;
+import userInterface.GUI;
+import userInterface.dialogs.EndingDialog;
 
 import javax.swing.*;
 

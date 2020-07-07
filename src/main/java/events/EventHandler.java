@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.Serializable;
 
 import main.AudioPlayer;
-import main.userInterface.printer.Printer;
+import userInterface.printer.Printer;
 
 /**
  * Ogni stanza può avere un EventHandler associato in grado di gestire il rispettivo evento. <br>
