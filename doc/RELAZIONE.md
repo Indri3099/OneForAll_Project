@@ -113,5 +113,7 @@ Un utilizzo , seppure minimo, è stato fatto anche delle lambda expression.
  - equals(Set, Set) --> boolean <br>
  #### Specifica algebrica
  ![spec1](./images/specAlgebrica1.png)
- <br><br>
+ <br>
+ equals(Set, Set) --> boolean
+ <br>
  ![spec1](./images/specAlgebrica2.png)
