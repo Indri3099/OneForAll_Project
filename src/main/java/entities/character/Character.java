@@ -15,7 +15,7 @@ public class Character implements Serializable {
 
     private String name;
 
-    private Inventory inventory = new Inventory();
+    private Inventory inventory = new Inventory(2);
 
     public Character(int id, String name) {
         this.id = id;
@@ -25,10 +25,6 @@ public class Character implements Serializable {
 
     public Inventory getInventory() {
         return inventory;
-    }
-
-    public void setInventory(Inventory inventory) throws FullInventoryException {
-        inventory.setList(inventory.getList());
     }
 
     public int getId() {

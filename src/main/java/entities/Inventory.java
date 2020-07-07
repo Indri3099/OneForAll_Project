@@ -12,11 +12,13 @@ import java.util.List;
  */
 public class Inventory implements Serializable {
 
-    private int maxSize = 2;
+    private int maxSize;
 
     private List<StdObject> list = new ArrayList<>();
 
-    public Inventory(){}
+    public Inventory(int maxSize){
+        this.maxSize = maxSize;
+    }
 
     public List<StdObject> getList() {
         return list;
@@ -28,13 +30,6 @@ public class Inventory implements Serializable {
 
     public void setMaxSize(int maxSize) {
         this.maxSize = maxSize;
-    }
-
-    public void setList(List<StdObject> list) throws FullInventoryException {
-        if (list.size() >= maxSize) {
-            this.list = list.subList(0, maxSize);
-            throw new FullInventoryException();
-        } else this.list = list;
     }
 
     public void add(StdObject obj) throws FullInventoryException {

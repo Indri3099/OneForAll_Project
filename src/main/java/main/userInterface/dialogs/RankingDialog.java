@@ -8,6 +8,7 @@ package main.userInterface.dialogs;
 import entities.Score;
 
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,7 +51,7 @@ public class RankingDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ranking");
-
+        setPreferredSize(new Dimension(400,150));
         jTableRanking.setFont(new java.awt.Font("Ubuntu", 0, 18)); // NOI18N
         jTableRanking.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

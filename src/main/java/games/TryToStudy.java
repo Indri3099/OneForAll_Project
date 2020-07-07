@@ -42,7 +42,8 @@ public class TryToStudy extends GenericGame {
                 MAMMA = "mamma",
                 FRATELLO = "fratello",
                 ME = "Enrico",
-                BUTTON = "pulsante";
+                BUTTON = "pulsante",
+                PANNELLO = "pannello";
     }
 
     public void init() {
@@ -215,8 +216,12 @@ public class TryToStudy extends GenericGame {
         corridoio.setEventHandler(doorEvent);
 
 
-        StdObject button1 = new StdObject(11, NameConstants.BUTTON + "1", "4 pulsanti, c'è una etichetta su ognuno : Pulsante1, Pulsante2, Pulsante3, Pulsante4\n Chi ha fatto queste etichette aveva molta fantasia");
-        button1.setAlias(new String[]{"pulsante", "pulsanti", "bottoni"});
+        ObjectContainer pannello = new ObjectContainer(17, "Pannello", "Ci sono 4 pulsanti, c'è una etichetta su ognuno : Pulsante1, Pulsante2, Pulsante3, Pulsante4\n Chi ha fatto queste etichette aveva molta fantasia");
+        pannello.setTakeable(false);
+        pannello.setPushable(false);
+        pannello.setLocked(true);
+        pannello.setOpen(true);
+        StdObject button1 = new StdObject(11, NameConstants.BUTTON + "1", null);
         button1.setTakeable(false);
         button1.setPushable(true);
         StdObject button2 = new StdObject(12, NameConstants.BUTTON + "2", null);
@@ -228,10 +233,13 @@ public class TryToStudy extends GenericGame {
         StdObject button4 = new StdObject(14, NameConstants.BUTTON + "4", null);
         button4.setTakeable(false);
         button4.setPushable(true);
-        camera2.addObject(button1);
-        camera2.addObject(button2);
-        camera2.addObject(button3);
-        camera2.addObject(button4);
+        pannello.addObject(button1);
+        pannello.addObject(button2);
+        pannello.addObject(button3);
+        pannello.addObject(button4);
+
+        camera2.addObject(pannello);
+
         Event luciSpente = new Event(null, Arrays.asList(new StdObject[]{button4, button2}), "Sembra che sia saltata la luce in tutte le stanze e così non puoi studiare per il tuo esame!\nIn camera di tua sorella troverai dei pulsanti per riattivarla", 40);
         luciSpente.setEndPhrase("Wow , sei stato formidabile a spingere i pulsanti giusti...\n...in realtà avresti anche potuto premerli tutti a caso" + "\nBene sembra che adesso le luci si siano accese tutte!\nStudiare con la luce spenta non sarebbe stato semplice...\n");
         EventHandler lucievent = new BlackOutHandler(luciSpente);
@@ -248,6 +256,8 @@ public class TryToStudy extends GenericGame {
 
         StdObject penna = new StdObject(16, NameConstants.PENNA, "Una penna nera");
         zaino.addObject(penna);
+
+
     }
 
     @Override
@@ -401,6 +411,8 @@ public class TryToStudy extends GenericGame {
                 out.print("Hai dato " + myObject + " a " + toCharacter);
                 toCharacter.getInventory().add(myObject);
                 getMainCharacter().getInventory().remove(myObject);
+            } else{
+                out.print(toCharacter + ": \"No grazie, non mi serve\"");
             }
         }
     }

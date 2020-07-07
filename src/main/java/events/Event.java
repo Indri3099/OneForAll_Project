@@ -50,10 +50,6 @@ public class Event implements Serializable {
         this.pointReward = pointReward;
     }
 
-    public Event(){
-
-    }
-
     public File getAudio() {
         return audio;
     }

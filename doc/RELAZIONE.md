@@ -99,3 +99,19 @@ Un utilizzo , seppure minimo, è stato fatto anche delle lambda expression.
 ![lambda2](./images/lambda2.png)
 
 #### 5-6. API REST - DB
+
+###Specifica algebrica SET
+####Specifica sintattica
+**sorts**: Set, tipoelem, integer, boolean <br>
+ - new() --> Set
+ - add(Set, tipoelem) --> Set
+ - remove(Set, tipoelem) --> Set 
+ - addAll(Set, Set) --> Set
+ - size(Set) --> integer 
+ - isEmpty(Set) --> boolean 
+ - contains(Set, tipoelem) --> boolean
+ - equals(Set, Set) --> boolean <br>
+ ####Specifica algebrica
+ ![spec1](./images/specAlgebrica1.png)
+ <br><br>
+ ![spec1](./images/specAlgebrica2.png)
