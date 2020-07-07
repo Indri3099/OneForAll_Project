@@ -100,8 +100,8 @@ Un utilizzo , seppure minimo, è stato fatto anche delle lambda expression.
 
 #### 5-6. API REST - DB
 
-###Specifica algebrica SET
-####Specifica sintattica
+### Specifica algebrica SET
+#### Specifica sintattica
 **sorts**: Set, tipoelem, integer, boolean <br>
  - new() --> Set
  - add(Set, tipoelem) --> Set
