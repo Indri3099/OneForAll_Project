@@ -402,9 +402,12 @@ public class GUI extends javax.swing.JFrame {
         int opt = JOptionPane.showConfirmDialog(this, "Vuoi salvare?","Salva",option);
         if(opt == JOptionPane.YES_OPTION){
             save();
+            System.exit(0);
         }
-        else if(opt == JOptionPane.NO_OPTION)
+        else if(opt == JOptionPane.NO_OPTION){
             this.dispose();
+            System.exit(0);
+        }
     }
 
     private void save(){
