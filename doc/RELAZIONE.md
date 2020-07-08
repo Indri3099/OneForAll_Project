@@ -7,7 +7,7 @@ Una volta completata la parte di codice relativa alla gestione di una qualsiasi 
 di cui potrete scoprire di più giocandola.
 
 Ci tengo a dire che l'avventura realizzata è molto semplice (i comandi utilizzabili in fin dei conti sono abbastanza limitati) in quanto ho dato priorità
-all'utilizzo di tutte le tecniche/strumenti di Java e OOP che ci sono stati spiegati durante il corso di MAP.
+all'utilizzo del maggior numero di tecniche/strumenti di Java e OOP che ci sono stati spiegati durante il corso di MAP.
 <hr>
 
 ### Architettura del sistema e UML
