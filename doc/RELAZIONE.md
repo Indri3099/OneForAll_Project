@@ -20,8 +20,8 @@ Qualunque avventura deve estendere questa classe e implementare il metodo astrat
 ![game](./images/UML/games.jpg)
 #### 2. L'interfaccia grafica
 L'interfaccia sfrutta le librerie classiche di swing.
-Quando l'interfaccia viene avviata (dalla classe eseguibile **Runner.java**) viene caricato il salvataggio impostato come default nel file config.txt<br>
-Le cose particolari di questa interfaccia sono la TextArea e la Label utilizzate per visualizzare l'output del gioco e il tempo residuo del gioco. <br>
+Quando viene avviata (dalla classe eseguibile **Runner.java**) viene caricato il salvataggio impostato come default nel file config.txt<br>
+Le cose particolari di questa interfaccia sono la TextArea e la Label utilizzate per visualizzare l'output e il tempo residuo del gioco. <br>
 Questi due oggetti infatti sono di tipo ***Printer*** ossia una interfaccia che consente di stampare stringhe, così facendo sono riuscito a generalizzare il "canale di output" del gioco.<br>
 Quando viene gestito un comando dell'utente infatti, il gioco risponde stampando su un oggetto generico di tipo Printer che in questo caso è una TextArea(/Label). <br>
 ![gui](./images/UML/gui.jpg)
@@ -32,7 +32,7 @@ Non sono state infatti utilizzate strutture dati complesse di alcun tipo ma quas
 Ogni stanza infatti ha un gestore di evento associato(può anche non averne). <br>
 Il gestore di evento a sua volta conterrà le informazioni dell'evento e una serie di metodi.
 In particolare contiene un metodo astratto ***completeEvent*** che deve essere implementato dalle classi che estendono ***EventHandler***. <br>
-Tale metodo verifica se le condizioni per cui l'evento termini sono state soddisfatte e in tal caso effettua delle modifiche sul gioco. <br>
+Tale metodo verifica se le condizioni per cui l'evento termini sono state soddisfatte e in tal caso effettua delle modifiche sul gioco (es. Aggiorna dialoghi). <br>
 **Come sono stati gestiti gli eventi in TryToStudy?**<br>
 Nell'avventura TTS un evento parte quando si entra nella stanza a cui è associato.
 Di conseguenza ad ogni azione fatta in quella stanza il software tenta di completare l'evento finché non vengono soddisfatte le condizioni previste.
@@ -43,7 +43,7 @@ Se l'evento prevede dei punti, questi vengono assegnati e viene riprodotto un su
 
 ![entities](./images/UML/entities.jpg)
 #### 4. Parser
-Pur avendo una interfaccia grafica, l'avventura rimane testuale e di conseguenza è stato progettato un parser in grado d'interpretare le frasi dell'utente come comandi per il gioco. <br>
+Pur avendo una interfaccia grafica, l'avventura rimane testuale e di conseguenza è stato progettato un parser in grado d'interpretare le frasi dell'utente come comandi del gioco. <br>
 Come possiamo vedere, ho creato una classe astratta ***Parser*** contenente metodi accessibili esclusivamente alle classi che la estendono.
 Questi metodi sono utili per controllare le parole all'interno della frase (vedere se sono comandi,oggetti,personaggi del gioco). <br>
 Il Parser contiene poi un metodo astratto ***analyze*** che dovrà essere implementato dal parser dello specifico linguaggio.<br>
@@ -62,7 +62,7 @@ Le frasi riconosciute sono del tipo:
 4. "\<Comando\> \<personaggio\>"
 5. "\<Comando\>"
 
-L'oggetto estrapolato dalla frase dell'utente viene poi dato in pasto alla funzione
+L'oggetto **PhraseReduction** estrapolato dalla frase dell'utente viene poi dato in pasto alla funzione
 **actionHandle** del gioco.
 <br>
 
@@ -86,8 +86,8 @@ Scaduto il tempo la partita termina e sarà possibile salvare il punteggio raggi
 #### 3. Swing
 Ovviamente l'applicazione dispone di un'interfaccia grafica con la quale interagisce l'utente. <br>
 Ho voluto utilizzare un po' di tutto: immagini, audio, listener associati alla tastiera.
-è infatti possibile muoversi all'interno del gioco tramite le frecce della tastiera in modo da non dover digitare sempre comandi "nord,sud...".
-> PS: un problema che non sono riuscito a risolvere in alcun modo è quello di muoversi all'interno del gioco utilizzando le frecce della tastiera, o meglio, questo metodo funziona quando si usano le frecce "su/giù" ma non "sx/dx" in quanto i pulsanti sx/dx non risultano essere nella finestra con il focus (per un motivo sconosciuto)
+È infatti possibile muoversi all'interno del gioco tramite le frecce della tastiera in modo da non dover digitare sempre comandi "nord,sud...".
+> PS: un problema che non sono riuscito a risolvere in alcun modo è quello di muoversi all'interno del gioco utilizzando le frecce della tastiera, o meglio, questo metodo funziona quando si usano le frecce "su/giù" ma non "sx/dx" in quanto i JButton sx/dx non risultano essere nella finestra con il focus (per un motivo sconosciuto)
 
 #### 4. Lambda Expression
 Un utilizzo , seppure minimo, è stato fatto anche delle lambda expression.
@@ -103,8 +103,7 @@ Vi è appunto un servizio REST che, tramite protocollo HTTP, consente di salvare
 <br>**Attenzione** <br>
 In teoria sarebbe corretto prevedere una classe RestServer e una che funge da client, in questo caso questa funzionalità è stata implementata
 solo a scopo dimostrativo, pertanto, il server e il client sono la stessa cosa. <br>
-Difatti, il server viene avviato dal client soltanto quando si vuole fare una richiesta (GET per ottenere gli score, PUT per salvare uno score) e viene fermato non appena
-la richiesta è stata soddisfatta.  
+Difatti, il server viene avviato dal client soltanto quando si vuole fare una richiesta (GET per ottenere gli score, PUT per salvare uno score) e viene fermato non appena la richiesta è stata soddisfatta.  
 
 ### Specifica algebrica SET
 #### Specifica sintattica
