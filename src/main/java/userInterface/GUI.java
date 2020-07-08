@@ -467,7 +467,7 @@ public class GUI extends javax.swing.JFrame {
         fileChooser.setCurrentDirectory(new File("./src/main/resources/savings"));
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             try {
-                setGame(fileChooser.getSelectedFile().getAbsolutePath());
+                setGame(fileChooser.getSelectedFile().getPath());
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Errore nel caricare il file", "Errore File", JOptionPane.ERROR_MESSAGE);
             }
