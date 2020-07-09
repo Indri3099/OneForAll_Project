@@ -116,7 +116,7 @@ Difatti, il server viene avviato dal client soltanto quando si vuole fare una ri
  - isEmpty(Set) --> boolean 
  - contains(Set, tipoelem) --> boolean
  - equals(Set, Set) --> boolean <br>
- #### Specifica algebrica
+ #### Specifica semantica
  ![spec1](./images/specAlgebrica1.png)
  <br>
  equals(Set, Set) --> boolean
