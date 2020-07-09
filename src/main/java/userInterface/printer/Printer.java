@@ -10,9 +10,9 @@ package userInterface.printer;
  * @author enrico
  */
 public interface Printer {
-    public void print(String s);
+    void print(String s);
 
-    public void println(String s);
+    void println(String s);
 
-    public void clear();
+    void clear();
 }
