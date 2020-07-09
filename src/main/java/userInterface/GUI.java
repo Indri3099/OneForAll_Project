@@ -44,8 +44,7 @@ public class GUI extends javax.swing.JFrame {
 
     private void init() {
         try {
-//            FileManager.writeDefaultGame();
-//            Carico il salvataggio da file di default il cui path è specificato in config.txt
+//          Carico il salvataggio da file di default il cui path è specificato in config.txt
             setGame(FileManager.loadDefaultPath());
             parser = (Parser) Class.forName(FileManager.loadLanguage()).newInstance();
         } catch (Exception ex) {

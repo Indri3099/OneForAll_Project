@@ -3,7 +3,6 @@ package main;
 import exceptions.GameNotFoundException;
 import exceptions.LanguageNotFoundException;
 import games.GenericGame;
-import games.TryToStudy;
 import java.io.*;
 
 /**
@@ -58,15 +57,6 @@ public class FileManager {
             return "parser." + current + "Parser";
         }
         throw new LanguageNotFoundException();
-    }
-
-    //TODO : cancella prima di consegnare
-    public static void writeDefaultGame() throws Exception {
-        ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream("/home/enrico/IdeaProjects/EnricoPallotta_MAProject/src/main/resources/savings/TryToStudyDefault.dat"));
-        TryToStudy game = new TryToStudy();
-        game.init();
-        obj.writeObject(game);
-        obj.close();
     }
 
     /**
