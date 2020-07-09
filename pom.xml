@@ -15,11 +15,6 @@
         </repository>
     </repositories>
     <dependencies>
-        <dependency>
-            <groupId>unknown.binary</groupId>
-            <artifactId>AbsoluteLayout</artifactId>
-            <version>SNAPSHOT</version>
-        </dependency>
         <!--REST-->
         <dependency>
             <groupId>com.h2database</groupId>
