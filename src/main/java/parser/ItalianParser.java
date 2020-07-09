@@ -25,7 +25,7 @@ public class ItalianParser extends Parser {
     public PhraseReduction analyze(String input, Room currentRoom, List<Command> commandList, Character mainCharacter) throws CommandNotValidException {
 
         Command command;
-        input = input.toLowerCase().trim();
+        input = input.toLowerCase().trim().replaceAll("(\\s)+"," ");
         PhraseReduction result = new PhraseReduction();
 
         List<String> splitted = Arrays.asList(input.split("\\s"));
