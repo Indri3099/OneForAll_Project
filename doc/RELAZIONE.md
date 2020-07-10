@@ -48,8 +48,8 @@ Come possiamo vedere, ho creato una classe astratta ***Parser*** contenente meto
 Questi metodi sono utili per controllare le parole all'interno della frase (vedere se sono comandi,oggetti,personaggi del gioco). <br>
 Il Parser contiene poi un metodo astratto ***analyze*** che dovrà essere implementato dal parser dello specifico linguaggio.<br>
 Questo perché la struttura delle frasi in italiano può essere diversa da quella di altre lingue.<br>
-Nel nostro caso ho creato un Parser in lingua italiana in grado di comprendere anche articoli e preposizioni.
-Il metodo analyze da in input un oggetto di tipo ***PhraseReduction***, ossia la frase dell'utente viene ridotta a 4 semplici elementi:
+Nel nostro caso ho creato un Parser in lingua italiana in grado di comprendere anche articoli e preposizioni. <br>
+Il metodo analyze restituisce un oggetto di tipo ***PhraseReduction***, ossia la frase dell'utente viene ridotta a 4 semplici elementi:
  1. Il comando / verbo.
  2. L'oggetto utilizzato dal proprio inventario.
  3. L'oggetto presente nella stanza che subisce l'azione.
