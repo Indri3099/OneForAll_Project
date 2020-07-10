@@ -1,9 +1,21 @@
 package main;
 
+import entities.Room;
+import entities.character.Character;
+import entities.character.NPC;
+import entities.command.Command;
+import entities.command.CommandType;
+import entities.objects.ObjectContainer;
+import entities.objects.StdObject;
+import events.*;
 import exceptions.GameNotFoundException;
 import exceptions.LanguageNotFoundException;
 import games.GenericGame;
+import games.TryToStudy;
+
 import java.io.*;
+import java.sql.Time;
+import java.util.Arrays;
 
 /**
  * Questa classe si occupa della gestione dei file (salvataggio e caricamento)
@@ -86,4 +98,5 @@ public class FileManager {
         inStream.close();
         return game;
     }
+
 }
