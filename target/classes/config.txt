@@ -1,0 +1,2 @@
+game = "./src/main/resources/savings/TryToStudyDefault.dat"
+language = Italian
