@@ -1,10 +1,12 @@
 package parser;
 
 import entities.character.Character;
-import entities.character.Character;
 import entities.command.Command;
 import entities.objects.StdObject;
 
+/**
+ * Rappresenta la riduzione del comando inserito dall'utente
+ */
 public class PhraseReduction {
 
     private Command command = null;
