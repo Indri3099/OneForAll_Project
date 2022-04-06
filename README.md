@@ -1,7 +1,7 @@
 # OneForAll_Project
 > Designed & Developed by [Enrico Pallotta](https://github.com/Indri3099)
 
-Progetto di Enrico Pallotta per l'esame di MAP 19/20. <br>
+Project work for the "Advanced method for programming" course of my Bachelor's degree in Computer Science (A.Y. 19/20). <br>
 ## RELAZIONE
 Per leggere la relazione relativa al progetto clicca [qui](./doc/RELAZIONE.md) <br>
 Per ulteriore documentazione [javadoc](./doc/javadoc/index.html) <br>
